@@ -83,7 +83,7 @@ export default async function HomePage() {
         dangerouslySetInnerHTML={{ __html: jsonLdScript(faqJsonLd) }}
       />
 
-      <header className="mb-8 flex flex-col items-center gap-2 text-center">
+      <header className="mb-8 flex flex-col items-center gap-2 py-16 text-center">
         <h1 className="text-4xl font-semibold tracking-tight">
           {SITE_NAME}: сравнение VPN-сервисов {new Date().getFullYear()}
         </h1>
