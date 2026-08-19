@@ -96,7 +96,7 @@ export default async function HomePage() {
 
       <section className="mb-8">
         <h2 className="mb-3 text-lg font-semibold">Популярные категории</h2>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap justify-center gap-2">
           {FEATURED_TAGS.map((tag) => (
             <Link
               key={tag}
