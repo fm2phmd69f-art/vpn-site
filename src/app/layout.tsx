@@ -1,10 +1,40 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { SITE_URL, SITE_NAME } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "VPN Маркетплейс — сравнение VPN-сервисов",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE_NAME} — сравнение VPN-сервисов`,
+    template: `%s | ${SITE_NAME}`,
+  },
   description:
-    "Каталог VPN-провайдеров с ценами, заявленной скоростью, особенностями и статусом доступности сайта в реальном времени.",
+    "Каталог из 50+ VPN-провайдеров: цены, заявленная скорость, платформы и особенности. Фильтры по no-logs, бесплатным тарифам, Netflix, торрентам. Статус доступности сайта — автоматически.",
+  keywords: [
+    "vpn",
+    "впн",
+    "сравнение vpn",
+    "лучший vpn",
+    "бесплатный vpn",
+    "vpn для netflix",
+    "no-logs vpn",
+    "каталог vpn",
+  ],
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    locale: "ru_RU",
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} — сравнение VPN-сервисов`,
+    description: "Каталог из 50+ VPN-провайдеров с ценами, скоростью и статусом доступности.",
+    url: SITE_URL,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} — сравнение VPN-сервисов`,
+    description: "Каталог из 50+ VPN-провайдеров с ценами, скоростью и статусом доступности.",
+  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

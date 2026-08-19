@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ServiceDTO } from "@/lib/types";
 import { TAG_LABELS } from "@/data/services";
 import { StatusBadge } from "./StatusBadge";
@@ -9,7 +10,11 @@ export function ServiceCard({ service }: { service: ServiceDTO }) {
         <div className="flex items-center gap-2.5">
           <span className="text-2xl leading-none">{service.logo}</span>
           <div>
-            <h3 className="text-base font-semibold leading-tight">{service.name}</h3>
+            <h3 className="text-base font-semibold leading-tight">
+              <Link href={`/vpn/${service.slug}`} className="hover:text-accent hover:underline">
+                {service.name}
+              </Link>
+            </h3>
             {service.rating != null && (
               <p className="text-xs text-muted">⭐ {service.rating.toFixed(1)}</p>
             )}
