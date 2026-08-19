@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
-import { SEED_SERVICES } from "@/data/services";
+import { syncCatalogFromSeed } from "@/lib/syncCatalog";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -16,13 +15,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  for (const service of SEED_SERVICES) {
-    await prisma.vpnService.upsert({
-      where: { slug: service.slug },
-      create: { ...service },
-      update: { ...service },
-    });
-  }
-
-  return NextResponse.json({ seeded: SEED_SERVICES.length });
+  const result = await syncCatalogFromSeed();
+  return NextResponse.json({ seeded: result.synced });
 }

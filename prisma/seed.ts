@@ -1,17 +1,9 @@
-import { PrismaClient } from "@prisma/client";
-import { SEED_SERVICES } from "../src/data/services";
-
-const prisma = new PrismaClient();
+import { syncCatalogFromSeed } from "../src/lib/syncCatalog";
+import { prisma } from "../src/lib/prisma";
 
 async function main() {
-  for (const service of SEED_SERVICES) {
-    await prisma.vpnService.upsert({
-      where: { slug: service.slug },
-      create: { ...service },
-      update: { ...service },
-    });
-  }
-  console.log(`Seeded ${SEED_SERVICES.length} services.`);
+  const result = await syncCatalogFromSeed();
+  console.log(`Seeded ${result.synced} services.`);
 }
 
 main()

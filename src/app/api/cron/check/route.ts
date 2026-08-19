@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { runChecksForAllServices } from "@/lib/runChecks";
+import { syncCatalogFromSeed } from "@/lib/syncCatalog";
 
 export const maxDuration = 60;
 
@@ -19,8 +20,9 @@ async function handle(request: NextRequest) {
   if (!isAuthorized(request)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
+  const sync = await syncCatalogFromSeed();
   const summary = await runChecksForAllServices();
-  return NextResponse.json(summary);
+  return NextResponse.json({ ...summary, catalogSynced: sync.synced });
 }
 
 export const GET = handle;
