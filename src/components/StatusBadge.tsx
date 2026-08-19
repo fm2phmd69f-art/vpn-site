@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { ServiceStatus } from "@/lib/types";
 
 const LABELS: Record<ServiceStatus, string> = {
@@ -12,8 +15,7 @@ const DOT_STYLE: Record<ServiceStatus, string> = {
   UNKNOWN: "bg-[var(--unknown)]",
 };
 
-function timeAgo(iso: string | null): string | null {
-  if (!iso) return null;
+function timeAgo(iso: string): string {
   const diffMs = Date.now() - new Date(iso).getTime();
   const minutes = Math.round(diffMs / 60000);
   if (minutes < 1) return "только что";
@@ -33,7 +35,18 @@ export function StatusBadge({
   latencyMs: number | null;
   lastCheckedAt: string | null;
 }) {
-  const ago = timeAgo(lastCheckedAt);
+  // Pages are ISR-cached, so the gap between "when this HTML was generated"
+  // and "when the browser hydrates it" can be minutes — computing a
+  // Date.now()-relative string during render would mismatch between server
+  // and client and throw a hydration error. Render nothing on the first
+  // pass (identical on server and client) and fill it in after mount.
+  const [ago, setAgo] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!lastCheckedAt) return;
+    setAgo(timeAgo(lastCheckedAt));
+  }, [lastCheckedAt]);
+
   return (
     <div className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-xs text-muted">
       <span className="flex items-center gap-1.5 whitespace-nowrap">
