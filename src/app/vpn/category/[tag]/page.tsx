@@ -6,7 +6,7 @@ import { TAG_LABELS } from "@/data/services";
 import { ServiceCard } from "@/components/ServiceCard";
 import { SITE_NAME } from "@/lib/seo";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 1800;
 
 interface Props {
   params: { tag: string };

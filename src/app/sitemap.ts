@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/seo";
 import { SEED_SERVICES } from "@/data/services";
+import { allComparisonPairs } from "@/lib/comparisons";
+import { BLOG_POSTS } from "@/data/posts";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -10,7 +12,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const home: MetadataRoute.Sitemap = [
     { url: SITE_URL, lastModified: now, changeFrequency: "daily", priority: 1 },
+    { url: `${SITE_URL}/compare`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${SITE_URL}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
   ];
+
+  const posts: MetadataRoute.Sitemap = BLOG_POSTS.map((p) => ({
+    url: `${SITE_URL}/blog/${p.slug}`,
+    lastModified: p.publishedAt,
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
+
+  const comparisons: MetadataRoute.Sitemap = allComparisonPairs().map(({ pairSlug }) => ({
+    url: `${SITE_URL}/compare/${pairSlug}`,
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 0.7,
+  }));
 
   const services: MetadataRoute.Sitemap = SEED_SERVICES.map((s) => ({
     url: `${SITE_URL}/vpn/${s.slug}`,
@@ -26,5 +44,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...home, ...services, ...categories];
+  return [...home, ...services, ...categories, ...comparisons, ...posts];
 }

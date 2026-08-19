@@ -7,7 +7,7 @@ import { StatusBadge } from "@/components/StatusBadge";
 import { ServiceCard } from "@/components/ServiceCard";
 import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 1800;
 
 interface Props {
   params: { slug: string };

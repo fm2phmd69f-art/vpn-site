@@ -5,7 +5,7 @@ import { CatalogClient } from "@/components/CatalogClient";
 import { TAG_LABELS } from "@/data/services";
 import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 1800;
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -124,6 +124,21 @@ export default async function HomePage() {
             </Link>
           ))}
         </div>
+      </section>
+
+      <section className="mb-8 flex flex-wrap gap-3">
+        <Link
+          href="/compare"
+          className="inline-flex items-center gap-2 rounded-xl border border-border bg-surface px-4 py-3 text-sm font-medium transition-colors hover:border-accent"
+        >
+          ⚖️ Сравнить сервисы между собой →
+        </Link>
+        <Link
+          href="/blog"
+          className="inline-flex items-center gap-2 rounded-xl border border-border bg-surface px-4 py-3 text-sm font-medium transition-colors hover:border-accent"
+        >
+          📖 Блог: как выбрать VPN →
+        </Link>
       </section>
 
       <h2 className="mb-3 text-lg font-semibold">Весь каталог</h2>
