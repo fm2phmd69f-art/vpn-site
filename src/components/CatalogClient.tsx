@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ServiceDTO } from "@/lib/types";
 import { TAG_LABELS } from "@/data/services";
 import { ServiceCard } from "./ServiceCard";
@@ -14,11 +14,28 @@ const SORT_LABELS: Record<SortKey, string> = {
   name: "По названию",
 };
 
+const DESKTOP_PAGE_SIZE = 50;
+const MOBILE_PAGE_SIZE = 30;
+const MOBILE_BREAKPOINT = 640; // matches Tailwind's `sm`
+
 export function CatalogClient({ services }: { services: ServiceDTO[] }) {
   const [query, setQuery] = useState("");
   const [activeTags, setActiveTags] = useState<string[]>([]);
   const [sortKey, setSortKey] = useState<SortKey>("rating");
   const [onlineOnly, setOnlineOnly] = useState(false);
+
+  const [pageSize, setPageSize] = useState(DESKTOP_PAGE_SIZE);
+  const [visibleCount, setVisibleCount] = useState(DESKTOP_PAGE_SIZE);
+  const sentinelRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    function updatePageSize() {
+      setPageSize(window.innerWidth < MOBILE_BREAKPOINT ? MOBILE_PAGE_SIZE : DESKTOP_PAGE_SIZE);
+    }
+    updatePageSize();
+    window.addEventListener("resize", updatePageSize);
+    return () => window.removeEventListener("resize", updatePageSize);
+  }, []);
 
   const allTags = useMemo(() => {
     const set = new Set<string>();
@@ -55,6 +72,31 @@ export function CatalogClient({ services }: { services: ServiceDTO[] }) {
 
     return result;
   }, [services, query, activeTags, sortKey, onlineOnly]);
+
+  // Filters (or a viewport-size change) produced a new list — start paging from the top again.
+  useEffect(() => {
+    setVisibleCount(pageSize);
+  }, [query, activeTags, sortKey, onlineOnly, pageSize]);
+
+  const visible = filtered.slice(0, visibleCount);
+  const hasMore = visibleCount < filtered.length;
+
+  useEffect(() => {
+    if (!hasMore) return;
+    const el = sentinelRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setVisibleCount((c) => c + pageSize);
+        }
+      },
+      { rootMargin: "600px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [hasMore, pageSize]);
 
   function toggleTag(tag: string) {
     setActiveTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]));
@@ -113,18 +155,24 @@ export function CatalogClient({ services }: { services: ServiceDTO[] }) {
         </div>
       </div>
 
-      <p className="text-sm text-muted">Найдено сервисов: {filtered.length}</p>
-
       {filtered.length === 0 ? (
         <p className="rounded-2xl border border-border bg-surface p-8 text-center text-muted">
           Ничего не найдено — попробуйте изменить фильтры.
         </p>
       ) : (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((service) => (
-            <ServiceCard key={service.id} service={service} />
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {visible.map((service) => (
+              <ServiceCard key={service.id} service={service} />
+            ))}
+          </div>
+
+          {hasMore && (
+            <div ref={sentinelRef} className="flex items-center justify-center py-8">
+              <span className="h-6 w-6 animate-spin rounded-full border-2 border-border border-t-accent" />
+            </div>
+          )}
+        </>
       )}
     </div>
   );

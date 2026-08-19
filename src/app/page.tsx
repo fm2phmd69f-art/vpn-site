@@ -49,7 +49,6 @@ const FAQ_ITEMS = [
 
 export default async function HomePage() {
   const services = await getAllServices();
-  const onlineCount = services.filter((s) => s.status === "ONLINE").length;
 
   const itemListJsonLd = {
     "@context": "https://schema.org",
@@ -84,8 +83,8 @@ export default async function HomePage() {
         dangerouslySetInnerHTML={{ __html: jsonLdScript(faqJsonLd) }}
       />
 
-      <header className="mb-8 flex flex-col gap-2">
-        <h1 className="text-3xl font-semibold tracking-tight">
+      <header className="mb-8 flex flex-col items-center gap-2 text-center">
+        <h1 className="text-4xl font-semibold tracking-tight">
           {SITE_NAME}: сравнение VPN-сервисов {new Date().getFullYear()}
         </h1>
         <p className="max-w-2xl text-muted">
@@ -93,23 +92,7 @@ export default async function HomePage() {
           особенности — от no-logs и бесплатных тарифов до сервисов для Netflix и торрентов.
           Статус «сайт доступен» и задержка проверяются автоматически по расписанию.
         </p>
-        {services.length > 0 && (
-          <p className="text-sm text-muted">
-            Доступно сейчас: {onlineCount} из {services.length}
-          </p>
-        )}
       </header>
-
-      <section className="mb-8 max-w-3xl text-sm leading-relaxed text-muted">
-        <p>
-          Как выбрать VPN? Прежде всего определитесь с задачей: для приватного сёрфинга подойдёт
-          провайдер с независимо проверенной политикой no-logs, для просмотра зарубежных
-          стриминговых каталогов — сервис с большим числом серверов и стабильной разблокировкой
-          Netflix, а для экономии — один из бесплатных тарифов с честными условиями. Ниже — весь
-          каталог с фильтрами по цене, скорости и функциям, плюс отдельная страница у каждого
-          сервиса с подробностями.
-        </p>
-      </section>
 
       <section className="mb-8">
         <h2 className="mb-3 text-lg font-semibold">Популярные категории</h2>
@@ -126,22 +109,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="mb-8 flex flex-wrap gap-3">
-        <Link
-          href="/compare"
-          className="inline-flex items-center gap-2 rounded-xl border border-border bg-surface px-4 py-3 text-sm font-medium transition-colors hover:border-accent"
-        >
-          ⚖️ Сравнить сервисы между собой →
-        </Link>
-        <Link
-          href="/blog"
-          className="inline-flex items-center gap-2 rounded-xl border border-border bg-surface px-4 py-3 text-sm font-medium transition-colors hover:border-accent"
-        >
-          📖 Блог: как выбрать VPN →
-        </Link>
-      </section>
-
-      <h2 className="mb-3 text-lg font-semibold">Весь каталог</h2>
       <CatalogClient services={services} />
 
       <section className="mt-12 max-w-3xl">
@@ -156,9 +123,20 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <footer className="mt-12 border-t border-border pt-6 text-xs text-muted">
-        Цены, скорость и функции указаны со слов провайдеров и могут отличаться от актуальных —
-        уточняйте на сайте сервиса. Мы не продаём и не выдаём доступ к VPN сами.
+      <footer className="mt-12 border-t border-border pt-6">
+        <h2 className="mb-2 text-sm font-semibold">Как выбрать VPN?</h2>
+        <p className="max-w-3xl text-sm leading-relaxed text-muted">
+          Прежде всего определитесь с задачей: для приватного сёрфинга подойдёт провайдер с
+          независимо проверенной политикой no-logs, для просмотра зарубежных стриминговых
+          каталогов — сервис с большим числом серверов и стабильной разблокировкой Netflix, а для
+          экономии — один из бесплатных тарифов с честными условиями. Выше — весь каталог с
+          фильтрами по цене, скорости и функциям, плюс отдельная страница у каждого сервиса с
+          подробностями.
+        </p>
+        <p className="mt-6 text-xs text-muted">
+          Цены, скорость и функции указаны со слов провайдеров и могут отличаться от актуальных —
+          уточняйте на сайте сервиса. Мы не продаём и не выдаём доступ к VPN сами.
+        </p>
       </footer>
     </main>
   );

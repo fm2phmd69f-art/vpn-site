@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import { SITE_URL, SITE_NAME } from "@/lib/seo";
+import { SiteHeader } from "@/components/SiteHeader";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -42,6 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ru">
       <body className="font-sans antialiased">
+        <SiteHeader />
         {children}
         <Analytics />
       </body>
