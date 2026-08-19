@@ -47,3 +47,24 @@ model VpnService {
 
   @@index([status])
 }
+
+model PriceReport {
+  id        String   @id @default(cuid())
+  serviceId String
+  note      String
+  createdAt DateTime @default(now())
+
+  @@index([serviceId])
+}
+
+/// One row per automated check run, so uptime can be shown as a real
+/// history instead of just the single latest status.
+model StatusCheck {
+  id        String        @id @default(cuid())
+  serviceId String
+  status    ServiceStatus
+  latencyMs Int?
+  checkedAt DateTime      @default(now())
+
+  @@index([serviceId, checkedAt])
+}

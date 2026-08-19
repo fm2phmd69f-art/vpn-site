@@ -5,7 +5,9 @@ import { getAllServices, getServiceBySlug } from "@/lib/getServices";
 import { TAG_LABELS } from "@/data/services";
 import { StatusBadge } from "@/components/StatusBadge";
 import { ServiceCard } from "@/components/ServiceCard";
+import { ReportForm } from "@/components/ReportForm";
 import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
+import { getUptimeStats } from "@/lib/uptime";
 
 export const revalidate = 1800;
 
@@ -39,6 +41,8 @@ export default async function ServicePage({ params }: Props) {
   const related = allServices
     .filter((s) => s.id !== service.id && s.tags.some((t) => service.tags.includes(t)))
     .slice(0, 3);
+
+  const uptime30d = await getUptimeStats(service.id, 30);
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -85,6 +89,12 @@ export default async function ServicePage({ params }: Props) {
         latencyMs={service.latencyMs}
         lastCheckedAt={service.lastCheckedAt}
       />
+      {uptime30d.uptimePercent != null && (
+        <p className="mt-1 text-xs text-muted">
+          Аптайм сайта за 30 дней: {uptime30d.uptimePercent}% ({uptime30d.onlineChecks} из{" "}
+          {uptime30d.totalChecks} проверок)
+        </p>
+      )}
 
       <p className="mt-4 text-sm leading-relaxed text-fg">{service.description}</p>
 
@@ -136,6 +146,8 @@ export default async function ServicePage({ params }: Props) {
         Цена, скорость и условия указаны со слов провайдера и могут измениться — уточняйте
         актуальные данные на официальном сайте перед покупкой.
       </p>
+
+      <ReportForm serviceId={service.id} />
 
       {related.length > 0 && (
         <section className="mt-12">

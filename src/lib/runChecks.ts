@@ -44,6 +44,8 @@ export async function runChecksForAllServices(): Promise<RunChecksSummary> {
     return { id: service.id, slug: service.slug, ...result };
   });
 
+  const checkedAt = new Date();
+
   await mapWithConcurrency(results, CONCURRENCY, (r) =>
     prisma.vpnService.update({
       where: { id: r.id },
@@ -51,7 +53,18 @@ export async function runChecksForAllServices(): Promise<RunChecksSummary> {
         status: r.status,
         latencyMs: r.latencyMs,
         lastError: r.error,
-        lastCheckedAt: new Date(),
+        lastCheckedAt: checkedAt,
+      },
+    })
+  );
+
+  await mapWithConcurrency(results, CONCURRENCY, (r) =>
+    prisma.statusCheck.create({
+      data: {
+        serviceId: r.id,
+        status: r.status,
+        latencyMs: r.latencyMs,
+        checkedAt,
       },
     })
   );
