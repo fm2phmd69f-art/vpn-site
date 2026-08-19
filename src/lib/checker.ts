@@ -10,7 +10,7 @@ export interface CheckResult {
  * is NOT a measurement of VPN tunnel throughput, which would require an
  * active account/config for that specific provider.
  */
-export async function checkWebsite(url: string, timeoutMs = 8000): Promise<CheckResult> {
+export async function checkWebsite(url: string, timeoutMs = 10000): Promise<CheckResult> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
   const start = performance.now();

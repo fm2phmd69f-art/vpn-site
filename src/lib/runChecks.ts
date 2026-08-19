@@ -7,30 +7,53 @@ export interface RunChecksSummary {
   offline: number;
 }
 
+const CONCURRENCY = 10;
+
+/**
+ * Runs `fn` over `items` with at most CONCURRENCY in flight at once.
+ * Firing all checks at once from a single serverless function starves
+ * outbound connections and produces false "OFFLINE" reads from self-inflicted
+ * timeouts rather than real provider outages — batching avoids that.
+ */
+async function mapWithConcurrency<T, R>(
+  items: T[],
+  limit: number,
+  fn: (item: T) => Promise<R>
+): Promise<R[]> {
+  const results: R[] = new Array(items.length);
+  let next = 0;
+
+  async function worker() {
+    while (next < items.length) {
+      const index = next++;
+      results[index] = await fn(items[index]);
+    }
+  }
+
+  await Promise.all(Array.from({ length: Math.min(limit, items.length) }, worker));
+  return results;
+}
+
 export async function runChecksForAllServices(): Promise<RunChecksSummary> {
   const services = await prisma.vpnService.findMany({
     select: { id: true, slug: true, websiteUrl: true },
   });
 
-  const results = await Promise.all(
-    services.map(async (service) => {
-      const result = await checkWebsite(service.websiteUrl);
-      return { id: service.id, slug: service.slug, ...result };
-    })
-  );
+  const results = await mapWithConcurrency(services, CONCURRENCY, async (service) => {
+    const result = await checkWebsite(service.websiteUrl);
+    return { id: service.id, slug: service.slug, ...result };
+  });
 
-  await Promise.all(
-    results.map((r) =>
-      prisma.vpnService.update({
-        where: { id: r.id },
-        data: {
-          status: r.status,
-          latencyMs: r.latencyMs,
-          lastError: r.error,
-          lastCheckedAt: new Date(),
-        },
-      })
-    )
+  await mapWithConcurrency(results, CONCURRENCY, (r) =>
+    prisma.vpnService.update({
+      where: { id: r.id },
+      data: {
+        status: r.status,
+        latencyMs: r.latencyMs,
+        lastError: r.error,
+        lastCheckedAt: new Date(),
+      },
+    })
   );
 
   return {
