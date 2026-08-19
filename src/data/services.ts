@@ -822,6 +822,58 @@ export const SEED_SERVICES: SeedService[] = [
     description:
       "Бесплатная версия работает по P2P-модели, где трафик других пользователей может идти через ваше устройство — учитывайте это при выборе для приватности; платная Hola VPN Plus работает без этой схемы.",
   },
+  {
+    slug: "mozilla-vpn",
+    name: "Mozilla VPN",
+    logo: "🦊",
+    websiteUrl: "https://www.mozilla.org/products/vpn/",
+    priceFrom: "4.99 $/мес",
+    priceMonthlyUsd: 4.99,
+    freeOption: "нет, 30 дней возврат",
+    platforms: ["Windows", "macOS", "iOS", "Android", "Linux"],
+    tags: ["no-logs", "wireguard", "privacy"],
+    description:
+      "VPN от Mozilla (создателей Firefox), работает поверх серверной сети Mullvad, только протокол WireGuard.",
+  },
+  {
+    slug: "privadovpn",
+    name: "PrivadoVPN",
+    logo: "🇨🇭",
+    websiteUrl: "https://privadovpn.com/",
+    priceFrom: "2.5 $/мес",
+    priceMonthlyUsd: 2.5,
+    freeOption: "бесплатно 10 ГБ/мес",
+    platforms: ["Windows", "macOS", "iOS", "Android", "Linux", "TV"],
+    tags: ["free-tier", "swiss-based", "streaming"],
+    description:
+      "Швейцарская юрисдикция, щедрый бесплатный тариф с ежемесячным лимитом трафика и платные тарифы без ограничений.",
+  },
+  {
+    slug: "malwarebytes-vpn",
+    name: "Malwarebytes Privacy VPN",
+    logo: "🧿",
+    websiteUrl: "https://www.malwarebytes.com/vpn",
+    priceFrom: "3.33 $/мес",
+    priceMonthlyUsd: 3.33,
+    freeOption: "нет, 30 дней возврат",
+    platforms: ["Windows", "macOS", "iOS", "Android"],
+    tags: ["antivirus-bundle", "wireguard", "budget"],
+    description:
+      "VPN от разработчика антивируса Malwarebytes на протоколе WireGuard, доступен отдельно и в комплекте с антивирусом.",
+  },
+  {
+    slug: "speedify",
+    name: "Speedify",
+    logo: "🔀",
+    websiteUrl: "https://speedify.com/",
+    priceFrom: "7.49 $/мес",
+    priceMonthlyUsd: 7.49,
+    freeOption: "бесплатно 2 ГБ/мес",
+    platforms: ["Windows", "macOS", "iOS", "Android", "Linux"],
+    tags: ["free-tier", "fast", "channel-bonding"],
+    description:
+      "Необычный VPN с технологией объединения нескольких интернет-соединений одновременно (например, Wi-Fi + мобильный интернет) для повышения скорости и стабильности.",
+  },
 ];
 
 export const TAG_LABELS: Record<string, string> = {
@@ -845,4 +897,5 @@ export const TAG_LABELS: Record<string, string> = {
   "self-hosted": "🖥️ Свой сервер",
   circumvention: "🚧 Обход блокировок",
   "static-ip": "📌 Статический IP",
+  "channel-bonding": "🔀 Объединение соединений",
 };

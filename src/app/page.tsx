@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllServices } from "@/lib/getServices";
 import { CatalogClient } from "@/components/CatalogClient";
+import LightRays from "@/components/LightRays";
 import { TAG_LABELS } from "@/data/services";
 import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
 
@@ -83,11 +84,24 @@ export default async function HomePage() {
         dangerouslySetInnerHTML={{ __html: jsonLdScript(faqJsonLd) }}
       />
 
-      <header className="mb-8 flex flex-col items-center gap-2 py-16 text-center">
-        <h1 className="text-4xl font-semibold tracking-tight">
+      <header className="relative mb-8 flex flex-col items-center gap-2 overflow-hidden rounded-3xl bg-[#05070d] px-4 py-16 text-center">
+        <div className="pointer-events-none absolute inset-0">
+          <LightRays
+            raysOrigin="top-center"
+            raysColor="#00ffff"
+            raysSpeed={1.6}
+            lightSpread={0.8}
+            rayLength={1.2}
+            followMouse
+            mouseInfluence={0.5}
+            noiseAmount={0.1}
+            distortion={0.05}
+          />
+        </div>
+        <h1 className="relative text-4xl font-semibold tracking-tight text-white">
           {SITE_NAME}: сравнение VPN-сервисов {new Date().getFullYear()}
         </h1>
-        <p className="max-w-2xl text-muted">
+        <p className="relative max-w-2xl text-white/70">
           Каталог из {services.length} VPN-провайдеров: цены, заявленная скорость, платформы и
           особенности — от no-logs и бесплатных тарифов до сервисов для Netflix и торрентов.
           Статус «сайт доступен» и задержка проверяются автоматически по расписанию.
