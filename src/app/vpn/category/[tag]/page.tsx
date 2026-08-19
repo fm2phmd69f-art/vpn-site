@@ -9,14 +9,15 @@ import { SITE_NAME } from "@/lib/seo";
 export const revalidate = 1800;
 
 interface Props {
-  params: { tag: string };
+  params: Promise<{ tag: string }>;
 }
 
 function label(tag: string): string | null {
   return TAG_LABELS[tag] ?? null;
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const tagLabel = label(params.tag);
   if (!tagLabel) return {};
 
@@ -32,7 +33,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function CategoryPage({ params }: Props) {
+export default async function CategoryPage(props: Props) {
+  const params = await props.params;
   const tagLabel = label(params.tag);
   if (!tagLabel) notFound();
 

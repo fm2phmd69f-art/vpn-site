@@ -11,7 +11,7 @@ import { ServiceDTO } from "@/lib/types";
 export const revalidate = 1800;
 
 interface Props {
-  params: { pair: string };
+  params: Promise<{ pair: string }>;
 }
 
 async function loadPair(pair: string): Promise<{ a: ServiceDTO; b: ServiceDTO } | null> {
@@ -24,7 +24,8 @@ async function loadPair(pair: string): Promise<{ a: ServiceDTO; b: ServiceDTO } 
   return { a, b };
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const data = await loadPair(params.pair);
   if (!data) return {};
 
@@ -49,7 +50,8 @@ function Row({ label, a, b }: { label: string; a: React.ReactNode; b: React.Reac
   );
 }
 
-export default async function ComparePairPage({ params }: Props) {
+export default async function ComparePairPage(props: Props) {
+  const params = await props.params;
   const data = await loadPair(params.pair);
   if (!data) notFound();
   const { a, b } = data;
