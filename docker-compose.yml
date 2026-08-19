@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: vpn
+      POSTGRES_PASSWORD: vpn
+      POSTGRES_DB: vpn_site
+    ports:
+      - "5432:5432"
+    volumes:
+      - vpn_site_pg_data:/var/lib/postgresql/data
+
+volumes:
+  vpn_site_pg_data:

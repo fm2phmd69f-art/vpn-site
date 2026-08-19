@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ServiceStatus {
+  ONLINE
+  OFFLINE
+  UNKNOWN
+}
+
+model VpnService {
+  id      String @id @default(cuid())
+  slug    String @unique
+  name    String
+  logo    String @default("🛡")
+
+  websiteUrl   String
+  referralUrl  String?
+
+  // Заявленные (не измеренные автоматически) характеристики от провайдера.
+  priceFrom        String
+  priceMonthlyUsd  Float?
+  claimedSpeedMbps Int?
+  freeOption       String?
+  rating           Float?
+
+  platforms   String[]
+  tags        String[]
+  description String
+
+  // Поля ниже обновляются автоматически фоновой проверкой (см. scripts/check-services.ts).
+  status        ServiceStatus @default(UNKNOWN)
+  latencyMs     Int?
+  lastCheckedAt DateTime?
+  lastError     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+}
