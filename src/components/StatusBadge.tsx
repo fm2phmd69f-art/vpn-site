@@ -35,11 +35,15 @@ export function StatusBadge({
 }) {
   const ago = timeAgo(lastCheckedAt);
   return (
-    <div className="flex items-center gap-1.5 text-xs text-muted">
-      <span className={`h-1.5 w-1.5 rounded-full ${DOT_STYLE[status]}`} />
-      <span>{LABELS[status]}</span>
-      {status === "ONLINE" && latencyMs != null && <span>· {latencyMs} мс</span>}
-      {ago && <span>· проверено {ago}</span>}
+    <div className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-xs text-muted">
+      <span className="flex items-center gap-1.5 whitespace-nowrap">
+        <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${DOT_STYLE[status]}`} />
+        <span>{LABELS[status]}</span>
+      </span>
+      {status === "ONLINE" && latencyMs != null && (
+        <span className="whitespace-nowrap">· {latencyMs} мс</span>
+      )}
+      {ago && <span className="whitespace-nowrap">· проверено {ago}</span>}
     </div>
   );
 }

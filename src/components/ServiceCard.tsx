@@ -6,7 +6,7 @@ import { StatusBadge } from "./StatusBadge";
 export function ServiceCard({ service }: { service: ServiceDTO }) {
   return (
     <div className="flex flex-col gap-4 rounded-2xl border border-border bg-surface p-5 shadow-sm transition-shadow hover:shadow-md">
-      <div className="flex items-start justify-between gap-3">
+      <div className="flex flex-col gap-2">
         <div className="flex items-center gap-2.5">
           <span className="text-2xl leading-none">{service.logo}</span>
           <div>
