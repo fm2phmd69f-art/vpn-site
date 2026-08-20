@@ -98,10 +98,14 @@ export default async function HomePage() {
             distortion={0.05}
           />
         </div>
-        <h1 className="relative text-4xl font-semibold tracking-tight text-white">
-          {SITE_NAME}: сравнение VPN-сервисов {new Date().getFullYear()}
+        <div className="relative z-10 inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-sm text-white/90">
+          <span aria-hidden>🛡️</span>
+          <span>{SITE_NAME}</span>
+        </div>
+        <h1 className="relative z-10 text-4xl font-semibold tracking-tight text-white">
+          Сравнение VPN-сервисов {new Date().getFullYear()}
         </h1>
-        <p className="relative max-w-2xl text-white/70">
+        <p className="relative z-10 max-w-2xl text-white/70">
           Каталог из {services.length} VPN-провайдеров: цены, заявленная скорость, платформы и
           особенности — от no-logs и бесплатных тарифов до сервисов для Netflix и торрентов.
           Статус «сайт доступен» и задержка проверяются автоматически по расписанию.
