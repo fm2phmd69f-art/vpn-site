@@ -113,7 +113,7 @@ export default async function HomePage() {
       </header>
 
       <section className="mb-8">
-        <h2 className="mb-3 text-lg font-semibold">Популярные категории</h2>
+        <h2 className="mb-3 text-center text-lg font-semibold">Популярные категории</h2>
         <div className="flex flex-wrap justify-center gap-2">
           {FEATURED_TAGS.map((tag) => (
             <Link
