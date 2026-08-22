@@ -874,6 +874,44 @@ export const SEED_SERVICES: SeedService[] = [
     description:
       "Необычный VPN с технологией объединения нескольких интернет-соединений одновременно (например, Wi-Fi + мобильный интернет) для повышения скорости и стабильности.",
   },
+  {
+    slug: "nordlayer",
+    name: "NordLayer",
+    logo: "💼",
+    websiteUrl: "https://nordlayer.com/",
+    priceFrom: "8 $/пользователь/мес",
+    priceMonthlyUsd: 8,
+    platforms: ["Windows", "macOS", "iOS", "Android", "Linux"],
+    tags: ["business", "wireguard"],
+    description:
+      "Корпоративный VPN от Nord Security для команд — управление доступом сотрудников, статические IP и сегментация сети вместо тарифа на одного человека.",
+  },
+  {
+    slug: "ovpn",
+    name: "OVPN",
+    logo: "🇸🇪",
+    websiteUrl: "https://www.ovpn.com/",
+    priceFrom: "10 €/мес",
+    priceMonthlyUsd: 10.8,
+    freeOption: "нет, 10 дней возврат",
+    platforms: ["Windows", "macOS", "iOS", "Android", "Linux", "Router"],
+    tags: ["no-logs", "privacy", "wireguard"],
+    description:
+      "Шведский провайдер с независимо подтверждённой политикой no-logs и собственными выделенными серверами вместо аренды у сторонних дата-центров.",
+  },
+  {
+    slug: "surfeasy",
+    name: "SurfEasy VPN",
+    logo: "🌊",
+    websiteUrl: "https://surfeasy.com/",
+    priceFrom: "4.99 $/мес",
+    priceMonthlyUsd: 4.99,
+    freeOption: "бесплатно 500 МБ/мес",
+    platforms: ["Windows", "macOS", "iOS", "Android"],
+    tags: ["free-tier", "budget"],
+    description:
+      "Канадский провайдер, принадлежит Opera (тот же движок, что и встроенный VPN в браузере Opera), скромный бесплатный лимит трафика.",
+  },
 ];
 
 export const TAG_LABELS: Record<string, string> = {
@@ -898,4 +936,5 @@ export const TAG_LABELS: Record<string, string> = {
   circumvention: "🚧 Обход блокировок",
   "static-ip": "📌 Статический IP",
   "channel-bonding": "🔀 Объединение соединений",
+  business: "💼 Для бизнеса",
 };
