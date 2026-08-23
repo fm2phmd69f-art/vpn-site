@@ -1,13 +1,21 @@
+export interface PostImage {
+  url: string;
+  alt: string;
+  credit?: string;
+}
+
 export type ContentBlock =
   | { type: "p"; text: string }
   | { type: "h2"; text: string }
-  | { type: "ul"; items: string[] };
+  | { type: "ul"; items: string[] }
+  | { type: "image"; image: PostImage };
 
 export interface BlogPost {
   slug: string;
   title: string;
   description: string;
   publishedAt: string;
+  coverImage?: PostImage;
   content: ContentBlock[];
 }
 
@@ -18,6 +26,11 @@ export const BLOG_POSTS: BlogPost[] = [
     description:
       "На что смотреть при выборе VPN-сервиса — политика логов, протоколы, юрисдикция, скорость и цена. Разбор понятным языком.",
     publishedAt: "2026-08-20",
+    coverImage: {
+      url: "https://images.unsplash.com/photo-1614064548237-096f735f344f",
+      alt: "Замок на фоне ноутбука символизирует цифровую приватность",
+      credit: "Фото: FlyD / Unsplash",
+    },
     content: [
       {
         type: "p",
@@ -48,6 +61,14 @@ export const BLOG_POSTS: BlogPost[] = [
         text: "Страна регистрации провайдера определяет, каким законам о хранении данных он подчиняется. Провайдеры вне альянсов слежки («14 Eyes») теоретически меньше подвержены давлению на выдачу данных пользователей — например, Швейцария (Proton VPN) или Панама (NordVPN).",
       },
       {
+        type: "image",
+        image: {
+          url: "https://images.unsplash.com/photo-1750710583720-8b3bdd0f658a",
+          alt: "Домашний Wi-Fi роутер, подключённый кабелями",
+          credit: "Фото: User_Pascal / Unsplash",
+        },
+      },
+      {
         type: "h2",
         text: "4. Скорость — с поправкой на маркетинг",
       },
@@ -75,6 +96,11 @@ export const BLOG_POSTS: BlogPost[] = [
     description:
       "Разбор бесплатных VPN-тарифов: у кого действительно нет подвоха, а где трафик идёт через устройства других пользователей.",
     publishedAt: "2026-08-20",
+    coverImage: {
+      url: "https://images.unsplash.com/photo-1768839720936-87ce3adf2d08",
+      alt: "Кодовый замок на клавиатуре ноутбука",
+      credit: "Фото: Sasun Bughdaryan / Unsplash",
+    },
     content: [
       {
         type: "p",
@@ -95,6 +121,14 @@ export const BLOG_POSTS: BlogPost[] = [
       {
         type: "p",
         text: "У некоторых бесплатных сервисов (например, часть режимов Hola VPN, Urban VPN) трафик других пользователей маршрутизируется через ваше устройство, а ваш — через чужие. Формально это тоже «бесплатно», но с иной моделью приватности — стоит учитывать, если вы выбираете VPN именно ради анонимности, а не только смены региона.",
+      },
+      {
+        type: "image",
+        image: {
+          url: "https://images.unsplash.com/photo-1772683828849-9cc05e330b44",
+          alt: "Два смартфона с домашними экранами и приложениями",
+          credit: "Фото: Shawn Rain / Unsplash",
+        },
       },
       {
         type: "h2",
@@ -120,6 +154,11 @@ export const BLOG_POSTS: BlogPost[] = [
     description:
       "Как VPN связан с доступом к зарубежным каталогам стриминговых сервисов и почему это не всегда работает стабильно.",
     publishedAt: "2026-08-20",
+    coverImage: {
+      url: "https://images.unsplash.com/photo-1633793675529-58eecb6ea16f",
+      alt: "Телевизор с логотипом Netflix на экране",
+      credit: "Фото: Sunder Muthukumaran / Unsplash",
+    },
     content: [
       {
         type: "p",
@@ -146,6 +185,14 @@ export const BLOG_POSTS: BlogPost[] = [
         ],
       },
       {
+        type: "image",
+        image: {
+          url: "https://images.unsplash.com/photo-1560169897-fc0cdbdfa4d5",
+          alt: "Пульт дистанционного управления перед экраном телевизора",
+          credit: "Фото: Glenn Carstens-Peters / Unsplash",
+        },
+      },
+      {
         type: "p",
         text: "В каталоге они собраны в категории «Netflix/стриминг» — там сервисы, которые провайдеры сами позиционируют как подходящие для разблокировки стриминговых каталогов.",
       },
@@ -161,6 +208,11 @@ export const BLOG_POSTS: BlogPost[] = [
     description:
       "Разбор трёх основных протоколов VPN-подключения — в чём разница по скорости, надёжности и настройке, и почему это влияет на выбор сервиса.",
     publishedAt: "2026-08-22",
+    coverImage: {
+      url: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31",
+      alt: "Сетевые кабели дата-центра",
+      credit: "Фото: Taylor Vick / Unsplash",
+    },
     content: [
       {
         type: "p",
@@ -181,6 +233,14 @@ export const BLOG_POSTS: BlogPost[] = [
       {
         type: "p",
         text: "Старый и хорошо изученный протокол с открытым исходным кодом, на рынке около 20 лет. Работает медленнее WireGuard, зато гибко настраивается и умеет маскироваться под обычный HTTPS-трафик (через порт 443), что иногда помогает обойти блокировку VPN на уровне провайдера или страны. До появления WireGuard был стандартом де-факто и всё ещё остаётся резервным вариантом почти во всех приложениях.",
+      },
+      {
+        type: "image",
+        image: {
+          url: "https://images.unsplash.com/photo-1514070706115-47c142769603",
+          alt: "Экран компьютера с работающей программой",
+          credit: "Фото: Ilija Boshkov / Unsplash",
+        },
       },
       {
         type: "h2",

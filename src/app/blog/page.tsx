@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { BLOG_POSTS } from "@/data/posts";
 import { SITE_NAME } from "@/lib/seo";
@@ -28,10 +29,21 @@ export default function BlogIndexPage() {
           <Link
             key={post.slug}
             href={`/blog/${post.slug}`}
-            className="rounded-2xl border border-border bg-surface p-5 transition-colors hover:border-accent"
+            className="flex gap-4 overflow-hidden rounded-2xl border border-border bg-surface p-5 transition-colors hover:border-accent"
           >
-            <h2 className="text-lg font-semibold">{post.title}</h2>
-            <p className="mt-1 text-sm text-muted">{post.description}</p>
+            {post.coverImage && (
+              <Image
+                src={post.coverImage.url}
+                alt={post.coverImage.alt}
+                width={112}
+                height={112}
+                className="h-28 w-28 shrink-0 rounded-xl object-cover"
+              />
+            )}
+            <div>
+              <h2 className="text-lg font-semibold">{post.title}</h2>
+              <p className="mt-1 text-sm text-muted">{post.description}</p>
+            </div>
           </Link>
         ))}
       </div>

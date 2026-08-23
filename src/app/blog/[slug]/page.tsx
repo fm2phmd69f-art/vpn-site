@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BLOG_POSTS, getPostBySlug } from "@/data/posts";
@@ -26,6 +27,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       description: post.description,
       type: "article",
       publishedTime: post.publishedAt,
+      images: post.coverImage ? [{ url: post.coverImage.url }] : undefined,
     },
   };
 }
@@ -40,6 +42,7 @@ export default async function BlogPostPage(props: Props) {
     "@type": "Article",
     headline: post.title,
     description: post.description,
+    image: post.coverImage ? [post.coverImage.url] : undefined,
     datePublished: post.publishedAt,
     dateModified: post.publishedAt,
     author: { "@type": "Organization", name: SITE_NAME },
@@ -75,6 +78,25 @@ export default async function BlogPostPage(props: Props) {
         })}
       </p>
 
+      {post.coverImage && (
+        <figure className="mt-6">
+          <Image
+            src={post.coverImage.url}
+            alt={post.coverImage.alt}
+            width={1200}
+            height={630}
+            priority
+            className="w-full rounded-2xl object-cover"
+            style={{ aspectRatio: "16 / 9" }}
+          />
+          {post.coverImage.credit && (
+            <figcaption className="mt-1.5 text-xs text-muted">
+              {post.coverImage.credit}
+            </figcaption>
+          )}
+        </figure>
+      )}
+
       <article className="mt-6 flex flex-col gap-4 text-sm leading-relaxed">
         {post.content.map((block, i) => {
           if (block.type === "h2") {
@@ -91,6 +113,24 @@ export default async function BlogPostPage(props: Props) {
                   <li key={j}>{item}</li>
                 ))}
               </ul>
+            );
+          }
+          if (block.type === "image") {
+            return (
+              <figure key={i} className="my-2">
+                <Image
+                  src={block.image.url}
+                  alt={block.image.alt}
+                  width={1200}
+                  height={800}
+                  className="w-full rounded-2xl object-cover"
+                />
+                {block.image.credit && (
+                  <figcaption className="mt-1.5 text-xs text-muted">
+                    {block.image.credit}
+                  </figcaption>
+                )}
+              </figure>
             );
           }
           return (
