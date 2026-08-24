@@ -15,6 +15,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: SITE_URL, lastModified: now, changeFrequency: "daily", priority: 1 },
     { url: `${SITE_URL}/compare`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: `${SITE_URL}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    {
+      url: `${SITE_URL}/what-is-my-ip`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.65,
+    },
+    {
+      url: `${SITE_URL}/webrtc-leak-test`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.65,
+    },
   ];
 
   const posts: MetadataRoute.Sitemap = BLOG_POSTS.map((p) => ({

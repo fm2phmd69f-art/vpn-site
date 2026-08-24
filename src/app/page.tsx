@@ -143,6 +143,24 @@ export default async function HomePage() {
         </div>
       </section>
 
+      <section className="mb-8">
+        <h2 className="mb-3 text-center text-lg font-semibold">Бесплатные инструменты</h2>
+        <div className="flex flex-wrap justify-center gap-2">
+          <Link
+            href="/what-is-my-ip"
+            className="rounded-full border border-border bg-surface px-3 py-1.5 text-sm text-fg transition-colors hover:border-accent"
+          >
+            🌐 Мой IP-адрес
+          </Link>
+          <Link
+            href="/webrtc-leak-test"
+            className="rounded-full border border-border bg-surface px-3 py-1.5 text-sm text-fg transition-colors hover:border-accent"
+          >
+            🔍 Проверка утечки WebRTC
+          </Link>
+        </div>
+      </section>
+
       <CatalogClient services={services} />
 
       <section className="mt-12 max-w-3xl">
