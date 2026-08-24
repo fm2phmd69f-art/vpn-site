@@ -4,6 +4,7 @@ import { getAllServices } from "@/lib/getServices";
 import { CatalogClient } from "@/components/CatalogClient";
 import LightRays from "@/components/LightRays";
 import { TAG_LABELS } from "@/data/services";
+import { INTENTS } from "@/data/intents";
 import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
 
 export const revalidate = 1800;
@@ -122,6 +123,21 @@ export default async function HomePage() {
               className="rounded-full border border-border bg-surface px-3 py-1.5 text-sm text-fg transition-colors hover:border-accent"
             >
               {TAG_LABELS[tag] ?? tag}
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="mb-8">
+        <h2 className="mb-3 text-center text-lg font-semibold">Подборки под задачу</h2>
+        <div className="flex flex-wrap justify-center gap-2">
+          {Object.values(INTENTS).map((intent) => (
+            <Link
+              key={intent.slug}
+              href={`/${intent.slug}`}
+              className="rounded-full border border-border bg-surface px-3 py-1.5 text-sm text-fg transition-colors hover:border-accent"
+            >
+              {intent.h1}
             </Link>
           ))}
         </div>

@@ -3,6 +3,7 @@ import { SITE_URL } from "@/lib/seo";
 import { SEED_SERVICES } from "@/data/services";
 import { allComparisonPairs } from "@/lib/comparisons";
 import { BLOG_POSTS } from "@/data/posts";
+import { allIntentSlugs } from "@/data/intents";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -44,5 +45,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...home, ...services, ...categories, ...comparisons, ...posts];
+  const intents: MetadataRoute.Sitemap = allIntentSlugs().map((slug) => ({
+    url: `${SITE_URL}/${slug}`,
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 0.75,
+  }));
+
+  return [...home, ...services, ...categories, ...comparisons, ...posts, ...intents];
 }
