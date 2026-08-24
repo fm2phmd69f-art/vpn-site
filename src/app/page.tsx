@@ -143,7 +143,9 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="mb-8">
+      <CatalogClient services={services} />
+
+      <section className="mt-12">
         <h2 className="mb-3 text-center text-lg font-semibold">Бесплатные инструменты</h2>
         <div className="flex flex-wrap justify-center gap-2">
           <Link
@@ -160,8 +162,6 @@ export default async function HomePage() {
           </Link>
         </div>
       </section>
-
-      <CatalogClient services={services} />
 
       <section className="mt-12 max-w-3xl">
         <h2 className="mb-4 text-lg font-semibold">Частые вопросы</h2>
