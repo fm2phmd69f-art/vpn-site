@@ -407,3 +407,10 @@ export const BLOG_POSTS: BlogPost[] = [
 export function getPostBySlug(slug: string): BlogPost | undefined {
   return BLOG_POSTS.find((p) => p.slug === slug);
 }
+
+/** Picks `count` posts other than `excludeSlug`, in random order. */
+export function getRandomPosts(excludeSlug: string, count: number): BlogPost[] {
+  const pool = BLOG_POSTS.filter((p) => p.slug !== excludeSlug);
+  const shuffled = [...pool].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, count);
+}

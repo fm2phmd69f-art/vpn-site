@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { BLOG_POSTS, getPostBySlug } from "@/data/posts";
+import { BLOG_POSTS, getPostBySlug, getRandomPosts } from "@/data/posts";
+import { BlogPostCard } from "@/components/BlogPostCard";
 import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
 
 interface Props {
@@ -27,7 +28,9 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       description: post.description,
       type: "article",
       publishedTime: post.publishedAt,
-      images: post.coverImage ? [{ url: post.coverImage.url }] : undefined,
+      images: post.coverImage
+        ? [{ url: post.coverImage.url, width: 1200, height: 630, alt: post.coverImage.alt }]
+        : undefined,
     },
   };
 }
@@ -36,6 +39,8 @@ export default async function BlogPostPage(props: Props) {
   const params = await props.params;
   const post = getPostBySlug(params.slug);
   if (!post) notFound();
+
+  const relatedPosts = getRandomPosts(post.slug, 3);
 
   const articleJsonLd = {
     "@context": "https://schema.org",
@@ -50,11 +55,30 @@ export default async function BlogPostPage(props: Props) {
     mainEntityOfPage: `${SITE_URL}/blog/${post.slug}`,
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Главная", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Блог", item: `${SITE_URL}/blog` },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: post.title,
+        item: `${SITE_URL}/blog/${post.slug}`,
+      },
+    ],
+  };
+
   return (
     <main className="mx-auto max-w-2xl px-4 py-10 sm:px-6">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLdScript(articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLdScript(breadcrumbJsonLd) }}
       />
 
       <nav className="mb-6 text-sm text-muted">
@@ -140,6 +164,17 @@ export default async function BlogPostPage(props: Props) {
           );
         })}
       </article>
+
+      {relatedPosts.length > 0 && (
+        <section className="mt-12 border-t border-border pt-8">
+          <h2 className="mb-4 text-lg font-semibold">Вам может быть интересно</h2>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {relatedPosts.map((p) => (
+              <BlogPostCard key={p.slug} post={p} />
+            ))}
+          </div>
+        </section>
+      )}
 
       <div className="mt-10 flex flex-col gap-2 sm:flex-row">
         <Link href="/" className="text-sm text-accent hover:underline">
