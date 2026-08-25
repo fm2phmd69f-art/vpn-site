@@ -124,6 +124,12 @@ export default async function WhatIsMyIpPage() {
           Проверить утечку через WebRTC →
         </Link>
         <Link
+          href="/is-my-ip-blocked"
+          className="flex-1 rounded-full border border-border px-4 py-2.5 text-center text-sm font-medium transition-colors hover:border-accent"
+        >
+          Проверить IP на блокировки →
+        </Link>
+        <Link
           href="/"
           className="flex-1 rounded-full bg-accent px-4 py-2.5 text-center text-sm font-medium text-white transition-opacity hover:opacity-90"
         >

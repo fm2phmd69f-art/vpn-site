@@ -160,6 +160,12 @@ export default async function HomePage() {
           >
             🔍 Проверка утечки WebRTC
           </Link>
+          <Link
+            href="/is-my-ip-blocked"
+            className="rounded-full border border-border bg-surface px-3 py-1.5 text-sm text-fg transition-colors hover:border-accent"
+          >
+            🚫 Проверка IP на блокировки
+          </Link>
         </div>
       </section>
 

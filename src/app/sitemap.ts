@@ -28,6 +28,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.65,
     },
     { url: `${SITE_URL}/vpn-matcher`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    {
+      url: `${SITE_URL}/is-my-ip-blocked`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.65,
+    },
   ];
 
   const posts: MetadataRoute.Sitemap = BLOG_POSTS.map((p) => ({
