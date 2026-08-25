@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllServices } from "@/lib/getServices";
 import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
+import { ServiceLogo } from "@/components/ServiceLogo";
 
 export const revalidate = 1800;
 
@@ -116,7 +117,7 @@ export default async function VpnPricesPage() {
                     href={`/vpn/${s.slug}`}
                     className="flex items-center gap-2 font-medium hover:text-accent"
                   >
-                    <span>{s.logo}</span>
+                    <ServiceLogo name={s.name} emoji={s.logo} websiteUrl={s.websiteUrl} />
                     {s.name}
                   </Link>
                 </td>

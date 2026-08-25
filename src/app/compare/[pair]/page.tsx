@@ -7,6 +7,7 @@ import { TAG_LABELS } from "@/data/services";
 import { StatusBadge } from "@/components/StatusBadge";
 import { SITE_NAME, jsonLdScript, SITE_URL } from "@/lib/seo";
 import { ServiceDTO } from "@/lib/types";
+import { ServiceLogo } from "@/components/ServiceLogo";
 
 export const revalidate = 1800;
 
@@ -123,11 +124,17 @@ export default async function ComparePairPage(props: Props) {
       <div className="mt-6 rounded-2xl border border-border bg-surface p-5">
         <div className="grid grid-cols-[1fr,1.2fr,1.2fr] gap-2 border-b border-border pb-3 text-sm font-semibold">
           <div />
-          <Link href={`/vpn/${a.slug}`} className="hover:text-accent hover:underline">
-            {a.logo} {a.name}
+          <Link
+            href={`/vpn/${a.slug}`}
+            className="flex items-center gap-1.5 hover:text-accent hover:underline"
+          >
+            <ServiceLogo name={a.name} emoji={a.logo} websiteUrl={a.websiteUrl} /> {a.name}
           </Link>
-          <Link href={`/vpn/${b.slug}`} className="hover:text-accent hover:underline">
-            {b.logo} {b.name}
+          <Link
+            href={`/vpn/${b.slug}`}
+            className="flex items-center gap-1.5 hover:text-accent hover:underline"
+          >
+            <ServiceLogo name={b.name} emoji={b.logo} websiteUrl={b.websiteUrl} /> {b.name}
           </Link>
         </div>
 

@@ -8,6 +8,7 @@ import { ServiceCard } from "@/components/ServiceCard";
 import { ReportForm } from "@/components/ReportForm";
 import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
 import { getUptimeStats } from "@/lib/uptime";
+import { ServiceLogo } from "@/components/ServiceLogo";
 
 export const revalidate = 1800;
 
@@ -77,7 +78,7 @@ export default async function ServicePage(props: Props) {
       </nav>
 
       <div className="mb-6 flex items-center gap-3">
-        <span className="text-4xl leading-none">{service.logo}</span>
+        <ServiceLogo name={service.name} emoji={service.logo} websiteUrl={service.websiteUrl} />
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">{service.name}</h1>
           {service.rating != null && (

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getAllServices } from "@/lib/getServices";
 import { allComparisonPairs } from "@/lib/comparisons";
 import { SITE_NAME } from "@/lib/seo";
+import { ServiceLogo } from "@/components/ServiceLogo";
 
 export const revalidate = 1800;
 
@@ -45,11 +46,11 @@ export default async function ComparePage() {
               href={`/compare/${pairSlug}`}
               className="flex items-center gap-2 rounded-xl border border-border bg-surface px-4 py-3 text-sm transition-colors hover:border-accent"
             >
-              <span>{sa.logo}</span>
+              <ServiceLogo name={sa.name} emoji={sa.logo} websiteUrl={sa.websiteUrl} />
               <span className="font-medium">{sa.name}</span>
               <span className="text-muted">vs</span>
               <span className="font-medium">{sb.name}</span>
-              <span>{sb.logo}</span>
+              <ServiceLogo name={sb.name} emoji={sb.logo} websiteUrl={sb.websiteUrl} />
             </Link>
           );
         })}

@@ -2,13 +2,14 @@ import Link from "next/link";
 import { ServiceDTO } from "@/lib/types";
 import { TAG_LABELS } from "@/data/services";
 import { StatusBadge } from "./StatusBadge";
+import { ServiceLogo } from "./ServiceLogo";
 
 export function ServiceCard({ service }: { service: ServiceDTO }) {
   return (
     <div className="flex flex-col gap-4 rounded-2xl border border-border bg-surface p-5 shadow-sm transition-shadow hover:shadow-md">
       <div className="flex flex-col gap-2">
         <div className="flex items-center gap-2.5">
-          <span className="text-2xl leading-none">{service.logo}</span>
+          <ServiceLogo name={service.name} emoji={service.logo} websiteUrl={service.websiteUrl} />
           <div>
             <h3 className="text-base font-semibold leading-tight">
               <Link href={`/vpn/${service.slug}`} className="hover:text-accent hover:underline">
