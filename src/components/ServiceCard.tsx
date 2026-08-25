@@ -3,28 +3,34 @@ import { ServiceDTO } from "@/lib/types";
 import { TAG_LABELS } from "@/data/services";
 import { StatusBadge } from "./StatusBadge";
 import { ServiceLogo } from "./ServiceLogo";
+import { ScoreBadge } from "./ScoreBadge";
+import { computeScore } from "@/lib/score";
 
 export function ServiceCard({ service }: { service: ServiceDTO }) {
+  const score = computeScore(service);
   return (
     <div className="flex flex-col gap-4 rounded-2xl border border-border bg-surface p-5 shadow-sm transition-shadow hover:shadow-md">
       <div className="flex flex-col gap-2">
-        <div className="flex items-center gap-2.5">
-          <ServiceLogo
-            name={service.name}
-            emoji={service.logo}
-            websiteUrl={service.websiteUrl}
-            status={service.status}
-          />
-          <div>
-            <h3 className="text-base font-semibold leading-tight">
-              <Link href={`/vpn/${service.slug}`} className="hover:text-accent hover:underline">
-                {service.name}
-              </Link>
-            </h3>
-            {service.rating != null && (
-              <p className="text-xs text-muted">⭐ {service.rating.toFixed(1)}</p>
-            )}
+        <div className="flex items-center justify-between gap-2.5">
+          <div className="flex items-center gap-2.5">
+            <ServiceLogo
+              name={service.name}
+              emoji={service.logo}
+              websiteUrl={service.websiteUrl}
+              status={service.status}
+            />
+            <div>
+              <h3 className="text-base font-semibold leading-tight">
+                <Link href={`/vpn/${service.slug}`} className="hover:text-accent hover:underline">
+                  {service.name}
+                </Link>
+              </h3>
+              {service.rating != null && (
+                <p className="text-xs text-muted">⭐ {service.rating.toFixed(1)}</p>
+              )}
+            </div>
           </div>
+          <ScoreBadge score={score.overall} size="sm" />
         </div>
         <StatusBadge
           status={service.status}

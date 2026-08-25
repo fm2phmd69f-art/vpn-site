@@ -3,6 +3,8 @@ import Link from "next/link";
 import { getAllServices } from "@/lib/getServices";
 import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
 import { ServiceLogo } from "@/components/ServiceLogo";
+import { ScoreBadge } from "@/components/ScoreBadge";
+import { computeScore } from "@/lib/score";
 
 export const revalidate = 1800;
 
@@ -104,6 +106,11 @@ export default async function VpnPricesPage() {
           <thead className="bg-surface text-xs uppercase tracking-wide text-muted">
             <tr>
               <th className="px-4 py-3">Сервис</th>
+              <th className="px-4 py-3">
+                <Link href="/vpnmarket-score" className="hover:text-fg hover:underline">
+                  Score
+                </Link>
+              </th>
               <th className="px-4 py-3">Цена от</th>
               <th className="px-4 py-3">Бесплатно</th>
               <th className="px-4 py-3">Скорость</th>
@@ -120,6 +127,9 @@ export default async function VpnPricesPage() {
                     <ServiceLogo name={s.name} emoji={s.logo} websiteUrl={s.websiteUrl} status={s.status} />
                     {s.name}
                   </Link>
+                </td>
+                <td className="px-4 py-3">
+                  <ScoreBadge score={computeScore(s).overall} size="sm" />
                 </td>
                 <td className="px-4 py-3">{s.priceFrom}</td>
                 <td className="px-4 py-3 text-muted">{s.freeOption ?? "—"}</td>

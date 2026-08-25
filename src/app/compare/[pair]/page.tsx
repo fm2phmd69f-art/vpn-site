@@ -8,6 +8,8 @@ import { StatusBadge } from "@/components/StatusBadge";
 import { SITE_NAME, jsonLdScript, SITE_URL } from "@/lib/seo";
 import { ServiceDTO } from "@/lib/types";
 import { ServiceLogo } from "@/components/ServiceLogo";
+import { ScoreBadge } from "@/components/ScoreBadge";
+import { computeScore } from "@/lib/score";
 
 export const revalidate = 1800;
 
@@ -138,6 +140,11 @@ export default async function ComparePairPage(props: Props) {
           </Link>
         </div>
 
+        <Row
+          label="VPNmarket Score"
+          a={<ScoreBadge score={computeScore(a).overall} size="sm" />}
+          b={<ScoreBadge score={computeScore(b).overall} size="sm" />}
+        />
         <Row label="Цена" a={a.priceFrom} b={b.priceFrom} />
         <Row
           label="Заявл. скорость"

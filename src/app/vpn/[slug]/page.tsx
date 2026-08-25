@@ -9,6 +9,8 @@ import { ReportForm } from "@/components/ReportForm";
 import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
 import { getUptimeStats } from "@/lib/uptime";
 import { ServiceLogo } from "@/components/ServiceLogo";
+import { computeScore } from "@/lib/score";
+import { ScoreBreakdownCard } from "@/components/ScoreBreakdownCard";
 
 export const revalidate = 1800;
 
@@ -46,6 +48,7 @@ export default async function ServicePage(props: Props) {
     .slice(0, 3);
 
   const uptime30d = await getUptimeStats(service.id, 30);
+  const score = computeScore(service);
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -105,6 +108,8 @@ export default async function ServicePage(props: Props) {
       )}
 
       <p className="mt-4 text-sm leading-relaxed text-fg">{service.description}</p>
+
+      <ScoreBreakdownCard score={score} />
 
       <dl className="mt-6 grid grid-cols-2 gap-x-4 gap-y-3 rounded-2xl border border-border bg-surface p-5 text-sm sm:grid-cols-3">
         <div>

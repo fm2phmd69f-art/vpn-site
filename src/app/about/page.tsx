@@ -105,6 +105,12 @@ export default function AboutPage() {
         >
           Подобрать VPN →
         </Link>
+        <Link
+          href="/vpnmarket-score"
+          className="flex-1 rounded-full border border-border px-4 py-2.5 text-center text-sm font-medium transition-colors hover:border-accent"
+        >
+          Как считается Score →
+        </Link>
       </div>
     </main>
   );
