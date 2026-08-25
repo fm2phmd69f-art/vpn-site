@@ -48,6 +48,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: p.publishedAt,
     changeFrequency: "monthly",
     priority: 0.6,
+    ...(p.coverImage ? { images: [p.coverImage.url] } : {}),
   }));
 
   const comparisons: MetadataRoute.Sitemap = allComparisonPairs().map(({ pairSlug }) => ({
