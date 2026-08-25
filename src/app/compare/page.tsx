@@ -46,11 +46,11 @@ export default async function ComparePage() {
               href={`/compare/${pairSlug}`}
               className="flex items-center gap-2 rounded-xl border border-border bg-surface px-4 py-3 text-sm transition-colors hover:border-accent"
             >
-              <ServiceLogo name={sa.name} emoji={sa.logo} websiteUrl={sa.websiteUrl} />
+              <ServiceLogo name={sa.name} emoji={sa.logo} websiteUrl={sa.websiteUrl} status={sa.status} />
               <span className="font-medium">{sa.name}</span>
               <span className="text-muted">vs</span>
               <span className="font-medium">{sb.name}</span>
-              <ServiceLogo name={sb.name} emoji={sb.logo} websiteUrl={sb.websiteUrl} />
+              <ServiceLogo name={sb.name} emoji={sb.logo} websiteUrl={sb.websiteUrl} status={sb.status} />
             </Link>
           );
         })}

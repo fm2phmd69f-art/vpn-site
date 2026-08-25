@@ -78,7 +78,12 @@ export default async function ServicePage(props: Props) {
       </nav>
 
       <div className="mb-6 flex items-center gap-3">
-        <ServiceLogo name={service.name} emoji={service.logo} websiteUrl={service.websiteUrl} />
+        <ServiceLogo
+          name={service.name}
+          emoji={service.logo}
+          websiteUrl={service.websiteUrl}
+          status={service.status}
+        />
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">{service.name}</h1>
           {service.rating != null && (
