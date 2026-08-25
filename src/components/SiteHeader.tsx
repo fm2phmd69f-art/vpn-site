@@ -16,6 +16,9 @@ export function SiteHeader() {
           <Link href="/blog" className="transition-colors hover:text-fg">
             Блог
           </Link>
+          <Link href="/about" className="transition-colors hover:text-fg">
+            О проекте
+          </Link>
         </nav>
       </div>
     </header>

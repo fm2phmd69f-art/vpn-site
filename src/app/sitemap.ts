@@ -34,6 +34,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.65,
     },
+    { url: `${SITE_URL}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.4 },
   ];
 
   const posts: MetadataRoute.Sitemap = BLOG_POSTS.map((p) => ({
