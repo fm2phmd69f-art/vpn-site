@@ -27,6 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.65,
     },
+    { url: `${SITE_URL}/vpn-matcher`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
   ];
 
   const posts: MetadataRoute.Sitemap = BLOG_POSTS.map((p) => ({
