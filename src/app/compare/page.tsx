@@ -55,7 +55,10 @@ export default async function ComparePage() {
         })}
       </div>
 
-      <p className="mt-10">
+      <p className="mt-10 flex flex-col gap-2 sm:flex-row sm:gap-4">
+        <Link href="/vpn-prices" className="text-sm text-accent hover:underline">
+          Таблица цен всех провайдеров →
+        </Link>
         <Link href="/" className="text-sm text-accent hover:underline">
           ← Ко всему каталогу VPN-сервисов
         </Link>

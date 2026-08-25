@@ -170,6 +170,19 @@ export default async function HomePage() {
       </section>
 
       <section className="mt-12 rounded-2xl border border-border bg-surface p-6 text-center">
+        <h2 className="text-lg font-semibold">Сколько стоит VPN?</h2>
+        <p className="mx-auto mt-1 max-w-md text-sm text-muted">
+          Таблица цен всех {services.length} провайдеров из каталога — от дешёвых к дорогим.
+        </p>
+        <Link
+          href="/vpn-prices"
+          className="mt-4 inline-flex items-center justify-center rounded-full border border-border px-5 py-2.5 text-sm font-medium transition-colors hover:border-accent"
+        >
+          💰 Сравнить цены →
+        </Link>
+      </section>
+
+      <section className="mt-12 rounded-2xl border border-border bg-surface p-6 text-center">
         <h2 className="text-lg font-semibold">Не хотите разбираться сами?</h2>
         <p className="mx-auto mt-1 max-w-md text-sm text-muted">
           Ответьте на 4 вопроса — подберём VPN под вашу задачу, платформу и бюджет.
