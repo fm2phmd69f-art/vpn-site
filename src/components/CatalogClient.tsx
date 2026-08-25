@@ -1,10 +1,14 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { ServiceDTO } from "@/lib/types";
 import { ServiceCard } from "./ServiceCard";
 import { computeScore } from "@/lib/score";
 import { TAG_LABELS } from "@/data/services";
+
+const MAX_COMPARE = 4;
+const MIN_COMPARE = 2;
 
 const DESKTOP_PAGE_SIZE = 50;
 const MOBILE_PAGE_SIZE = 30;
@@ -41,12 +45,26 @@ const TASK_TAGS = [
 ];
 
 export function CatalogClient({ services }: { services: ServiceDTO[] }) {
+  const router = useRouter();
   const [pageSize, setPageSize] = useState(DESKTOP_PAGE_SIZE);
   const [visibleCount, setVisibleCount] = useState(DESKTOP_PAGE_SIZE);
   const [sort, setSort] = useState<SortKey>("recommended");
   const [platform, setPlatform] = useState<string | null>(null);
   const [task, setTask] = useState<string | null>(null);
+  const [compareSlugs, setCompareSlugs] = useState<string[]>([]);
   const sentinelRef = useRef<HTMLDivElement | null>(null);
+
+  function toggleCompare(slug: string) {
+    setCompareSlugs((prev) => {
+      if (prev.includes(slug)) return prev.filter((s) => s !== slug);
+      if (prev.length >= MAX_COMPARE) return prev;
+      return [...prev, slug];
+    });
+  }
+
+  const compareServices = compareSlugs
+    .map((slug) => services.find((s) => s.slug === slug))
+    .filter((s): s is ServiceDTO => Boolean(s));
 
   useEffect(() => {
     function updatePageSize() {
@@ -195,7 +213,16 @@ export function CatalogClient({ services }: { services: ServiceDTO[] }) {
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {visible.map((service) => (
-            <ServiceCard key={service.id} service={service} />
+            <ServiceCard
+              key={service.id}
+              service={service}
+              compare={{
+                selected: compareSlugs.includes(service.slug),
+                disabled:
+                  compareSlugs.length >= MAX_COMPARE && !compareSlugs.includes(service.slug),
+                onToggle: () => toggleCompare(service.slug),
+              }}
+            />
           ))}
         </div>
       )}
@@ -203,6 +230,49 @@ export function CatalogClient({ services }: { services: ServiceDTO[] }) {
       {hasMore && (
         <div ref={sentinelRef} className="flex items-center justify-center py-8">
           <span className="h-6 w-6 animate-spin rounded-full border-2 border-border border-t-accent" />
+        </div>
+      )}
+
+      {compareSlugs.length > 0 && (
+        <div className="fixed inset-x-4 bottom-4 z-40 mx-auto flex max-w-3xl flex-wrap items-center gap-3 rounded-2xl border border-border bg-surface p-4 shadow-lg">
+          <span className="text-sm font-medium">
+            Сравнение: {compareSlugs.length}/{MAX_COMPARE}
+          </span>
+          <div className="flex flex-1 flex-wrap gap-1.5">
+            {compareServices.map((s) => (
+              <span
+                key={s.slug}
+                className="flex items-center gap-1 rounded-full border border-border px-2 py-1 text-xs"
+              >
+                {s.name}
+                <button
+                  type="button"
+                  onClick={() => toggleCompare(s.slug)}
+                  aria-label={`Убрать ${s.name} из сравнения`}
+                  className="text-muted hover:text-fg"
+                >
+                  ✕
+                </button>
+              </span>
+            ))}
+          </div>
+          <button
+            type="button"
+            onClick={() => setCompareSlugs([])}
+            className="rounded-full border border-border px-3 py-2 text-sm transition-colors hover:border-accent"
+          >
+            Очистить
+          </button>
+          <button
+            type="button"
+            disabled={compareSlugs.length < MIN_COMPARE}
+            onClick={() =>
+              router.push(`/compare/custom?ids=${compareSlugs.join(",")}`)
+            }
+            className="rounded-full bg-accent px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            Сравнить →
+          </button>
         </div>
       )}
     </div>

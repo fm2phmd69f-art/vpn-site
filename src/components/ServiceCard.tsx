@@ -37,12 +37,43 @@ function topAdvantageTags(tags: string[], max = 3): string[] {
   return [...ranked, ...rest].slice(0, max);
 }
 
-export function ServiceCard({ service }: { service: ServiceDTO }) {
+interface Props {
+  service: ServiceDTO;
+  compare?: {
+    selected: boolean;
+    disabled: boolean;
+    onToggle: () => void;
+  };
+}
+
+export function ServiceCard({ service, compare }: Props) {
   const score = computeScore(service);
   const advantages = topAdvantageTags(service.tags);
 
   return (
-    <div className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-5 shadow-sm transition-shadow hover:shadow-md">
+    <div
+      className={`flex flex-col gap-3 rounded-2xl border bg-surface p-5 shadow-sm transition-shadow hover:shadow-md ${
+        compare?.selected ? "border-accent" : "border-border"
+      }`}
+    >
+      {compare && (
+        <label
+          className={`-mb-1 flex items-center gap-1.5 self-start rounded-full border px-2 py-1 text-xs transition-colors ${
+            compare.selected
+              ? "border-accent bg-accent text-white"
+              : "border-border text-muted hover:border-accent"
+          } ${compare.disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"}`}
+        >
+          <input
+            type="checkbox"
+            checked={compare.selected}
+            disabled={compare.disabled}
+            onChange={compare.onToggle}
+            className="sr-only"
+          />
+          {compare.selected ? "✓ В сравнении" : "+ Сравнить"}
+        </label>
+      )}
       <div className="flex items-center justify-between gap-2.5">
         <div className="flex items-center gap-2.5">
           <ServiceLogo
