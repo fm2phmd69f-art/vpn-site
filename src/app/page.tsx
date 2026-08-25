@@ -104,7 +104,7 @@ export default async function HomePage() {
           <span>{SITE_NAME}</span>
         </div>
         <h1 className="relative z-10 text-4xl font-semibold tracking-tight text-white">
-          Сравнение VPN-сервисов {new Date().getFullYear()}
+          VPN-сервисы {new Date().getFullYear()}
         </h1>
         <p className="relative z-10 max-w-2xl text-white/70">
           Каталог из {services.length} VPN-провайдеров: цены, заявленная скорость, платформы и
