@@ -265,7 +265,11 @@ export function CatalogClient({
           <button
             type="button"
             disabled={compareSlugs.length < MIN_COMPARE}
-            onClick={() => router.push(`/compare/custom?ids=${compareSlugs.join(",")}`)}
+            onClick={() =>
+              router.push(
+                `${locale === "en" ? "/en" : ""}/compare/custom?ids=${compareSlugs.join(",")}`
+              )
+            }
             className="rounded-full bg-accent px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
           >
             {t.compareGo}

@@ -7,7 +7,10 @@ export const metadata: Metadata = {
   title: "Проверка утечки WebRTC",
   description:
     "Проверьте, не раскрывает ли WebRTC ваш настоящий IP-адрес в обход VPN. Бесплатный тест прямо в браузере.",
-  alternates: { canonical: "/webrtc-leak-test" },
+  alternates: {
+    canonical: "/webrtc-leak-test",
+    languages: { ru: `${SITE_URL}/webrtc-leak-test`, en: `${SITE_URL}/en/webrtc-leak-test` },
+  },
 };
 
 const FAQ = [

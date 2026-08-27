@@ -155,7 +155,7 @@ export default async function ServicePageEn(props: Props) {
         {service.tags.map((tag) => (
           <Link
             key={tag}
-            href={`/vpn/category/${tag}`}
+            href={`/en/vpn/category/${tag}`}
             className="rounded-full border border-border px-2.5 py-1 text-xs text-muted transition-colors hover:border-accent hover:text-fg"
           >
             {TAG_LABELS_EN[tag] ?? tag}

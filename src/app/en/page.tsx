@@ -4,6 +4,8 @@ import { getAllServices } from "@/lib/getServices";
 import { CatalogClient } from "@/components/CatalogClient";
 import LightRays from "@/components/LightRays";
 import { TAG_LABELS_EN } from "@/data/tagLabelsEn";
+import { INTENTS_EN } from "@/data/intentsEn";
+import { allIntentSlugs } from "@/data/intents";
 import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
 import { localizeServiceEn } from "@/lib/localizeService";
 
@@ -129,7 +131,7 @@ export default async function HomePageEn() {
           {FEATURED_TAGS.map((tag) => (
             <Link
               key={tag}
-              href={`/vpn/category/${tag}`}
+              href={`/en/vpn/category/${tag}`}
               className="rounded-full border border-border bg-surface px-3 py-1.5 text-sm text-fg transition-colors hover:border-accent"
             >
               {TAG_LABELS_EN[tag] ?? tag}
@@ -138,7 +140,60 @@ export default async function HomePageEn() {
         </div>
       </section>
 
+      <section className="mb-8">
+        <h2 className="mb-3 text-center text-lg font-semibold">Shortlists by use case</h2>
+        <div className="flex flex-wrap justify-center gap-2">
+          {allIntentSlugs().map((slug) => (
+            <Link
+              key={slug}
+              href={`/en/${slug}`}
+              className="rounded-full border border-border bg-surface px-3 py-1.5 text-sm text-fg transition-colors hover:border-accent"
+            >
+              {INTENTS_EN[slug]?.h1 ?? slug}
+            </Link>
+          ))}
+        </div>
+      </section>
+
       <CatalogClient services={services} locale="en" />
+
+      <section className="mt-12">
+        <h2 className="mb-3 text-center text-lg font-semibold">Free tools</h2>
+        <div className="flex flex-wrap justify-center gap-2">
+          <Link
+            href="/en/what-is-my-ip"
+            className="rounded-full border border-border bg-surface px-3 py-1.5 text-sm text-fg transition-colors hover:border-accent"
+          >
+            🌐 What is my IP
+          </Link>
+          <Link
+            href="/en/webrtc-leak-test"
+            className="rounded-full border border-border bg-surface px-3 py-1.5 text-sm text-fg transition-colors hover:border-accent"
+          >
+            🔍 WebRTC leak test
+          </Link>
+          <Link
+            href="/en/is-my-ip-blocked"
+            className="rounded-full border border-border bg-surface px-3 py-1.5 text-sm text-fg transition-colors hover:border-accent"
+          >
+            🚫 Is my IP blocked
+          </Link>
+        </div>
+      </section>
+
+      <section className="mt-12 rounded-2xl border border-border bg-surface p-6 text-center">
+        <h2 className="text-lg font-semibold">How much does a VPN cost?</h2>
+        <p className="mx-auto mt-1 max-w-md text-sm text-muted">
+          A price table of all {services.length} providers in the catalog — from cheapest to
+          priciest.
+        </p>
+        <Link
+          href="/en/vpn-prices"
+          className="mt-4 inline-flex items-center justify-center rounded-full border border-border px-5 py-2.5 text-sm font-medium transition-colors hover:border-accent"
+        >
+          💰 Compare prices →
+        </Link>
+      </section>
 
       <section className="mt-12 rounded-2xl border border-border bg-surface p-6 text-center">
         <h2 className="text-lg font-semibold">Don&apos;t want to figure it out yourself?</h2>
@@ -146,7 +201,7 @@ export default async function HomePageEn() {
           Answer 4 questions — we&apos;ll match a VPN to your task, platform, and budget.
         </p>
         <Link
-          href="/vpn-matcher"
+          href="/en/vpn-matcher"
           className="mt-4 inline-flex items-center justify-center rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
         >
           🎯 Find my VPN

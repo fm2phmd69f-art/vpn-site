@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import { getServicesByTag } from "@/lib/getServices";
 import { TAG_LABELS } from "@/data/services";
 import { ServiceCard } from "@/components/ServiceCard";
-import { SITE_NAME } from "@/lib/seo";
+import { TAG_LABELS_EN } from "@/data/tagLabelsEn";
+import { SITE_NAME, SITE_URL } from "@/lib/seo";
 
 export const revalidate = 1800;
 
@@ -25,10 +26,22 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const title = `${cleanLabel} VPN — список сервисов`;
   const description = `Подборка VPN-сервисов из категории «${cleanLabel}»: цены, заявленная скорость и статус доступности сайта.`;
 
+  const hasEn = Boolean(TAG_LABELS_EN[params.tag]);
+
   return {
     title,
     description,
-    alternates: { canonical: `/vpn/category/${params.tag}` },
+    alternates: {
+      canonical: `/vpn/category/${params.tag}`,
+      ...(hasEn
+        ? {
+            languages: {
+              ru: `${SITE_URL}/vpn/category/${params.tag}`,
+              en: `${SITE_URL}/en/vpn/category/${params.tag}`,
+            },
+          }
+        : {}),
+    },
     openGraph: { title: `${title} | ${SITE_NAME}`, description, type: "website" },
   };
 }

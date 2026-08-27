@@ -9,7 +9,10 @@ export const metadata: Metadata = {
   title: "Мой IP-адрес",
   description:
     "Узнайте свой публичный IP-адрес, страну, регион и часовой пояс — определяется по реальному запросу, без сторонних сервисов.",
-  alternates: { canonical: "/what-is-my-ip" },
+  alternates: {
+    canonical: "/what-is-my-ip",
+    languages: { ru: `${SITE_URL}/what-is-my-ip`, en: `${SITE_URL}/en/what-is-my-ip` },
+  },
 };
 
 const FAQ = [

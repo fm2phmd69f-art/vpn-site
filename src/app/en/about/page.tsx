@@ -102,7 +102,7 @@ export default function AboutPageEn() {
           Browse the catalog →
         </Link>
         <Link
-          href="/vpn-matcher"
+          href="/en/vpn-matcher"
           className="flex-1 rounded-full border border-border px-4 py-2.5 text-center text-sm font-medium transition-colors hover:border-accent"
         >
           Find my VPN →

@@ -1,11 +1,13 @@
 import { BLOG_POSTS_EN } from "@/data/postsEn";
+import { TAG_LABELS_EN } from "@/data/tagLabelsEn";
 
 export type Locale = "ru" | "en";
 
 const TRANSLATED_BLOG_SLUGS = new Set(BLOG_POSTS_EN.map((p) => p.slug));
 
-/** Only these route bases exist in English right now — everything else stays Russian-only until translated. */
+/** Route bases with no untranslated sub-paths — an exact match or any sub-path is fine. */
 const TRANSLATED_BASES = [
+  "/compare",
   "/about",
   "/vpnmarket-score",
   "/vpn-for-netflix",
@@ -20,16 +22,21 @@ const TRANSLATED_BASES = [
   "/vpn-for-windows",
   "/vpn-for-streaming",
   "/vpn-for-travel",
+  "/vpn-matcher",
+  "/vpn-prices",
+  "/what-is-my-ip",
+  "/webrtc-leak-test",
+  "/is-my-ip-blocked",
 ];
-
-/** Exact-match only — these have untranslated sub-paths (e.g. /compare/nordvpn-vs-expressvpn, /compare/custom) that must NOT be treated as translated. */
-const TRANSLATED_EXACT = ["/compare", "/vpn-matcher", "/vpn-prices"];
 
 function isTranslatedPath(path: string): boolean {
   if (path === "/") return true;
   if (path === "/blog") return true;
-  if (TRANSLATED_EXACT.includes(path)) return true;
-  if (/^\/vpn\/(?!category\/)[^/]+$/.test(path)) return true;
+  if (/^\/vpn\/category\/([^/]+)$/.test(path)) {
+    const tag = /^\/vpn\/category\/([^/]+)$/.exec(path)![1];
+    return Boolean(TAG_LABELS_EN[tag]);
+  }
+  if (/^\/vpn\/[^/]+$/.test(path)) return true;
   const blogMatch = /^\/blog\/([^/]+)$/.exec(path);
   if (blogMatch) return TRANSLATED_BLOG_SLUGS.has(blogMatch[1]);
   return TRANSLATED_BASES.some((base) => path === base || path.startsWith(`${base}/`));

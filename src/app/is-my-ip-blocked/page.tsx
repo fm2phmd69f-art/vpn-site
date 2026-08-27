@@ -10,7 +10,10 @@ export const metadata: Metadata = {
   title: "Проверка IP на блокировки (DNSBL)",
   description:
     "Проверьте свой текущий IP-адрес по публичным спам-блокспискам (DNSBL) — Spamhaus, SpamCop, SORBS и другим.",
-  alternates: { canonical: "/is-my-ip-blocked" },
+  alternates: {
+    canonical: "/is-my-ip-blocked",
+    languages: { ru: `${SITE_URL}/is-my-ip-blocked`, en: `${SITE_URL}/en/is-my-ip-blocked` },
+  },
 };
 
 const FAQ = [

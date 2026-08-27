@@ -6,6 +6,7 @@ import { BLOG_POSTS } from "@/data/posts";
 import { BLOG_POSTS_EN } from "@/data/postsEn";
 import { allIntentSlugs } from "@/data/intents";
 import { INTENTS_EN } from "@/data/intentsEn";
+import { TAG_LABELS_EN } from "@/data/tagLabelsEn";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -61,12 +62,36 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.65,
+      alternates: {
+        languages: { ru: `${SITE_URL}/what-is-my-ip`, en: `${SITE_URL}/en/what-is-my-ip` },
+      },
+    },
+    {
+      url: `${SITE_URL}/en/what-is-my-ip`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.6,
+      alternates: {
+        languages: { ru: `${SITE_URL}/what-is-my-ip`, en: `${SITE_URL}/en/what-is-my-ip` },
+      },
     },
     {
       url: `${SITE_URL}/webrtc-leak-test`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.65,
+      alternates: {
+        languages: { ru: `${SITE_URL}/webrtc-leak-test`, en: `${SITE_URL}/en/webrtc-leak-test` },
+      },
+    },
+    {
+      url: `${SITE_URL}/en/webrtc-leak-test`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.6,
+      alternates: {
+        languages: { ru: `${SITE_URL}/webrtc-leak-test`, en: `${SITE_URL}/en/webrtc-leak-test` },
+      },
     },
     {
       url: `${SITE_URL}/vpn-matcher`,
@@ -87,6 +112,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.65,
+      alternates: {
+        languages: { ru: `${SITE_URL}/is-my-ip-blocked`, en: `${SITE_URL}/en/is-my-ip-blocked` },
+      },
+    },
+    {
+      url: `${SITE_URL}/en/is-my-ip-blocked`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.6,
+      alternates: {
+        languages: { ru: `${SITE_URL}/is-my-ip-blocked`, en: `${SITE_URL}/en/is-my-ip-blocked` },
+      },
     },
     {
       url: `${SITE_URL}/about`,
@@ -167,12 +204,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     return entries;
   });
 
-  const comparisons: MetadataRoute.Sitemap = allComparisonPairs().map(({ pairSlug }) => ({
-    url: `${SITE_URL}/compare/${pairSlug}`,
-    lastModified: now,
-    changeFrequency: "weekly",
-    priority: 0.7,
-  }));
+  const comparisons: MetadataRoute.Sitemap = allComparisonPairs().flatMap(({ pairSlug }) => {
+    const ruUrl = `${SITE_URL}/compare/${pairSlug}`;
+    const enUrl = `${SITE_URL}/en/compare/${pairSlug}`;
+    const languages = { ru: ruUrl, en: enUrl };
+    return [
+      { url: ruUrl, lastModified: now, changeFrequency: "weekly", priority: 0.7, alternates: { languages } },
+      { url: enUrl, lastModified: now, changeFrequency: "weekly", priority: 0.65, alternates: { languages } },
+    ] as MetadataRoute.Sitemap;
+  });
 
   const services: MetadataRoute.Sitemap = SEED_SERVICES.flatMap((s) => {
     const ruUrl = `${SITE_URL}/vpn/${s.slug}`;
@@ -184,12 +224,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ] as MetadataRoute.Sitemap;
   });
 
-  const categories: MetadataRoute.Sitemap = Array.from(usedTags).map((tag) => ({
-    url: `${SITE_URL}/vpn/category/${tag}`,
-    lastModified: now,
-    changeFrequency: "weekly",
-    priority: 0.6,
-  }));
+  const categories: MetadataRoute.Sitemap = Array.from(usedTags).flatMap((tag) => {
+    const ruUrl = `${SITE_URL}/vpn/category/${tag}`;
+    const hasEn = Boolean(TAG_LABELS_EN[tag]);
+    if (!hasEn) {
+      return [{ url: ruUrl, lastModified: now, changeFrequency: "weekly", priority: 0.6 }];
+    }
+    const enUrl = `${SITE_URL}/en/vpn/category/${tag}`;
+    const languages = { ru: ruUrl, en: enUrl };
+    return [
+      { url: ruUrl, lastModified: now, changeFrequency: "weekly", priority: 0.6, alternates: { languages } },
+      { url: enUrl, lastModified: now, changeFrequency: "weekly", priority: 0.55, alternates: { languages } },
+    ] as MetadataRoute.Sitemap;
+  });
 
   const intents: MetadataRoute.Sitemap = allIntentSlugs().flatMap((slug) => {
     const ruUrl = `${SITE_URL}/${slug}`;
