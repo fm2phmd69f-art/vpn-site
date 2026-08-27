@@ -1,4 +1,22 @@
 import { ServiceDTO } from "./types";
+import { Locale } from "./i18n";
+
+const REASONS = {
+  ru: {
+    matchesTask: "подходит под вашу задачу",
+    hasFree: "есть бесплатный вариант",
+    withinBudget: "вписывается в бюджет",
+    highSpeed: "высокая заявленная скорость",
+    privacyFocus: "упор на приватность",
+  },
+  en: {
+    matchesTask: "matches your use case",
+    hasFree: "has a free option",
+    withinBudget: "fits your budget",
+    highSpeed: "high claimed speed",
+    privacyFocus: "privacy-focused",
+  },
+};
 
 export type Purpose = "privacy" | "streaming" | "torrents" | "budget" | "gaming" | "business";
 export type Budget = "free" | "under3" | "under7" | "any";
@@ -31,7 +49,12 @@ export interface MatchResult {
   reasons: string[];
 }
 
-export function scoreServices(services: ServiceDTO[], answers: MatcherAnswers): MatchResult[] {
+export function scoreServices(
+  services: ServiceDTO[],
+  answers: MatcherAnswers,
+  locale: Locale = "ru"
+): MatchResult[] {
+  const r = REASONS[locale];
   const results: MatchResult[] = services.map((service) => {
     let score = (service.rating ?? 3) * 2;
     const reasons: string[] = [];
@@ -42,7 +65,7 @@ export function scoreServices(services: ServiceDTO[], answers: MatcherAnswers): 
       (answers.purpose === "gaming" && (service.claimedSpeedMbps ?? 0) >= 800);
     if (hasPurposeTag) {
       score += 4;
-      reasons.push("подходит под вашу задачу");
+      reasons.push(r.matchesTask);
     }
 
     if (answers.platform !== "any") {
@@ -56,7 +79,7 @@ export function scoreServices(services: ServiceDTO[], answers: MatcherAnswers): 
     if (answers.budget === "free") {
       if (service.tags.includes("free-tier") || service.freeOption) {
         score += 3;
-        reasons.push("есть бесплатный вариант");
+        reasons.push(r.hasFree);
       } else {
         score -= 15;
       }
@@ -65,7 +88,7 @@ export function scoreServices(services: ServiceDTO[], answers: MatcherAnswers): 
       if (service.priceMonthlyUsd != null) {
         if (service.priceMonthlyUsd <= max) {
           score += 2;
-          reasons.push("вписывается в бюджет");
+          reasons.push(r.withinBudget);
         } else {
           score -= 10;
         }
@@ -74,11 +97,11 @@ export function scoreServices(services: ServiceDTO[], answers: MatcherAnswers): 
 
     if (answers.priority === "speed" && service.claimedSpeedMbps != null) {
       score += service.claimedSpeedMbps / 150;
-      if (service.claimedSpeedMbps >= 900) reasons.push("высокая заявленная скорость");
+      if (service.claimedSpeedMbps >= 900) reasons.push(r.highSpeed);
     }
     if (answers.priority === "privacy" && (service.tags.includes("privacy") || service.tags.includes("no-logs"))) {
       score += 3;
-      reasons.push("упор на приватность");
+      reasons.push(r.privacyFocus);
     }
     if (answers.priority === "price" && service.priceMonthlyUsd != null) {
       score += Math.max(0, 5 - service.priceMonthlyUsd);

@@ -5,36 +5,37 @@ import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
 import { ServiceLogo } from "@/components/ServiceLogo";
 import { ScoreBadge } from "@/components/ScoreBadge";
 import { computeScore } from "@/lib/score";
+import { localizeServiceEn } from "@/lib/localizeService";
 
 export const revalidate = 1800;
 
 export const metadata: Metadata = {
-  title: "Цены на VPN — таблица тарифов всех провайдеров",
+  title: "VPN prices — plan comparison table for every provider",
   description:
-    "Сравнение цен на VPN-подписки: минимальная стоимость тарифа, бесплатные варианты и заявленная скорость для всех провайдеров в каталоге.",
+    "Compare VPN subscription prices: minimum plan cost, free options, and claimed speed for every provider in the catalog.",
   alternates: {
-    canonical: "/vpn-prices",
+    canonical: "/en/vpn-prices",
     languages: { ru: `${SITE_URL}/vpn-prices`, en: `${SITE_URL}/en/vpn-prices` },
   },
 };
 
 const FAQ = [
   {
-    q: "Откуда цены в таблице?",
-    a: "Цены указаны со слов самих провайдеров — с их официальных сайтов, обычно за самый длинный доступный тарифный период (где цена в пересчёте на месяц минимальна). Мы не проводим собственных переговоров о цене и не гарантируем, что указанная цена сохранится к моменту оплаты.",
+    q: "Where do the prices in the table come from?",
+    a: "Prices are stated by the providers themselves — from their official sites, usually for the longest available plan (where the per-month price is lowest). We don't negotiate prices ourselves and don't guarantee the listed price will still be available when you pay.",
   },
   {
-    q: "Почему у одних сервисов цена в долларах, а у других в евро?",
-    a: "Мы указываем цену в той валюте, в которой её показывает сам провайдер на своём сайте — конвертация в единую валюту не производится, чтобы не создавать курсовую погрешность.",
+    q: "Why are some prices in dollars and others in euros?",
+    a: "We show the price in whatever currency the provider itself displays on its site — we don't convert to a single currency, to avoid introducing exchange-rate error.",
   },
   {
-    q: "Что если у сервиса есть бесплатный тариф?",
-    a: "Если у провайдера есть постоянный бесплатный план (не просто пробный период), это указано отдельным столбцом «Бесплатно» — такие сервисы отсортированы в начале таблицы.",
+    q: "What if a service has a free tier?",
+    a: "If a provider has a standing free plan (not just a trial period), it's listed in a separate \"Free tier\" column — those services are sorted near the top of the table.",
   },
 ];
 
-export default async function VpnPricesPage() {
-  const services = await getAllServices();
+export default async function VpnPricesPageEn() {
+  const services = (await getAllServices()).map(localizeServiceEn);
 
   const sorted = [...services].sort((a, b) => {
     const pa = a.priceMonthlyUsd ?? Infinity;
@@ -46,19 +47,19 @@ export default async function VpnPricesPage() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Главная", item: SITE_URL },
-      { "@type": "ListItem", position: 2, name: "Цены на VPN", item: `${SITE_URL}/vpn-prices` },
+      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/en` },
+      { "@type": "ListItem", position: 2, name: "VPN prices", item: `${SITE_URL}/en/vpn-prices` },
     ],
   };
 
   const itemListJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Цены на VPN-сервисы",
+    name: "VPN service prices",
     itemListElement: sorted.map((s, i) => ({
       "@type": "ListItem",
       position: i + 1,
-      url: `${SITE_URL}/vpn/${s.slug}`,
+      url: `${SITE_URL}/en/vpn/${s.slug}`,
       name: s.name,
     })),
   };
@@ -89,34 +90,34 @@ export default async function VpnPricesPage() {
       />
 
       <nav className="mb-6 text-sm text-muted">
-        <Link href="/" className="hover:text-fg">
-          Главная
+        <Link href="/en" className="hover:text-fg">
+          Home
         </Link>
         {" / "}
-        <span>Цены на VPN</span>
+        <span>VPN prices</span>
       </nav>
 
       <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-        Цены на VPN — сравнение тарифов
+        VPN prices — plan comparison
       </h1>
       <p className="mt-2 max-w-2xl text-sm text-muted">
-        Все {sorted.length} провайдеров из каталога {SITE_NAME}, отсортированные от дешёвых к
-        дорогим по минимальной заявленной цене подписки.
+        All {sorted.length} providers from the {SITE_NAME} catalog, sorted from cheapest to most
+        expensive by minimum claimed subscription price.
       </p>
 
       <div className="mt-6 overflow-x-auto rounded-2xl border border-border">
         <table className="w-full min-w-[560px] text-left text-sm">
           <thead className="bg-surface text-xs uppercase tracking-wide text-muted">
             <tr>
-              <th className="px-4 py-3">Сервис</th>
+              <th className="px-4 py-3">Service</th>
               <th className="px-4 py-3">
-                <Link href="/vpnmarket-score" className="hover:text-fg hover:underline">
+                <Link href="/en/vpnmarket-score" className="hover:text-fg hover:underline">
                   Score
                 </Link>
               </th>
-              <th className="px-4 py-3">Цена от</th>
-              <th className="px-4 py-3">Бесплатно</th>
-              <th className="px-4 py-3">Скорость</th>
+              <th className="px-4 py-3">Price from</th>
+              <th className="px-4 py-3">Free tier</th>
+              <th className="px-4 py-3">Speed</th>
             </tr>
           </thead>
           <tbody>
@@ -124,20 +125,26 @@ export default async function VpnPricesPage() {
               <tr key={s.id} className="border-t border-border">
                 <td className="px-4 py-3">
                   <Link
-                    href={`/vpn/${s.slug}`}
+                    href={`/en/vpn/${s.slug}`}
                     className="flex items-center gap-2 font-medium hover:text-accent"
                   >
-                    <ServiceLogo name={s.name} emoji={s.logo} websiteUrl={s.websiteUrl} status={s.status} />
+                    <ServiceLogo
+                      name={s.name}
+                      emoji={s.logo}
+                      websiteUrl={s.websiteUrl}
+                      status={s.status}
+                      locale="en"
+                    />
                     {s.name}
                   </Link>
                 </td>
                 <td className="px-4 py-3">
-                  <ScoreBadge score={computeScore(s).overall} size="sm" />
+                  <ScoreBadge score={computeScore(s).overall} size="sm" locale="en" />
                 </td>
                 <td className="px-4 py-3">{s.priceFrom}</td>
                 <td className="px-4 py-3 text-muted">{s.freeOption ?? "—"}</td>
                 <td className="px-4 py-3 text-muted">
-                  {s.claimedSpeedMbps != null ? `до ${s.claimedSpeedMbps} Мбит/с` : "—"}
+                  {s.claimedSpeedMbps != null ? `up to ${s.claimedSpeedMbps} Mbps` : "—"}
                 </td>
               </tr>
             ))}
@@ -146,27 +153,27 @@ export default async function VpnPricesPage() {
       </div>
 
       <p className="mt-4 text-xs text-muted">
-        Цены указаны со слов провайдеров и могут отличаться от актуальных на момент оплаты —
-        уточняйте на сайте сервиса перед покупкой.
+        Prices are stated by the providers and may differ from current terms — check the
+        provider&apos;s site before purchasing.
       </p>
 
       <div className="mt-8 flex flex-col gap-2 sm:flex-row">
         <Link
-          href="/compare"
+          href="/en/compare"
           className="flex-1 rounded-full border border-border px-4 py-2.5 text-center text-sm font-medium transition-colors hover:border-accent"
         >
-          Сравнить сервисы попарно →
+          Compare services side by side →
         </Link>
         <Link
-          href="/vpn-matcher"
+          href="/en/vpn-matcher"
           className="flex-1 rounded-full bg-accent px-4 py-2.5 text-center text-sm font-medium text-white transition-opacity hover:opacity-90"
         >
-          Подобрать VPN под задачу →
+          Find a VPN for your use case →
         </Link>
       </div>
 
       <section className="mt-12">
-        <h2 className="mb-4 text-lg font-semibold">Частые вопросы</h2>
+        <h2 className="mb-4 text-lg font-semibold">Frequently asked questions</h2>
         <div className="flex flex-col gap-4">
           {FAQ.map((item) => (
             <div key={item.q}>
@@ -178,8 +185,8 @@ export default async function VpnPricesPage() {
       </section>
 
       <p className="mt-10">
-        <Link href="/" className="text-sm text-accent hover:underline">
-          ← Ко всему каталогу VPN-сервисов
+        <Link href="/en" className="text-sm text-accent hover:underline">
+          ← Back to the full VPN catalog
         </Link>
       </p>
     </main>

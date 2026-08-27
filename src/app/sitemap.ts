@@ -28,7 +28,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
       alternates: { languages: { ru: SITE_URL, en: `${SITE_URL}/en` } },
     },
-    { url: `${SITE_URL}/compare`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    {
+      url: `${SITE_URL}/compare`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.7,
+      alternates: { languages: { ru: `${SITE_URL}/compare`, en: `${SITE_URL}/en/compare` } },
+    },
+    {
+      url: `${SITE_URL}/en/compare`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.65,
+      alternates: { languages: { ru: `${SITE_URL}/compare`, en: `${SITE_URL}/en/compare` } },
+    },
     {
       url: `${SITE_URL}/blog`,
       lastModified: now,
@@ -55,7 +68,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.65,
     },
-    { url: `${SITE_URL}/vpn-matcher`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    {
+      url: `${SITE_URL}/vpn-matcher`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8,
+      alternates: { languages: { ru: `${SITE_URL}/vpn-matcher`, en: `${SITE_URL}/en/vpn-matcher` } },
+    },
+    {
+      url: `${SITE_URL}/en/vpn-matcher`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.75,
+      alternates: { languages: { ru: `${SITE_URL}/vpn-matcher`, en: `${SITE_URL}/en/vpn-matcher` } },
+    },
     {
       url: `${SITE_URL}/is-my-ip-blocked`,
       lastModified: now,
@@ -81,6 +107,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.7,
+      alternates: { languages: { ru: `${SITE_URL}/vpn-prices`, en: `${SITE_URL}/en/vpn-prices` } },
+    },
+    {
+      url: `${SITE_URL}/en/vpn-prices`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.65,
+      alternates: { languages: { ru: `${SITE_URL}/vpn-prices`, en: `${SITE_URL}/en/vpn-prices` } },
     },
     {
       url: `${SITE_URL}/vpnmarket-score`,

@@ -22,9 +22,13 @@ const TRANSLATED_BASES = [
   "/vpn-for-travel",
 ];
 
+/** Exact-match only — these have untranslated sub-paths (e.g. /compare/nordvpn-vs-expressvpn, /compare/custom) that must NOT be treated as translated. */
+const TRANSLATED_EXACT = ["/compare", "/vpn-matcher", "/vpn-prices"];
+
 function isTranslatedPath(path: string): boolean {
   if (path === "/") return true;
   if (path === "/blog") return true;
+  if (TRANSLATED_EXACT.includes(path)) return true;
   if (/^\/vpn\/(?!category\/)[^/]+$/.test(path)) return true;
   const blogMatch = /^\/blog\/([^/]+)$/.exec(path);
   if (blogMatch) return TRANSLATED_BLOG_SLUGS.has(blogMatch[1]);

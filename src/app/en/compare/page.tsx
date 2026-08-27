@@ -8,16 +8,16 @@ import { ServiceLogo } from "@/components/ServiceLogo";
 export const revalidate = 1800;
 
 export const metadata: Metadata = {
-  title: "Сравнение VPN-сервисов между собой",
+  title: "Compare VPN services",
   description:
-    "Прямые сравнения популярных VPN-провайдеров: цена, скорость, платформы и функции NordVPN, ExpressVPN, Surfshark, Proton VPN и других.",
+    "Direct comparisons of popular VPN providers: price, speed, platforms, and features for NordVPN, ExpressVPN, Surfshark, Proton VPN, and others.",
   alternates: {
-    canonical: "/compare",
+    canonical: "/en/compare",
     languages: { ru: `${SITE_URL}/compare`, en: `${SITE_URL}/en/compare` },
   },
 };
 
-export default async function ComparePage() {
+export default async function ComparePageEn() {
   const services = await getAllServices();
   const byId = new Map(services.map((s) => [s.slug, s]));
   const pairs = allComparisonPairs();
@@ -25,17 +25,17 @@ export default async function ComparePage() {
   return (
     <main className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
       <nav className="mb-6 text-sm text-muted">
-        <Link href="/" className="hover:text-fg">
-          Главная
+        <Link href="/en" className="hover:text-fg">
+          Home
         </Link>
         {" / "}
-        <span>Сравнения</span>
+        <span>Comparisons</span>
       </nav>
 
-      <h1 className="text-2xl font-semibold tracking-tight">Сравнение VPN-сервисов</h1>
+      <h1 className="text-2xl font-semibold tracking-tight">Compare VPN services</h1>
       <p className="mt-2 max-w-2xl text-muted">
-        Прямое сравнение популярных провайдеров по цене, заявленной скорости, платформам и
-        функциям — на {SITE_NAME}.
+        A direct comparison of popular providers by price, claimed speed, platforms, and features
+        — on {SITE_NAME}.
       </p>
 
       <div className="mt-8 grid grid-cols-1 gap-2 sm:grid-cols-2">
@@ -49,22 +49,22 @@ export default async function ComparePage() {
               href={`/compare/${pairSlug}`}
               className="flex items-center gap-2 rounded-xl border border-border bg-surface px-4 py-3 text-sm transition-colors hover:border-accent"
             >
-              <ServiceLogo name={sa.name} emoji={sa.logo} websiteUrl={sa.websiteUrl} status={sa.status} />
+              <ServiceLogo name={sa.name} emoji={sa.logo} websiteUrl={sa.websiteUrl} status={sa.status} locale="en" />
               <span className="font-medium">{sa.name}</span>
               <span className="text-muted">vs</span>
               <span className="font-medium">{sb.name}</span>
-              <ServiceLogo name={sb.name} emoji={sb.logo} websiteUrl={sb.websiteUrl} status={sb.status} />
+              <ServiceLogo name={sb.name} emoji={sb.logo} websiteUrl={sb.websiteUrl} status={sb.status} locale="en" />
             </Link>
           );
         })}
       </div>
 
       <p className="mt-10 flex flex-col gap-2 sm:flex-row sm:gap-4">
-        <Link href="/vpn-prices" className="text-sm text-accent hover:underline">
-          Таблица цен всех провайдеров →
+        <Link href="/en/vpn-prices" className="text-sm text-accent hover:underline">
+          Price table for all providers →
         </Link>
-        <Link href="/" className="text-sm text-accent hover:underline">
-          ← Ко всему каталогу VPN-сервисов
+        <Link href="/en" className="text-sm text-accent hover:underline">
+          ← Back to the full VPN catalog
         </Link>
       </p>
     </main>

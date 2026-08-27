@@ -10,7 +10,10 @@ export const metadata: Metadata = {
   title: "VPN Matcher — подбор VPN за 4 вопроса",
   description:
     "Ответьте на 4 вопроса о задаче, платформе и бюджете — получите подборку из 5 подходящих VPN-сервисов из каталога.",
-  alternates: { canonical: "/vpn-matcher" },
+  alternates: {
+    canonical: "/vpn-matcher",
+    languages: { ru: `${SITE_URL}/vpn-matcher`, en: `${SITE_URL}/en/vpn-matcher` },
+  },
 };
 
 const FAQ = [
