@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllServices, getServiceBySlug } from "@/lib/getServices";
 import { TAG_LABELS_EN } from "@/data/tagLabelsEn";
-import { SERVICE_DESCRIPTIONS_EN } from "@/data/serviceDescriptionsEn";
+import { localizeServiceEn } from "@/lib/localizeService";
 import { StatusBadge } from "@/components/StatusBadge";
 import { ServiceCard } from "@/components/ServiceCard";
 import { ReportForm } from "@/components/ReportForm";
@@ -21,10 +21,11 @@ interface Props {
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;
-  const service = await getServiceBySlug(params.slug);
-  if (!service) return {};
+  const raw = await getServiceBySlug(params.slug);
+  if (!raw) return {};
+  const service = localizeServiceEn(raw);
 
-  const description = SERVICE_DESCRIPTIONS_EN[service.slug] ?? service.description;
+  const description = service.description;
   const title = `${service.name} — price, speed, review`;
   const metaDescription = `${service.name}: ${service.priceFrom}. ${description}`.slice(0, 160);
 
@@ -49,15 +50,17 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 export default async function ServicePageEn(props: Props) {
   const params = await props.params;
-  const service = await getServiceBySlug(params.slug);
-  if (!service) notFound();
+  const raw = await getServiceBySlug(params.slug);
+  if (!raw) notFound();
+  const service = localizeServiceEn(raw);
 
-  const description = SERVICE_DESCRIPTIONS_EN[service.slug] ?? service.description;
+  const description = service.description;
 
   const allServices = await getAllServices();
   const related = allServices
     .filter((s) => s.id !== service.id && s.tags.some((t) => service.tags.includes(t)))
-    .slice(0, 3);
+    .slice(0, 3)
+    .map(localizeServiceEn);
 
   const uptime30d = await getUptimeStats(service.id, 30);
   const score = computeScore(service);

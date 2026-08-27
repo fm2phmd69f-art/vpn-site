@@ -5,6 +5,7 @@ import { CatalogClient } from "@/components/CatalogClient";
 import LightRays from "@/components/LightRays";
 import { TAG_LABELS_EN } from "@/data/tagLabelsEn";
 import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
+import { localizeServiceEn } from "@/lib/localizeService";
 
 export const revalidate = 1800;
 
@@ -59,7 +60,7 @@ const FAQ_ITEMS = [
 ];
 
 export default async function HomePageEn() {
-  const services = await getAllServices();
+  const services = (await getAllServices()).map(localizeServiceEn);
 
   const itemListJsonLd = {
     "@context": "https://schema.org",
