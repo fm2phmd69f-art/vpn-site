@@ -9,7 +9,7 @@ import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
 export const revalidate = 1800;
 
 export const metadata: Metadata = {
-  title: `${SITE_NAME} — VPN comparison`,
+  title: { absolute: `${SITE_NAME} — VPN comparison` },
   description:
     "A catalog of 60+ VPN providers: prices, claimed speed, platforms, and features. Filter by no-logs, free tiers, Netflix, torrenting. Site availability status checked automatically.",
   alternates: { canonical: "/en", languages: { ru: SITE_URL, en: `${SITE_URL}/en` } },
