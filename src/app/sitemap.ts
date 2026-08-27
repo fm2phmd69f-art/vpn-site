@@ -12,7 +12,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
   SEED_SERVICES.forEach((s) => s.tags.forEach((t) => usedTags.add(t)));
 
   const home: MetadataRoute.Sitemap = [
-    { url: SITE_URL, lastModified: now, changeFrequency: "daily", priority: 1 },
+    {
+      url: SITE_URL,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 1,
+      alternates: { languages: { ru: SITE_URL, en: `${SITE_URL}/en` } },
+    },
+    {
+      url: `${SITE_URL}/en`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.9,
+      alternates: { languages: { ru: SITE_URL, en: `${SITE_URL}/en` } },
+    },
     { url: `${SITE_URL}/compare`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: `${SITE_URL}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     {
@@ -34,7 +47,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.65,
     },
-    { url: `${SITE_URL}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.4 },
+    {
+      url: `${SITE_URL}/about`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.4,
+      alternates: { languages: { ru: `${SITE_URL}/about`, en: `${SITE_URL}/en/about` } },
+    },
+    {
+      url: `${SITE_URL}/en/about`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.35,
+      alternates: { languages: { ru: `${SITE_URL}/about`, en: `${SITE_URL}/en/about` } },
+    },
     {
       url: `${SITE_URL}/vpn-prices`,
       lastModified: now,
@@ -46,6 +72,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.5,
+      alternates: {
+        languages: { ru: `${SITE_URL}/vpnmarket-score`, en: `${SITE_URL}/en/vpnmarket-score` },
+      },
+    },
+    {
+      url: `${SITE_URL}/en/vpnmarket-score`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.45,
+      alternates: {
+        languages: { ru: `${SITE_URL}/vpnmarket-score`, en: `${SITE_URL}/en/vpnmarket-score` },
+      },
     },
   ];
 
@@ -64,12 +102,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  const services: MetadataRoute.Sitemap = SEED_SERVICES.map((s) => ({
-    url: `${SITE_URL}/vpn/${s.slug}`,
-    lastModified: now,
-    changeFrequency: "daily",
-    priority: 0.8,
-  }));
+  const services: MetadataRoute.Sitemap = SEED_SERVICES.flatMap((s) => {
+    const ruUrl = `${SITE_URL}/vpn/${s.slug}`;
+    const enUrl = `${SITE_URL}/en/vpn/${s.slug}`;
+    const languages = { ru: ruUrl, en: enUrl };
+    return [
+      { url: ruUrl, lastModified: now, changeFrequency: "daily", priority: 0.8, alternates: { languages } },
+      { url: enUrl, lastModified: now, changeFrequency: "daily", priority: 0.75, alternates: { languages } },
+    ] as MetadataRoute.Sitemap;
+  });
 
   const categories: MetadataRoute.Sitemap = Array.from(usedTags).map((tag) => ({
     url: `${SITE_URL}/vpn/category/${tag}`,

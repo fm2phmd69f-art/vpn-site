@@ -5,6 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
 import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 
 const YANDEX_METRIKA_ID = 111914335;
 
@@ -93,6 +94,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </noscript>
         <SiteHeader />
         {children}
+        <SiteFooter />
         <Analytics />
         <SpeedInsights />
       </body>

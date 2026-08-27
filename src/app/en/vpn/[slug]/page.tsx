@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllServices, getServiceBySlug } from "@/lib/getServices";
-import { TAG_LABELS } from "@/data/services";
+import { TAG_LABELS_EN } from "@/data/tagLabelsEn";
+import { SERVICE_DESCRIPTIONS_EN } from "@/data/serviceDescriptionsEn";
 import { StatusBadge } from "@/components/StatusBadge";
 import { ServiceCard } from "@/components/ServiceCard";
 import { ReportForm } from "@/components/ReportForm";
@@ -23,30 +24,35 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const service = await getServiceBySlug(params.slug);
   if (!service) return {};
 
-  const title = `${service.name} — цена, скорость, отзывы`;
-  const description = `${service.name}: ${service.priceFrom}. ${service.description}`.slice(
-    0,
-    160
-  );
+  const description = SERVICE_DESCRIPTIONS_EN[service.slug] ?? service.description;
+  const title = `${service.name} — price, speed, review`;
+  const metaDescription = `${service.name}: ${service.priceFrom}. ${description}`.slice(0, 160);
 
   return {
     title,
-    description,
+    description: metaDescription,
     alternates: {
-      canonical: `/vpn/${service.slug}`,
+      canonical: `/en/vpn/${service.slug}`,
       languages: {
         ru: `${SITE_URL}/vpn/${service.slug}`,
         en: `${SITE_URL}/en/vpn/${service.slug}`,
       },
     },
-    openGraph: { title: `${service.name} | ${SITE_NAME}`, description, type: "website" },
+    openGraph: {
+      title: `${service.name} | ${SITE_NAME}`,
+      description: metaDescription,
+      type: "website",
+      locale: "en_US",
+    },
   };
 }
 
-export default async function ServicePage(props: Props) {
+export default async function ServicePageEn(props: Props) {
   const params = await props.params;
   const service = await getServiceBySlug(params.slug);
   if (!service) notFound();
+
+  const description = SERVICE_DESCRIPTIONS_EN[service.slug] ?? service.description;
 
   const allServices = await getAllServices();
   const related = allServices
@@ -60,13 +66,13 @@ export default async function ServicePage(props: Props) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Главная", item: SITE_URL },
-      { "@type": "ListItem", position: 2, name: "Каталог", item: `${SITE_URL}/#catalog` },
+      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/en` },
+      { "@type": "ListItem", position: 2, name: "Catalog", item: `${SITE_URL}/en#catalog` },
       {
         "@type": "ListItem",
         position: 3,
         name: service.name,
-        item: `${SITE_URL}/vpn/${service.slug}`,
+        item: `${SITE_URL}/en/vpn/${service.slug}`,
       },
     ],
   };
@@ -79,8 +85,8 @@ export default async function ServicePage(props: Props) {
       />
 
       <nav className="mb-6 text-sm text-muted">
-        <Link href="/" className="hover:text-fg">
-          Главная
+        <Link href="/en" className="hover:text-fg">
+          Home
         </Link>
         {" / "}
         <span>{service.name}</span>
@@ -92,11 +98,12 @@ export default async function ServicePage(props: Props) {
           emoji={service.logo}
           websiteUrl={service.websiteUrl}
           status={service.status}
+          locale="en"
         />
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">{service.name}</h1>
           {service.rating != null && (
-            <p className="text-sm text-muted">⭐ {service.rating.toFixed(1)} (оценка провайдера)</p>
+            <p className="text-sm text-muted">⭐ {service.rating.toFixed(1)} (provider&apos;s own rating)</p>
           )}
         </div>
       </div>
@@ -105,37 +112,38 @@ export default async function ServicePage(props: Props) {
         status={service.status}
         latencyMs={service.latencyMs}
         lastCheckedAt={service.lastCheckedAt}
+        locale="en"
       />
       {uptime30d.uptimePercent != null && (
         <p className="mt-1 text-xs text-muted">
-          Аптайм сайта за 30 дней: {uptime30d.uptimePercent}% ({uptime30d.onlineChecks} из{" "}
-          {uptime30d.totalChecks} проверок)
+          30-day site uptime: {uptime30d.uptimePercent}% ({uptime30d.onlineChecks} of{" "}
+          {uptime30d.totalChecks} checks)
         </p>
       )}
 
-      <p className="mt-4 text-sm leading-relaxed text-fg">{service.description}</p>
+      <p className="mt-4 text-sm leading-relaxed text-fg">{description}</p>
 
-      <ScoreBreakdownCard score={score} />
+      <ScoreBreakdownCard score={score} locale="en" />
 
       <dl className="mt-6 grid grid-cols-2 gap-x-4 gap-y-3 rounded-2xl border border-border bg-surface p-5 text-sm sm:grid-cols-3">
         <div>
-          <dt className="text-muted">Цена</dt>
+          <dt className="text-muted">Price</dt>
           <dd className="font-medium">{service.priceFrom}</dd>
         </div>
         {service.claimedSpeedMbps != null && (
           <div>
-            <dt className="text-muted">Заявл. скорость</dt>
-            <dd className="font-medium">до {service.claimedSpeedMbps} Мбит/с</dd>
+            <dt className="text-muted">Claimed speed</dt>
+            <dd className="font-medium">up to {service.claimedSpeedMbps} Mbps</dd>
           </div>
         )}
         {service.freeOption && (
           <div>
-            <dt className="text-muted">Бесплатно</dt>
+            <dt className="text-muted">Free tier</dt>
             <dd className="font-medium">{service.freeOption}</dd>
           </div>
         )}
         <div className="col-span-2 sm:col-span-3">
-          <dt className="text-muted">Платформы</dt>
+          <dt className="text-muted">Platforms</dt>
           <dd className="font-medium">{service.platforms.join(", ")}</dd>
         </div>
       </dl>
@@ -147,7 +155,7 @@ export default async function ServicePage(props: Props) {
             href={`/vpn/category/${tag}`}
             className="rounded-full border border-border px-2.5 py-1 text-xs text-muted transition-colors hover:border-accent hover:text-fg"
           >
-            {TAG_LABELS[tag] ?? tag}
+            {TAG_LABELS_EN[tag] ?? tag}
           </Link>
         ))}
       </div>
@@ -158,30 +166,30 @@ export default async function ServicePage(props: Props) {
         rel="noopener noreferrer nofollow"
         className="mt-8 inline-flex items-center justify-center rounded-full bg-accent px-6 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
       >
-        Перейти на сайт {service.name}
+        Visit {service.name}
       </a>
 
       <p className="mt-4 text-xs text-muted">
-        Цена, скорость и условия указаны со слов провайдера и могут измениться — уточняйте
-        актуальные данные на официальном сайте перед покупкой.
+        Price, speed, and terms are stated by the provider and may change — check the current
+        terms on the official site before purchasing.
       </p>
 
-      <ReportForm serviceId={service.id} />
+      <ReportForm serviceId={service.id} locale="en" />
 
       {related.length > 0 && (
         <section className="mt-12">
-          <h2 className="mb-4 text-lg font-semibold">Похожие сервисы</h2>
+          <h2 className="mb-4 text-lg font-semibold">Similar services</h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {related.map((s) => (
-              <ServiceCard key={s.id} service={s} />
+              <ServiceCard key={s.id} service={s} locale="en" />
             ))}
           </div>
         </section>
       )}
 
       <p className="mt-10">
-        <Link href="/" className="text-sm text-accent hover:underline">
-          ← Ко всему каталогу VPN-сервисов
+        <Link href="/en" className="text-sm text-accent hover:underline">
+          ← Back to the full VPN catalog
         </Link>
       </p>
     </main>

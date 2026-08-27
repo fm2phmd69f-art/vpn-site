@@ -8,7 +8,10 @@ export const metadata: Metadata = {
   title: "О проекте",
   description:
     "Как устроен VPN Маркетплейс: откуда берутся данные о провайдерах, как мы проверяем доступность сайтов и на чём зарабатываем.",
-  alternates: { canonical: "/about" },
+  alternates: {
+    canonical: "/about",
+    languages: { ru: `${SITE_URL}/about`, en: `${SITE_URL}/en/about` },
+  },
 };
 
 const SECTIONS = [

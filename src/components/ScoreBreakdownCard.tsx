@@ -1,14 +1,16 @@
 import Link from "next/link";
 import { ScoreBreakdown } from "@/lib/score";
 import { ScoreBadge } from "./ScoreBadge";
+import { Locale } from "@/lib/i18n";
+import { UI } from "@/lib/uiDictionary";
 
-const ROWS: { key: keyof Omit<ScoreBreakdown, "overall">; label: string }[] = [
-  { key: "privacy", label: "Приватность" },
-  { key: "speed", label: "Скорость" },
-  { key: "price", label: "Цена" },
-  { key: "streaming", label: "Стриминг" },
-  { key: "features", label: "Функции" },
-  { key: "reliability", label: "Надёжность" },
+const ROW_KEYS: (keyof Omit<ScoreBreakdown, "overall">)[] = [
+  "privacy",
+  "speed",
+  "price",
+  "streaming",
+  "features",
+  "reliability",
 ];
 
 function barColor(score: number): string {
@@ -17,25 +19,34 @@ function barColor(score: number): string {
   return "var(--offline)";
 }
 
-export function ScoreBreakdownCard({ score }: { score: ScoreBreakdown }) {
+export function ScoreBreakdownCard({
+  score,
+  locale = "ru",
+}: {
+  score: ScoreBreakdown;
+  locale?: Locale;
+}) {
+  const labels = UI[locale].score;
+  const scorePath = locale === "en" ? "/en/vpnmarket-score" : "/vpnmarket-score";
+
   return (
     <div className="mt-6 rounded-2xl border border-border bg-surface p-5">
       <div className="flex items-center gap-3">
         <ScoreBadge score={score.overall} />
         <div>
-          <p className="text-sm font-semibold">VPNmarket Score</p>
-          <Link href="/vpnmarket-score" className="text-xs text-accent hover:underline">
-            Как считается →
+          <p className="text-sm font-semibold">{labels.title}</p>
+          <Link href={scorePath} className="text-xs text-accent hover:underline">
+            {labels.howItWorks}
           </Link>
         </div>
       </div>
 
       <div className="mt-4 flex flex-col gap-2.5">
-        {ROWS.map((row) => {
-          const value = score[row.key];
+        {ROW_KEYS.map((key) => {
+          const value = score[key];
           return (
-            <div key={row.key} className="flex items-center gap-3 text-sm">
-              <span className="w-24 shrink-0 text-muted">{row.label}</span>
+            <div key={key} className="flex items-center gap-3 text-sm">
+              <span className="w-24 shrink-0 text-muted">{labels[key]}</span>
               <div className="h-2 flex-1 overflow-hidden rounded-full bg-border">
                 <div
                   className="h-full rounded-full"

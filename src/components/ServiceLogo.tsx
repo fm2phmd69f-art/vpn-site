@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { faviconUrl } from "@/lib/logo";
 import { ServiceStatus } from "@/lib/types";
+import { Locale } from "@/lib/i18n";
 
 const SIZE = 26;
 
@@ -12,6 +13,7 @@ interface Props {
   websiteUrl: string;
   status?: ServiceStatus;
   className?: string;
+  locale?: Locale;
 }
 
 /**
@@ -19,17 +21,26 @@ interface Props {
  * card's layout. Falls back to the emoji if no favicon is found, or to a cross if the
  * site is currently reported offline.
  */
-export function ServiceLogo({ name, emoji, websiteUrl, status, className = "" }: Props) {
+export function ServiceLogo({
+  name,
+  emoji,
+  websiteUrl,
+  status,
+  className = "",
+  locale = "ru",
+}: Props) {
   const [failed, setFailed] = useState(false);
   const src = faviconUrl(websiteUrl);
 
   if (status === "OFFLINE") {
+    const offlineLabel =
+      locale === "en" ? `${name}: site is currently down` : `${name}: сайт сейчас недоступен`;
     return (
       <span
         className={`inline-flex shrink-0 items-center justify-center rounded-full bg-[var(--offline)]/15 leading-none text-[var(--offline)] ${className}`}
         style={{ width: SIZE, height: SIZE, fontSize: SIZE * 0.55 }}
-        title={`${name}: сайт сейчас недоступен`}
-        aria-label={`${name}: сайт сейчас недоступен`}
+        title={offlineLabel}
+        aria-label={offlineLabel}
       >
         ✕
       </span>
@@ -52,7 +63,7 @@ export function ServiceLogo({ name, emoji, websiteUrl, status, className = "" }:
     // eslint-disable-next-line @next/next/no-img-element
     <img
       src={src}
-      alt={`Логотип ${name}`}
+      alt={locale === "en" ? `${name} logo` : `Логотип ${name}`}
       width={SIZE}
       height={SIZE}
       className={`inline-block shrink-0 rounded-md object-contain ${className}`}

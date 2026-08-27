@@ -6,6 +6,9 @@ import { ServiceDTO } from "@/lib/types";
 import { ServiceCard } from "./ServiceCard";
 import { computeScore } from "@/lib/score";
 import { TAG_LABELS } from "@/data/services";
+import { TAG_LABELS_EN } from "@/data/tagLabelsEn";
+import { Locale } from "@/lib/i18n";
+import { UI } from "@/lib/uiDictionary";
 
 const MAX_COMPARE = 4;
 const MIN_COMPARE = 2;
@@ -15,15 +18,6 @@ const MOBILE_PAGE_SIZE = 30;
 const MOBILE_BREAKPOINT = 640; // matches Tailwind's `sm`
 
 type SortKey = "recommended" | "price-asc" | "price-desc" | "score" | "speed" | "rating";
-
-const SORT_LABELS: Record<SortKey, string> = {
-  recommended: "Рекомендованные",
-  "price-asc": "Цена: сначала дешевле",
-  "price-desc": "Цена: сначала дороже",
-  score: "VPNmarket Score",
-  speed: "Заявленная скорость",
-  rating: "Рейтинг провайдера",
-};
 
 const PLATFORM_FILTERS: { label: string; match: (platforms: string[]) => boolean }[] = [
   { label: "iPhone", match: (p) => p.includes("iOS") },
@@ -44,8 +38,16 @@ const TASK_TAGS = [
   "circumvention",
 ];
 
-export function CatalogClient({ services }: { services: ServiceDTO[] }) {
+export function CatalogClient({
+  services,
+  locale = "ru",
+}: {
+  services: ServiceDTO[];
+  locale?: Locale;
+}) {
   const router = useRouter();
+  const t = UI[locale].catalog;
+  const tagLabels = locale === "en" ? TAG_LABELS_EN : TAG_LABELS;
   const [pageSize, setPageSize] = useState(DESKTOP_PAGE_SIZE);
   const [visibleCount, setVisibleCount] = useState(DESKTOP_PAGE_SIZE);
   const [sort, setSort] = useState<SortKey>("recommended");
@@ -138,22 +140,22 @@ export function CatalogClient({ services }: { services: ServiceDTO[] }) {
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-xs font-medium text-muted">Сортировка:</span>
+          <span className="text-xs font-medium text-muted">{t.sort}</span>
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value as SortKey)}
             className="rounded-full border border-border bg-bg px-3 py-1.5 text-sm"
           >
-            {(Object.keys(SORT_LABELS) as SortKey[]).map((key) => (
+            {(Object.keys(t.sortLabels) as SortKey[]).map((key) => (
               <option key={key} value={key}>
-                {SORT_LABELS[key]}
+                {t.sortLabels[key]}
               </option>
             ))}
           </select>
         </div>
 
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="mr-1 text-xs font-medium text-muted">Платформа:</span>
+          <span className="mr-1 text-xs font-medium text-muted">{t.platform}</span>
           {PLATFORM_FILTERS.map((p) => (
             <button
               key={p.label}
@@ -171,7 +173,7 @@ export function CatalogClient({ services }: { services: ServiceDTO[] }) {
         </div>
 
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="mr-1 text-xs font-medium text-muted">Задача:</span>
+          <span className="mr-1 text-xs font-medium text-muted">{t.task}</span>
           {TASK_TAGS.map((tag) => (
             <button
               key={tag}
@@ -183,14 +185,14 @@ export function CatalogClient({ services }: { services: ServiceDTO[] }) {
                   : "border-border hover:border-accent"
               }`}
             >
-              {TAG_LABELS[tag] ?? tag}
+              {tagLabels[tag] ?? tag}
             </button>
           ))}
         </div>
 
         {(platform || task || sort !== "recommended") && (
           <div className="flex items-center justify-between text-xs text-muted">
-            <span>Показано {filteredSorted.length} из {services.length}</span>
+            <span>{t.shownOf(filteredSorted.length, services.length)}</span>
             <button
               type="button"
               onClick={() => {
@@ -200,22 +202,21 @@ export function CatalogClient({ services }: { services: ServiceDTO[] }) {
               }}
               className="text-accent hover:underline"
             >
-              Сбросить
+              {t.reset}
             </button>
           </div>
         )}
       </div>
 
       {filteredSorted.length === 0 ? (
-        <p className="py-10 text-center text-sm text-muted">
-          Ничего не найдено под эти фильтры — попробуйте сбросить их.
-        </p>
+        <p className="py-10 text-center text-sm text-muted">{t.empty}</p>
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {visible.map((service) => (
             <ServiceCard
               key={service.id}
               service={service}
+              locale={locale}
               compare={{
                 selected: compareSlugs.includes(service.slug),
                 disabled:
@@ -235,9 +236,7 @@ export function CatalogClient({ services }: { services: ServiceDTO[] }) {
 
       {compareSlugs.length > 0 && (
         <div className="fixed inset-x-4 bottom-4 z-40 mx-auto flex max-w-3xl flex-wrap items-center gap-3 rounded-2xl border border-border bg-surface p-4 shadow-lg">
-          <span className="text-sm font-medium">
-            Сравнение: {compareSlugs.length}/{MAX_COMPARE}
-          </span>
+          <span className="text-sm font-medium">{t.compareCount(compareSlugs.length, MAX_COMPARE)}</span>
           <div className="flex flex-1 flex-wrap gap-1.5">
             {compareServices.map((s) => (
               <span
@@ -248,7 +247,7 @@ export function CatalogClient({ services }: { services: ServiceDTO[] }) {
                 <button
                   type="button"
                   onClick={() => toggleCompare(s.slug)}
-                  aria-label={`Убрать ${s.name} из сравнения`}
+                  aria-label={locale === "en" ? `Remove ${s.name} from comparison` : `Убрать ${s.name} из сравнения`}
                   className="text-muted hover:text-fg"
                 >
                   ✕
@@ -261,17 +260,15 @@ export function CatalogClient({ services }: { services: ServiceDTO[] }) {
             onClick={() => setCompareSlugs([])}
             className="rounded-full border border-border px-3 py-2 text-sm transition-colors hover:border-accent"
           >
-            Очистить
+            {t.clear}
           </button>
           <button
             type="button"
             disabled={compareSlugs.length < MIN_COMPARE}
-            onClick={() =>
-              router.push(`/compare/custom?ids=${compareSlugs.join(",")}`)
-            }
+            onClick={() => router.push(`/compare/custom?ids=${compareSlugs.join(",")}`)}
             className="rounded-full bg-accent px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
           >
-            Сравнить →
+            {t.compareGo}
           </button>
         </div>
       )}

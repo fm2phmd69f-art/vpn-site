@@ -1,10 +1,13 @@
 import Link from "next/link";
 import { ServiceDTO } from "@/lib/types";
 import { TAG_LABELS } from "@/data/services";
+import { TAG_LABELS_EN } from "@/data/tagLabelsEn";
 import { StatusBadge } from "./StatusBadge";
 import { ServiceLogo } from "./ServiceLogo";
 import { ScoreBadge } from "./ScoreBadge";
 import { computeScore } from "@/lib/score";
+import { Locale } from "@/lib/i18n";
+import { UI } from "@/lib/uiDictionary";
 
 const ADVANTAGE_TAG_PRIORITY = [
   "no-logs",
@@ -39,6 +42,7 @@ function topAdvantageTags(tags: string[], max = 3): string[] {
 
 interface Props {
   service: ServiceDTO;
+  locale?: Locale;
   compare?: {
     selected: boolean;
     disabled: boolean;
@@ -46,9 +50,12 @@ interface Props {
   };
 }
 
-export function ServiceCard({ service, compare }: Props) {
+export function ServiceCard({ service, locale = "ru", compare }: Props) {
   const score = computeScore(service);
   const advantages = topAdvantageTags(service.tags);
+  const labels = locale === "en" ? TAG_LABELS_EN : TAG_LABELS;
+  const t = UI[locale].card;
+  const basePath = locale === "en" ? `/en/vpn/${service.slug}` : `/vpn/${service.slug}`;
 
   return (
     <div
@@ -71,7 +78,7 @@ export function ServiceCard({ service, compare }: Props) {
             onChange={compare.onToggle}
             className="sr-only"
           />
-          {compare.selected ? "✓ В сравнении" : "+ Сравнить"}
+          {compare.selected ? t.compareOn : t.compareAdd}
         </label>
       )}
       <div className="flex items-center justify-between gap-2.5">
@@ -81,10 +88,11 @@ export function ServiceCard({ service, compare }: Props) {
             emoji={service.logo}
             websiteUrl={service.websiteUrl}
             status={service.status}
+            locale={locale}
           />
           <div>
             <h3 className="text-base font-semibold leading-tight">
-              <Link href={`/vpn/${service.slug}`} className="hover:text-accent hover:underline">
+              <Link href={basePath} className="hover:text-accent hover:underline">
                 {service.name}
               </Link>
             </h3>
@@ -93,13 +101,14 @@ export function ServiceCard({ service, compare }: Props) {
             )}
           </div>
         </div>
-        <ScoreBadge score={score.overall} size="sm" />
+        <ScoreBadge score={score.overall} size="sm" locale={locale} />
       </div>
 
       <StatusBadge
         status={service.status}
         latencyMs={service.latencyMs}
         lastCheckedAt={service.lastCheckedAt}
+        locale={locale}
       />
 
       <p className="text-xl font-semibold tracking-tight">{service.priceFrom}</p>
@@ -111,7 +120,7 @@ export function ServiceCard({ service, compare }: Props) {
               key={tag}
               className="rounded-full border border-border px-2 py-0.5 text-xs text-muted"
             >
-              {TAG_LABELS[tag] ?? tag}
+              {labels[tag] ?? tag}
             </span>
           ))}
         </div>
@@ -121,10 +130,10 @@ export function ServiceCard({ service, compare }: Props) {
 
       <div className="mt-auto flex gap-2 pt-1">
         <Link
-          href={`/vpn/${service.slug}`}
+          href={basePath}
           className="flex-1 inline-flex items-center justify-center rounded-full border border-border px-4 py-2 text-sm font-medium transition-colors hover:border-accent"
         >
-          Подробнее
+          {t.learnMore}
         </Link>
         <a
           href={service.referralUrl ?? service.websiteUrl}
@@ -132,7 +141,7 @@ export function ServiceCard({ service, compare }: Props) {
           rel="noopener noreferrer nofollow"
           className="flex-1 inline-flex items-center justify-center rounded-full bg-accent px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90"
         >
-          Перейти →
+          {t.visit}
         </a>
       </div>
     </div>

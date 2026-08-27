@@ -1,0 +1,106 @@
+import { Locale } from "./i18n";
+
+export const UI = {
+  ru: {
+    nav: { compare: "Сравнить сервисы", blog: "Блог", about: "О проекте" },
+    status: { online: "Сайт доступен", offline: "Недоступен", unknown: "Не проверен" },
+    score: {
+      title: "VPNmarket Score",
+      howItWorks: "Как считается →",
+      privacy: "Приватность",
+      speed: "Скорость",
+      price: "Цена",
+      streaming: "Стриминг",
+      features: "Функции",
+      reliability: "Надёжность",
+    },
+    card: {
+      learnMore: "Подробнее",
+      visit: "Перейти →",
+      compareAdd: "+ Сравнить",
+      compareOn: "✓ В сравнении",
+    },
+    report: {
+      trigger: "Сообщить об ошибке в цене или описании",
+      placeholder: "Например: цена изменилась на 5 $/мес, ссылка на бесплатный тариф не работает…",
+      send: "Отправить",
+      sending: "Отправляем…",
+      cancel: "Отмена",
+      sent: "Спасибо, мы получили сообщение.",
+      error: "Не получилось, попробуйте ещё раз",
+    },
+    catalog: {
+      sort: "Сортировка:",
+      platform: "Платформа:",
+      task: "Задача:",
+      shownOf: (shown: number, total: number) => `Показано ${shown} из ${total}`,
+      reset: "Сбросить",
+      empty: "Ничего не найдено под эти фильтры — попробуйте сбросить их.",
+      compareCount: (n: number, max: number) => `Сравнение: ${n}/${max}`,
+      clear: "Очистить",
+      compareGo: "Сравнить →",
+      sortLabels: {
+        recommended: "Рекомендованные",
+        "price-asc": "Цена: сначала дешевле",
+        "price-desc": "Цена: сначала дороже",
+        score: "VPNmarket Score",
+        speed: "Заявленная скорость",
+        rating: "Рейтинг провайдера",
+      },
+    },
+    langSwitcher: { ru: "RU", en: "EN" },
+  },
+  en: {
+    nav: { compare: "Compare services", blog: "Blog", about: "About" },
+    status: { online: "Site is up", offline: "Down", unknown: "Not checked yet" },
+    score: {
+      title: "VPNmarket Score",
+      howItWorks: "How it's calculated →",
+      privacy: "Privacy",
+      speed: "Speed",
+      price: "Price",
+      streaming: "Streaming",
+      features: "Features",
+      reliability: "Reliability",
+    },
+    card: {
+      learnMore: "Learn more",
+      visit: "Visit →",
+      compareAdd: "+ Compare",
+      compareOn: "✓ Comparing",
+    },
+    report: {
+      trigger: "Report a price or description error",
+      placeholder: "E.g.: the price changed to $5/mo, the free-tier link is broken…",
+      send: "Send",
+      sending: "Sending…",
+      cancel: "Cancel",
+      sent: "Thanks, we've received your message.",
+      error: "Something went wrong, please try again",
+    },
+    catalog: {
+      sort: "Sort:",
+      platform: "Platform:",
+      task: "Use case:",
+      shownOf: (shown: number, total: number) => `Showing ${shown} of ${total}`,
+      reset: "Reset",
+      empty: "Nothing matches these filters — try resetting them.",
+      compareCount: (n: number, max: number) => `Comparing: ${n}/${max}`,
+      clear: "Clear",
+      compareGo: "Compare →",
+      sortLabels: {
+        recommended: "Recommended",
+        "price-asc": "Price: low to high",
+        "price-desc": "Price: high to low",
+        score: "VPNmarket Score",
+        speed: "Claimed speed",
+        rating: "Provider rating",
+      },
+    },
+    langSwitcher: { ru: "RU", en: "EN" },
+  },
+} satisfies Record<Locale, unknown>;
+
+export function t(locale: Locale) {
+  return UI[locale];
+}

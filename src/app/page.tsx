@@ -10,7 +10,7 @@ import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
 export const revalidate = 1800;
 
 export const metadata: Metadata = {
-  alternates: { canonical: "/" },
+  alternates: { canonical: "/", languages: { ru: SITE_URL, en: `${SITE_URL}/en` } },
 };
 
 const FEATURED_TAGS = [

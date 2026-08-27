@@ -8,7 +8,10 @@ export const metadata: Metadata = {
   title: "VPNmarket Score — как считается",
   description:
     "Как устроен VPNmarket Score — наш собственный индекс 0–100 для сравнения VPN-провайдеров по цене, скорости, приватности, стримингу, функциям и надёжности.",
-  alternates: { canonical: "/vpnmarket-score" },
+  alternates: {
+    canonical: "/vpnmarket-score",
+    languages: { ru: `${SITE_URL}/vpnmarket-score`, en: `${SITE_URL}/en/vpnmarket-score` },
+  },
 };
 
 const COMPONENTS = [
