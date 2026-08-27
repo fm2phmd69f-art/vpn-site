@@ -7,6 +7,7 @@ import { IntentConfig } from "@/data/intents";
 import { INTENTS_EN } from "@/data/intentsEn";
 import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
 import { Locale } from "@/lib/i18n";
+import { localizeServiceEn } from "@/lib/localizeService";
 
 export function generateIntentMetadata(
   config: IntentConfig | undefined,
@@ -85,7 +86,8 @@ export async function IntentPage({
 
   const services = await getAllServices();
   const matches = services.filter(config.filter).sort(config.sort ?? (() => 0));
-  const limited = matches.slice(0, config.limit ?? 6);
+  const limitedRaw = matches.slice(0, config.limit ?? 6);
+  const limited = locale === "en" ? limitedRaw.map(localizeServiceEn) : limitedRaw;
 
   const pagePath = locale === "en" ? `/en/${config.slug}` : `/${config.slug}`;
 
