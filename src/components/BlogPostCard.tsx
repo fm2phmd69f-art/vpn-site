@@ -1,11 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { BlogPost } from "@/data/posts";
+import { Locale } from "@/lib/i18n";
 
-export function BlogPostCard({ post }: { post: BlogPost }) {
+export function BlogPostCard({ post, locale = "ru" }: { post: BlogPost; locale?: Locale }) {
+  const href = locale === "en" ? `/en/blog/${post.slug}` : `/blog/${post.slug}`;
   return (
     <Link
-      href={`/blog/${post.slug}`}
+      href={href}
       className="flex flex-col overflow-hidden rounded-2xl border border-border bg-surface transition-colors hover:border-accent"
     >
       {post.coverImage ? (

@@ -3,7 +3,9 @@ import { SITE_URL } from "@/lib/seo";
 import { SEED_SERVICES } from "@/data/services";
 import { allComparisonPairs } from "@/lib/comparisons";
 import { BLOG_POSTS } from "@/data/posts";
+import { BLOG_POSTS_EN } from "@/data/postsEn";
 import { allIntentSlugs } from "@/data/intents";
+import { INTENTS_EN } from "@/data/intentsEn";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -27,7 +29,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: { languages: { ru: SITE_URL, en: `${SITE_URL}/en` } },
     },
     { url: `${SITE_URL}/compare`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
-    { url: `${SITE_URL}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    {
+      url: `${SITE_URL}/blog`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.7,
+      alternates: { languages: { ru: `${SITE_URL}/blog`, en: `${SITE_URL}/en/blog` } },
+    },
+    {
+      url: `${SITE_URL}/en/blog`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.65,
+      alternates: { languages: { ru: `${SITE_URL}/blog`, en: `${SITE_URL}/en/blog` } },
+    },
     {
       url: `${SITE_URL}/what-is-my-ip`,
       lastModified: now,
@@ -87,13 +102,36 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  const posts: MetadataRoute.Sitemap = BLOG_POSTS.map((p) => ({
-    url: `${SITE_URL}/blog/${p.slug}`,
-    lastModified: p.publishedAt,
-    changeFrequency: "monthly",
-    priority: 0.6,
-    ...(p.coverImage ? { images: [p.coverImage.url] } : {}),
-  }));
+  const enSlugs = new Set(BLOG_POSTS_EN.map((p) => p.slug));
+
+  const posts: MetadataRoute.Sitemap = BLOG_POSTS.flatMap((p) => {
+    const ruUrl = `${SITE_URL}/blog/${p.slug}`;
+    const hasEn = enSlugs.has(p.slug);
+    const enUrl = `${SITE_URL}/en/blog/${p.slug}`;
+    const languages = hasEn ? { ru: ruUrl, en: enUrl } : undefined;
+    const entries: MetadataRoute.Sitemap = [
+      {
+        url: ruUrl,
+        lastModified: p.publishedAt,
+        changeFrequency: "monthly",
+        priority: 0.6,
+        ...(p.coverImage ? { images: [p.coverImage.url] } : {}),
+        ...(languages ? { alternates: { languages } } : {}),
+      },
+    ];
+    if (hasEn) {
+      const enPost = BLOG_POSTS_EN.find((ep) => ep.slug === p.slug)!;
+      entries.push({
+        url: enUrl,
+        lastModified: p.publishedAt,
+        changeFrequency: "monthly",
+        priority: 0.55,
+        ...(enPost.coverImage ? { images: [enPost.coverImage.url] } : {}),
+        alternates: { languages },
+      });
+    }
+    return entries;
+  });
 
   const comparisons: MetadataRoute.Sitemap = allComparisonPairs().map(({ pairSlug }) => ({
     url: `${SITE_URL}/compare/${pairSlug}`,
@@ -119,12 +157,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  const intents: MetadataRoute.Sitemap = allIntentSlugs().map((slug) => ({
-    url: `${SITE_URL}/${slug}`,
-    lastModified: now,
-    changeFrequency: "weekly",
-    priority: 0.75,
-  }));
+  const intents: MetadataRoute.Sitemap = allIntentSlugs().flatMap((slug) => {
+    const ruUrl = `${SITE_URL}/${slug}`;
+    const hasEn = Boolean(INTENTS_EN[slug]);
+    if (!hasEn) {
+      return [{ url: ruUrl, lastModified: now, changeFrequency: "weekly", priority: 0.75 }];
+    }
+    const enUrl = `${SITE_URL}/en/${slug}`;
+    const languages = { ru: ruUrl, en: enUrl };
+    return [
+      {
+        url: ruUrl,
+        lastModified: now,
+        changeFrequency: "weekly",
+        priority: 0.75,
+        alternates: { languages },
+      },
+      {
+        url: enUrl,
+        lastModified: now,
+        changeFrequency: "weekly",
+        priority: 0.7,
+        alternates: { languages },
+      },
+    ] as MetadataRoute.Sitemap;
+  });
 
   return [...home, ...services, ...categories, ...comparisons, ...posts, ...intents];
 }

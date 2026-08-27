@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { BLOG_POSTS, getPostBySlug, getRandomPosts } from "@/data/posts";
-import { getPostBySlugEn } from "@/data/postsEn";
+import { BLOG_POSTS_EN, getPostBySlugEn, getRandomPostsEn } from "@/data/postsEn";
 import { BlogPostCard } from "@/components/BlogPostCard";
 import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
 
@@ -12,33 +11,29 @@ interface Props {
 }
 
 export function generateStaticParams() {
-  return BLOG_POSTS.map((p) => ({ slug: p.slug }));
+  return BLOG_POSTS_EN.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;
-  const post = getPostBySlug(params.slug);
+  const post = getPostBySlugEn(params.slug);
   if (!post) return {};
-  const hasEn = Boolean(getPostBySlugEn(post.slug));
 
   return {
     title: post.title,
     description: post.description,
     alternates: {
-      canonical: `/blog/${post.slug}`,
-      ...(hasEn
-        ? {
-            languages: {
-              ru: `${SITE_URL}/blog/${post.slug}`,
-              en: `${SITE_URL}/en/blog/${post.slug}`,
-            },
-          }
-        : {}),
+      canonical: `/en/blog/${post.slug}`,
+      languages: {
+        ru: `${SITE_URL}/blog/${post.slug}`,
+        en: `${SITE_URL}/en/blog/${post.slug}`,
+      },
     },
     openGraph: {
       title: `${post.title} | ${SITE_NAME}`,
       description: post.description,
       type: "article",
+      locale: "en_US",
       publishedTime: post.publishedAt,
       images: post.coverImage
         ? [{ url: post.coverImage.url, width: 1200, height: 630, alt: post.coverImage.alt }]
@@ -47,12 +42,12 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   };
 }
 
-export default async function BlogPostPage(props: Props) {
+export default async function BlogPostPageEn(props: Props) {
   const params = await props.params;
-  const post = getPostBySlug(params.slug);
+  const post = getPostBySlugEn(params.slug);
   if (!post) notFound();
 
-  const relatedPosts = getRandomPosts(post.slug, 3);
+  const relatedPosts = getRandomPostsEn(post.slug, 3);
 
   const articleJsonLd = {
     "@context": "https://schema.org",
@@ -64,20 +59,20 @@ export default async function BlogPostPage(props: Props) {
     dateModified: post.publishedAt,
     author: { "@type": "Organization", name: SITE_NAME },
     publisher: { "@type": "Organization", name: SITE_NAME },
-    mainEntityOfPage: `${SITE_URL}/blog/${post.slug}`,
+    mainEntityOfPage: `${SITE_URL}/en/blog/${post.slug}`,
   };
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Главная", item: SITE_URL },
-      { "@type": "ListItem", position: 2, name: "Блог", item: `${SITE_URL}/blog` },
+      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/en` },
+      { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE_URL}/en/blog` },
       {
         "@type": "ListItem",
         position: 3,
         name: post.title,
-        item: `${SITE_URL}/blog/${post.slug}`,
+        item: `${SITE_URL}/en/blog/${post.slug}`,
       },
     ],
   };
@@ -94,12 +89,12 @@ export default async function BlogPostPage(props: Props) {
       />
 
       <nav className="mb-6 text-sm text-muted">
-        <Link href="/" className="hover:text-fg">
-          Главная
+        <Link href="/en" className="hover:text-fg">
+          Home
         </Link>
         {" / "}
-        <Link href="/blog" className="hover:text-fg">
-          Блог
+        <Link href="/en/blog" className="hover:text-fg">
+          Blog
         </Link>
         {" / "}
         <span>{post.title}</span>
@@ -107,7 +102,7 @@ export default async function BlogPostPage(props: Props) {
 
       <h1 className="text-2xl font-semibold tracking-tight">{post.title}</h1>
       <p className="mt-2 text-sm text-muted">
-        {new Date(post.publishedAt).toLocaleDateString("ru-RU", {
+        {new Date(post.publishedAt).toLocaleDateString("en-US", {
           day: "numeric",
           month: "long",
           year: "numeric",
@@ -179,21 +174,21 @@ export default async function BlogPostPage(props: Props) {
 
       {relatedPosts.length > 0 && (
         <section className="mt-12 border-t border-border pt-8">
-          <h2 className="mb-4 text-lg font-semibold">Вам может быть интересно</h2>
+          <h2 className="mb-4 text-lg font-semibold">You might also like</h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {relatedPosts.map((p) => (
-              <BlogPostCard key={p.slug} post={p} />
+              <BlogPostCard key={p.slug} post={p} locale="en" />
             ))}
           </div>
         </section>
       )}
 
       <div className="mt-10 flex flex-col gap-2 sm:flex-row">
-        <Link href="/" className="text-sm text-accent hover:underline">
-          ← Ко всему каталогу VPN-сервисов
+        <Link href="/en" className="text-sm text-accent hover:underline">
+          ← Back to the full VPN catalog
         </Link>
-        <Link href="/blog" className="text-sm text-accent hover:underline sm:ml-6">
-          Все статьи блога →
+        <Link href="/en/blog" className="text-sm text-accent hover:underline sm:ml-6">
+          All blog articles →
         </Link>
       </div>
     </main>
