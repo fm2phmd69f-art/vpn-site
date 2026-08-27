@@ -912,6 +912,45 @@ export const SEED_SERVICES: SeedService[] = [
     description:
       "Канадский провайдер, принадлежит Opera (тот же движок, что и встроенный VPN в браузере Opera), скромный бесплатный лимит трафика.",
   },
+  {
+    slug: "zoogvpn",
+    name: "ZoogVPN",
+    logo: "🦓",
+    websiteUrl: "https://zoogvpn.com/",
+    priceFrom: "2.49 $/мес",
+    priceMonthlyUsd: 2.49,
+    freeOption: "бесплатный тариф 10 ГБ/мес",
+    platforms: ["Windows", "macOS", "iOS", "Android", "Linux", "Router", "Browser", "TV"],
+    tags: ["free-tier", "budget", "streaming"],
+    description:
+      "Провайдер с бесплатным тарифом на 10 ГБ трафика в месяц и платными планами без ограничений, свыше 200 серверов в 35+ странах, есть приложения для десктопа, мобильных устройств и расширения для браузеров.",
+  },
+  {
+    slug: "betternet",
+    name: "Betternet",
+    logo: "🐾",
+    websiteUrl: "https://www.betternet.co/",
+    priceFrom: "0 $ (есть бесплатный тариф)",
+    priceMonthlyUsd: 0,
+    freeOption: "бессрочная бесплатная версия без регистрации",
+    platforms: ["Windows", "macOS", "iOS", "Android", "Browser"],
+    tags: ["free-tier", "budget"],
+    description:
+      "Полностью бесплатная версия не требует регистрации или email — достаточно скачать и подключиться; платная Premium-подписка добавляет больше локаций серверов и убирает рекламу.",
+  },
+  {
+    slug: "iprovpn",
+    name: "iProVPN",
+    logo: "🛰️",
+    websiteUrl: "https://iprovpn.com/",
+    priceFrom: "1.66 $/мес",
+    priceMonthlyUsd: 1.66,
+    freeOption: "нет, 30 дней возврат денег",
+    platforms: ["Windows", "macOS", "iOS", "Android", "Linux", "Browser", "Fire TV"],
+    tags: ["budget", "no-logs", "unlimited-devices"],
+    description:
+      "Бюджетный провайдер с 250+ серверами в 36+ странах, до 10 одновременных подключений на тариф и политикой отказа от логов; вместо бесплатного тарифа предлагает 30-дневный возврат денег.",
+  },
 ];
 
 export const TAG_LABELS: Record<string, string> = {
