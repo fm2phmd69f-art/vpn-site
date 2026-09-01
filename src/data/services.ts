@@ -951,6 +951,45 @@ export const SEED_SERVICES: SeedService[] = [
     description:
       "Бюджетный провайдер с 250+ серверами в 36+ странах, до 10 одновременных подключений на тариф и политикой отказа от логов; вместо бесплатного тарифа предлагает 30-дневный возврат денег.",
   },
+  {
+    slug: "namecheap-vpn",
+    name: "Namecheap FastVPN",
+    logo: "🏷️",
+    websiteUrl: "https://www.namecheap.com/vpn/",
+    priceFrom: "2.88 $/мес",
+    priceMonthlyUsd: 2.88,
+    freeOption: "нет, 30 дней возврат денег",
+    platforms: ["Windows", "macOS", "iOS", "Android", "Linux", "Router", "Browser"],
+    tags: ["budget"],
+    description:
+      "VPN-сервис от регистратора доменов Namecheap. Сеть из 2700+ серверов в 100+ локациях, приложения для основных платформ и расширения для браузеров Chrome и Firefox.",
+  },
+  {
+    slug: "hidester",
+    name: "Hidester VPN",
+    logo: "🙈",
+    websiteUrl: "https://hidester.com/vpn/",
+    priceFrom: "3.99 $/мес",
+    priceMonthlyUsd: 3.99,
+    freeOption: "нет, но на сайте есть отдельный бесплатный веб-прокси",
+    platforms: ["Windows", "macOS", "iOS", "Android", "Linux"],
+    tags: ["no-logs", "privacy"],
+    description:
+      "VPN- и прокси-провайдер из Гонконга, на рынке с 2018 года. Заявляет политику отказа от логов и шифрование AES-256, сеть из 40+ серверов в 30+ странах.",
+  },
+  {
+    slug: "opera-vpn",
+    name: "Opera VPN (браузер)",
+    logo: "🌐",
+    websiteUrl: "https://www.opera.com/features/free-vpn",
+    priceFrom: "0 $ (бесплатно)",
+    priceMonthlyUsd: 0,
+    freeOption: "полностью бесплатно, без регистрации и лимитов трафика",
+    platforms: ["Windows", "macOS", "Linux", "iOS", "Android", "Browser"],
+    tags: ["free-tier", "no-logs", "privacy"],
+    description:
+      "Бесплатный VPN, встроенный прямо в браузер Opera (десктоп, Opera GX, Android, iOS), не требует установки отдельного приложения. Политика отказа от логов независимо проверена аудитором Deloitte в 2024 году, но VPN шифрует трафик только внутри браузера, а не всего устройства.",
+  },
 ];
 
 export const TAG_LABELS: Record<string, string> = {
