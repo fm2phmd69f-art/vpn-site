@@ -990,6 +990,45 @@ export const SEED_SERVICES: SeedService[] = [
     description:
       "Бесплатный VPN, встроенный прямо в браузер Opera (десктоп, Opera GX, Android, iOS), не требует установки отдельного приложения. Политика отказа от логов независимо проверена аудитором Deloitte в 2024 году, но VPN шифрует трафик только внутри браузера, а не всего устройства.",
   },
+  {
+    slug: "whoer-vpn",
+    name: "Whoer VPN",
+    logo: "🧐",
+    websiteUrl: "https://whoer.com/vpn",
+    priceFrom: "3.9 $/мес",
+    priceMonthlyUsd: 3.9,
+    freeOption: "бесплатно, но только один сервер (Нидерланды) со скоростью до 1 Мбит/с",
+    platforms: ["Windows", "macOS", "Linux", "iOS", "Android", "Browser", "Router"],
+    tags: ["no-logs", "free-tier", "budget"],
+    description:
+      "Сервис от создателей одноимённого IP-чекера whoer.com. Серверы в 21 стране, политика отказа от логов, kill switch и шифрование AES-256; до 5 устройств на одном тарифе.",
+  },
+  {
+    slug: "vpn-ht",
+    name: "VPN.ht",
+    logo: "🇭🇰",
+    websiteUrl: "https://vpn.ht/",
+    priceFrom: "3.33 $/мес",
+    priceMonthlyUsd: 3.33,
+    freeOption: "нет, 30 дней возврат денег",
+    platforms: ["Windows", "macOS", "iOS", "Android", "Linux", "Router"],
+    tags: ["budget", "privacy"],
+    description:
+      "Провайдер из Гонконга с открытым исходным кодом десктопного клиента, поддержкой настройки на роутере и оплатой криптовалютой; до 3 устройств одновременно на тарифе.",
+  },
+  {
+    slug: "ghostpath",
+    name: "GhostPath VPN",
+    logo: "🛤️",
+    websiteUrl: "https://ghostpath.com/",
+    priceFrom: "2.91 $/мес",
+    priceMonthlyUsd: 2.91,
+    freeOption: "нет, 30 дней возврат денег",
+    platforms: ["Windows", "macOS", "iOS", "Android", "Linux"],
+    tags: ["no-logs", "torrents", "budget"],
+    description:
+      "Американский провайдер с политикой отказа от логов и разрешёнными торрентами; нативное приложение есть только под Windows, остальные платформы подключаются через готовые конфиги OpenVPN.",
+  },
 ];
 
 export const TAG_LABELS: Record<string, string> = {
