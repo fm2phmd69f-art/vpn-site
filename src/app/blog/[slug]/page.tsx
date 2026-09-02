@@ -177,6 +177,19 @@ export default async function BlogPostPage(props: Props) {
         })}
       </article>
 
+      <div className="mt-8 rounded-2xl border border-border bg-surface p-6 text-center">
+        <p className="text-base font-semibold text-fg">Не хотите разбираться сами?</p>
+        <p className="mt-1.5 text-sm text-muted">
+          Ответьте на 4 вопроса — подберём VPN под вашу задачу, платформу и бюджет.
+        </p>
+        <Link
+          href="/vpn-matcher"
+          className="mt-4 inline-block rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
+        >
+          Подобрать VPN →
+        </Link>
+      </div>
+
       {relatedPosts.length > 0 && (
         <section className="mt-12 border-t border-border pt-8">
           <h2 className="mb-4 text-lg font-semibold">Вам может быть интересно</h2>
