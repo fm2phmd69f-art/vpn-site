@@ -1315,6 +1315,32 @@ export const SEED_SERVICES: SeedService[] = [
     description:
       "Сервис сингапурской компании SecureGuard Group с сетью из 20 000+ серверов в 100+ локациях, поддержкой до 10 устройств и приложениями для Smart TV (Fire TV, Apple TV, Samsung, LG); политика отказа от логов заявлена самим сервисом без независимого аудита.",
   },
+  {
+    slug: "pandavpn-pro",
+    name: "PandaVPN Pro",
+    logo: "🐼",
+    websiteUrl: "https://pandavpnpro.com/",
+    priceFrom: "2.49 $/мес",
+    priceMonthlyUsd: 2.49,
+    freeOption: "нет, есть возврат денег на части тарифов",
+    platforms: ["Windows", "macOS", "iOS", "Android", "Linux"],
+    tags: ["streaming", "budget"],
+    description:
+      "Сервис гонконгской компании MOPUBI LIMITED с сетью из 6000+ серверов в 100+ странах, ориентированный на разблокировку стриминга (Netflix, Hulu, HBO Max, Disney+); политика отказа от логов заявлена самим сервисом без независимого аудита, юрисдикция Гонконга не указана явно на самом сайте.",
+  },
+  {
+    slug: "unseen-online-vpn",
+    name: "Unseen Online VPN",
+    logo: "🫥",
+    websiteUrl: "https://unseen.online/",
+    priceFrom: "1.49 $/мес",
+    priceMonthlyUsd: 1.49,
+    freeOption: "нет, 30 дней возврат денег",
+    platforms: ["Windows", "macOS", "iOS", "Android"],
+    tags: ["anonymous-payment", "torrents"],
+    description:
+      "Сервис без обязательной регистрации email, принимает оплату криптовалютой, до 5 устройств одновременно. Юрисдикция компании нигде на сайте не раскрыта, а данные о приватности в App Store указывают на использование трекинг-идентификаторов — это расходится с заявленной на сайте политикой «без логов», стоит учитывать при выборе.",
+  },
 ];
 
 export const TAG_LABELS: Record<string, string> = {
