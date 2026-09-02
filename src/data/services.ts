@@ -1445,6 +1445,32 @@ export const SEED_SERVICES: SeedService[] = [
     description:
       "VPN от группы Total Security (также владеет антивирусом TotalAV). В отличие от большинства конкурентов, не делает громких заявлений о политике отказа от логов — формулировки в политике конфиденциальности допускают сбор части данных об активности, что стоит учитывать тем, для кого приоритет именно приватность.",
   },
+  {
+    slug: "touchvpn",
+    name: "TouchVPN",
+    logo: "👆",
+    websiteUrl: "https://www.touchvpn.net/",
+    priceFrom: "4.54 $/мес (на Android; на iOS дороже)",
+    priceMonthlyUsd: 4.54,
+    freeOption: "бесплатно, с рекламой, безлимитно по времени",
+    platforms: ["Windows", "macOS", "iOS", "Android", "Browser"],
+    tags: ["free-tier"],
+    description:
+      "Бесплатный (с рекламой на бесплатном тарифе) VPN от Aura (бывшие Pango/AnchorFree, также владеют Hotspot Shield). Собственная политика конфиденциальности прямо признаёт логирование геолокации, интернет-провайдера и объёма трафика, а также передачу данных рекламным партнёрам на бесплатном тарифе — сервис не заявляет строгую политику «без логов». По данным пользователей, приложения для Windows и iOS используют устаревший протокол PPTP.",
+  },
+  {
+    slug: "hidden24",
+    name: "Hidden24",
+    logo: "🕵️‍♂️",
+    websiteUrl: "https://hidden24.co.uk/",
+    priceFrom: "3.99 £/мес",
+    priceMonthlyUsd: 5.1,
+    freeOption: "нет",
+    platforms: ["Windows", "macOS", "iOS", "Android", "Linux"],
+    tags: ["unlimited-devices"],
+    description:
+      "Небольшой VPN под управлением шведской Yayabee Sweden AB с безлимитным числом одновременных устройств. Поддерживает только устаревшие протоколы IKEv2, L2TP/IPSec и PPTP — без OpenVPN или WireGuard, и не заявляет о наличии kill switch; политика отказа от логов заявлена самим сервисом без независимого аудита.",
+  },
 ];
 
 export const TAG_LABELS: Record<string, string> = {
