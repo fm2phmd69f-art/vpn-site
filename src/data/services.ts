@@ -1094,6 +1094,45 @@ export const SEED_SERVICES: SeedService[] = [
     description:
       "Работает с 2007 года, публикует ежемесячный warrant canary, принимает оплату криптовалютой (Bitcoin, Monero и другие) и использует обфускацию трафика для обхода блокировки VPN.",
   },
+  {
+    slug: "hidester",
+    name: "Hidester VPN",
+    logo: "🙈",
+    websiteUrl: "https://hidester.com/vpn/",
+    priceFrom: "3.99 $/мес",
+    priceMonthlyUsd: 3.99,
+    freeOption: "нет, но на сайте есть отдельный бесплатный веб-прокси",
+    platforms: ["Windows", "macOS", "iOS", "Android", "Linux"],
+    tags: ["no-logs", "privacy"],
+    description:
+      "VPN- и прокси-провайдер из Гонконга, на рынке с 2018 года. Заявляет политику отказа от логов и шифрование AES-256, сеть из 40+ серверов в 30+ странах.",
+  },
+  {
+    slug: "opera-vpn",
+    name: "Opera VPN (браузер)",
+    logo: "🌐",
+    websiteUrl: "https://www.opera.com/features/free-vpn",
+    priceFrom: "0 $ (бесплатно)",
+    priceMonthlyUsd: 0,
+    freeOption: "полностью бесплатно, без регистрации и лимитов трафика",
+    platforms: ["Windows", "macOS", "Linux", "iOS", "Android", "Browser"],
+    tags: ["free-tier", "no-logs", "privacy"],
+    description:
+      "Бесплатный VPN, встроенный прямо в браузер Opera (десктоп, Opera GX, Android, iOS), не требует установки отдельного приложения. Политика отказа от логов независимо проверена аудитором Deloitte в 2024 году, но VPN шифрует трафик только внутри браузера, а не всего устройства.",
+  },
+  {
+    slug: "whoer-vpn",
+    name: "Whoer VPN",
+    logo: "🧐",
+    websiteUrl: "https://whoer.com/vpn",
+    priceFrom: "3.9 $/мес",
+    priceMonthlyUsd: 3.9,
+    freeOption: "бесплатно, но только один сервер (Нидерланды) со скоростью до 1 Мбит/с",
+    platforms: ["Windows", "macOS", "Linux", "iOS", "Android", "Browser", "Router"],
+    tags: ["no-logs", "free-tier", "budget"],
+    description:
+      "Сервис от создателей одноимённого IP-чекера whoer.com. Серверы в 21 стране, политика отказа от логов, kill switch и шифрование AES-256; до 5 устройств на одном тарифе.",
+  },
 ];
 
 export const TAG_LABELS: Record<string, string> = {
