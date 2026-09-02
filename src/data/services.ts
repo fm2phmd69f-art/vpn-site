@@ -1497,6 +1497,19 @@ export const SEED_SERVICES: SeedService[] = [
     description:
       "Эстонский сервис (Digiport OU), совмещающий VPN и Smart DNS, ориентированный в первую очередь на разблокировку стриминга (Netflix, Hulu, BBC iPlayer, Amazon) — без клиента поддерживает Roku, Apple TV и игровые приставки через Smart DNS. На официальном сайте не заявлены WireGuard, kill switch или политика отказа от логов — набор функций скромнее большинства конкурентов.",
   },
+  {
+    slug: "clearvpn",
+    name: "ClearVPN",
+    logo: "🧭",
+    websiteUrl: "https://clearvpn.com/",
+    priceFrom: "3.75 $/мес",
+    priceMonthlyUsd: 3.75,
+    freeOption: "бесплатный тариф (1 локация, сниженная скорость) + 3-дневный полный пробный период",
+    platforms: ["Windows", "macOS", "iOS", "Android", "Browser"],
+    tags: ["streaming", "free-tier"],
+    description:
+      "VPN от украинской MacPaw (создателей CleanMyMac) с фирменными «умными» пресетами одним нажатием («самый быстрый сервер», «без ограничений», серверы под конкретные стриминговые сервисы) вместо обычного списка серверов. Поддерживает IKEv2 и OpenVPN, но не WireGuard; до 6 устройств. Политика отказа от логов заявлена самим сервисом без независимого аудита, а по данным независимых тестов kill switch менее надёжен на протоколе IKEv2, чем на OpenVPN.",
+  },
 ];
 
 export const TAG_LABELS: Record<string, string> = {
