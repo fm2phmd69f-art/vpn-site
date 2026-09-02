@@ -1536,6 +1536,19 @@ export const SEED_SERVICES: SeedService[] = [
     description:
       "Бюджетный VPN от Pango/Anchorfree (те же владельцы, что у Hotspot Shield и Betternet), нативных приложений для macOS/Linux нет. По данным независимого тестирования Top10VPN, kill switch на iOS пропускал реальный IP-адрес при обрыве соединения, а приложение делится идентификатором устройства и IP-адресом с рекламными партнёрами — расходится с политикой конфиденциальности компании об отсутствии логирования активности.",
   },
+  {
+    slug: "ultravpn",
+    name: "UltraVPN",
+    logo: "⚡",
+    websiteUrl: "https://ultravpn.com/",
+    priceFrom: "1.99 $/мес",
+    priceMonthlyUsd: 1.99,
+    freeOption: "нет, 30 дней возврат денег",
+    platforms: ["Windows", "macOS", "iOS", "Android"],
+    tags: ["torrents"],
+    description:
+      "Ещё один VPN семейства Pango/Point Wild (та же группа, что владеет Hotspot Shield, Betternet и VPN360) на собственном протоколе Hydra — без OpenVPN и WireGuard. До 10 одновременных устройств, split tunneling только на Windows, обфускация трафика под HTTPS. Политика отказа от логов заявлена самим сервисом без независимого аудита; точная цена продления после первого периода на официальном сайте не подтверждена напрямую.",
+  },
 ];
 
 export const TAG_LABELS: Record<string, string> = {
