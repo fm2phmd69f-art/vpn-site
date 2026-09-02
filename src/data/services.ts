@@ -1276,6 +1276,45 @@ export const SEED_SERVICES: SeedService[] = [
     description:
       "Провайдер с давней историей, ориентированный в том числе на пользователей из Азии (принимает WeChat Pay, AliPay, UnionPay); поддерживает только устаревшие протоколы PPTP/L2TP/IPsec без OpenVPN или WireGuard, что стоит учитывать при выборе.",
   },
+  {
+    slug: "seed4me",
+    name: "Seed4.me",
+    logo: "🌱",
+    websiteUrl: "https://seed4.me/",
+    priceFrom: "2.99 $/мес",
+    priceMonthlyUsd: 2.99,
+    freeOption: "нет, денежная гарантия возврата на всех тарифах",
+    platforms: ["Windows", "macOS", "iOS", "Android"],
+    tags: ["budget", "unlimited-devices"],
+    description:
+      "Провайдер без ограничения по числу устройств на аккаунте, с безлимитным трафиком и серверами в 45+ локациях; политика отказа от логов заявлена самим сервисом, но не подтверждена независимым аудитом, а юрисдикция компании на официальном сайте прямо не указана.",
+  },
+  {
+    slug: "frootvpn",
+    name: "FrootVPN",
+    logo: "🍏",
+    websiteUrl: "https://frootvpn.com/",
+    priceFrom: "6.36 $/мес",
+    priceMonthlyUsd: 6.36,
+    freeOption: "нет, 30 дней возврат денег",
+    platforms: ["Windows", "macOS", "Linux", "Android"],
+    tags: ["torrents", "budget"],
+    description:
+      "Провайдер с Сейшельской юрисдикцией, разрешает P2P/торренты на серверах, есть kill switch; политика отказа от логов заявлена самим сервисом без независимого аудита. Приложения только для Windows, macOS, Linux и Android — нативного iOS-клиента нет.",
+  },
+  {
+    slug: "vpn-proxy-master",
+    name: "VPN Proxy Master",
+    logo: "🛡️",
+    websiteUrl: "https://vpnproxymaster.com/",
+    priceFrom: "3.33 $/мес",
+    priceMonthlyUsd: 3.33,
+    freeOption: "нет, 30 дней возврат денег",
+    platforms: ["Windows", "macOS", "iOS", "Android"],
+    tags: ["budget"],
+    description:
+      "Сервис сингапурской компании SecureGuard Group с сетью из 20 000+ серверов в 100+ локациях, поддержкой до 10 устройств и приложениями для Smart TV (Fire TV, Apple TV, Samsung, LG); политика отказа от логов заявлена самим сервисом без независимого аудита.",
+  },
 ];
 
 export const TAG_LABELS: Record<string, string> = {
