@@ -1510,6 +1510,32 @@ export const SEED_SERVICES: SeedService[] = [
     description:
       "VPN от украинской MacPaw (создателей CleanMyMac) с фирменными «умными» пресетами одним нажатием («самый быстрый сервер», «без ограничений», серверы под конкретные стриминговые сервисы) вместо обычного списка серверов. Поддерживает IKEv2 и OpenVPN, но не WireGuard; до 6 устройств. Политика отказа от логов заявлена самим сервисом без независимого аудита, а по данным независимых тестов kill switch менее надёжен на протоколе IKEv2, чем на OpenVPN.",
   },
+  {
+    slug: "unlocator",
+    name: "Unlocator",
+    logo: "🔓",
+    websiteUrl: "https://unlocator.com/",
+    priceFrom: "4.96 €/мес",
+    priceMonthlyUsd: 5.36,
+    freeOption: "7-дневный пробный период (требует способ оплаты)",
+    platforms: ["Windows", "macOS", "iOS", "Android"],
+    tags: ["streaming"],
+    description:
+      "Датский сервис (Unlocator ApS), совмещающий VPN и Smart DNS — Smart DNS поддерживает 70+ платформ (смарт-ТВ, приставки, консоли), VPN ограничен 5 одновременными подключениями. Политика отказа от логов заявлена самим сервисом, но собственная политика конфиденциальности признаёт хранение IP-адресов до 24 часов — расхождение с маркетинговым «no logs», стоит учитывать.",
+  },
+  {
+    slug: "vpn360",
+    name: "VPN360",
+    logo: "🔄",
+    websiteUrl: "https://vpn360.com/",
+    priceFrom: "1.99 $/мес",
+    priceMonthlyUsd: 1.99,
+    freeOption: "бесплатный тариф Basic с безлимитным трафиком",
+    platforms: ["Windows", "iOS", "Android"],
+    tags: ["free-tier"],
+    description:
+      "Бюджетный VPN от Pango/Anchorfree (те же владельцы, что у Hotspot Shield и Betternet), нативных приложений для macOS/Linux нет. По данным независимого тестирования Top10VPN, kill switch на iOS пропускал реальный IP-адрес при обрыве соединения, а приложение делится идентификатором устройства и IP-адресом с рекламными партнёрами — расходится с политикой конфиденциальности компании об отсутствии логирования активности.",
+  },
 ];
 
 export const TAG_LABELS: Record<string, string> = {
