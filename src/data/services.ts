@@ -1471,6 +1471,32 @@ export const SEED_SERVICES: SeedService[] = [
     description:
       "Небольшой VPN под управлением шведской Yayabee Sweden AB с безлимитным числом одновременных устройств. Поддерживает только устаревшие протоколы IKEv2, L2TP/IPSec и PPTP — без OpenVPN или WireGuard, и не заявляет о наличии kill switch; политика отказа от логов заявлена самим сервисом без независимого аудита.",
   },
+  {
+    slug: "victoryvpn",
+    name: "VictoryVPN",
+    logo: "🏆",
+    websiteUrl: "https://www.victoryvpn.com/",
+    priceFrom: "4.99 $/мес",
+    priceMonthlyUsd: 4.99,
+    freeOption: "нет",
+    platforms: ["Windows", "macOS", "iOS", "Android", "Linux"],
+    tags: [],
+    description:
+      "Американский ребренд того же оператора, что и Hidden24 (шведская Yayabee Sweden AB) — отдельный сайт и тарифы для рынка США. Поддерживает только устаревшие протоколы L2TP/IPSec и PPTP, без WireGuard и без заявленного kill switch; политика отказа от логов заявлена самим сервисом без независимого аудита.",
+  },
+  {
+    slug: "trickbyte-vpn",
+    name: "Trickbyte VPN",
+    logo: "🎭",
+    websiteUrl: "https://www.trickbyte.com/",
+    priceFrom: "2.08 $/мес",
+    priceMonthlyUsd: 2.08,
+    freeOption: "14-дневный пробный период без привязки карты",
+    platforms: ["Windows", "macOS", "iOS", "Android"],
+    tags: ["streaming"],
+    description:
+      "Эстонский сервис (Digiport OU), совмещающий VPN и Smart DNS, ориентированный в первую очередь на разблокировку стриминга (Netflix, Hulu, BBC iPlayer, Amazon) — без клиента поддерживает Roku, Apple TV и игровые приставки через Smart DNS. На официальном сайте не заявлены WireGuard, kill switch или политика отказа от логов — набор функций скромнее большинства конкурентов.",
+  },
 ];
 
 export const TAG_LABELS: Record<string, string> = {
