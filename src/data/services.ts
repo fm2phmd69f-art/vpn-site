@@ -1341,6 +1341,45 @@ export const SEED_SERVICES: SeedService[] = [
     description:
       "Сервис без обязательной регистрации email, принимает оплату криптовалютой, до 5 устройств одновременно. Юрисдикция компании нигде на сайте не раскрыта, а данные о приватности в App Store указывают на использование трекинг-идентификаторов — это расходится с заявленной на сайте политикой «без логов», стоит учитывать при выборе.",
   },
+  {
+    slug: "deeper-dpn",
+    name: "DPN (Deeper Network)",
+    logo: "🔗",
+    websiteUrl: "https://dpn.deeper.network/",
+    priceFrom: "3.99 $/мес",
+    priceMonthlyUsd: 3.99,
+    freeOption: "14-дневный бесплатный пробный период",
+    platforms: ["Windows", "macOS", "iOS", "Android", "Linux"],
+    tags: ["ad-block"],
+    description:
+      "Программная (без покупки фирменного роутера) версия децентрализованного VPN от Deeper Network — трафик маршрутизируется через сеть узлов других пользователей, а не через собственные серверы компании. Есть блокировка рекламы и трекеров на уровне сети; независимого аудита политики логирования не найдено.",
+  },
+  {
+    slug: "orchid-vpn",
+    name: "Orchid VPN",
+    logo: "🌺",
+    websiteUrl: "https://www.orchid.com/vpn/",
+    priceFrom: "оплата в криптовалюте OXT (без подписки)",
+    priceMonthlyUsd: 0,
+    freeOption: "нет фиксированного бесплатного тарифа, оплата по факту использования",
+    platforms: ["macOS", "iOS", "Android", "Linux"],
+    tags: ["open-source", "double-vpn", "anonymous-payment"],
+    description:
+      "Открытый (исходный код на GitHub) децентрализованный VPN без подписки — оплата за использованный трафик криптовалютой OXT напрямую независимым операторам серверов через случайный маршрут (мультихоп), а не единой компании. Нативного приложения для Windows нет.",
+  },
+  {
+    slug: "njalla",
+    name: "Njalla",
+    logo: "🦫",
+    websiteUrl: "https://njal.la/vpn/",
+    priceFrom: "5 €/мес",
+    priceMonthlyUsd: 5.4,
+    freeOption: "нет",
+    platforms: ["Windows", "macOS", "iOS", "Android", "Linux"],
+    tags: ["anonymous-payment", "no-logs", "wireguard"],
+    description:
+      "VPN от создателей одноимённого анонимного регистратора доменов (основан сооснователем The Pirate Bay), регистрация только по email или XMPP без личных данных, поддержка WireGuard и OpenVPN, оплата криптовалютой или PayPal. Политика отказа от логов заявлена самим сервисом без независимого аудита; сервис берёт начало от VPN IPredator (объединён с Njalla в 2020 году).",
+  },
 ];
 
 export const TAG_LABELS: Record<string, string> = {
