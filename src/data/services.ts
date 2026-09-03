@@ -1900,6 +1900,58 @@ export const SEED_SERVICES: SeedService[] = [
     description:
       "Американский провайдер (Shopcut LLC, Нью-Джерси) с поддержкой WireGuard, 300+ серверами в 60+ странах, до 5 устройств. Политика отказа от логов заявлена самим сервисом без независимого аудита; kill switch, split tunneling и другие продвинутые функции на сайте не заявлены.",
   },
+  {
+    slug: "tuna-vpn",
+    name: "Tuna VPN",
+    logo: "🐟",
+    websiteUrl: "https://v-tuna.com/",
+    priceFrom: "139 ₽/мес",
+    priceMonthlyUsd: 1.6,
+    freeOption: "бесплатный пробный период без карты (точные лимиты не подтверждены)",
+    platforms: ["Windows", "macOS", "iOS", "Android", "TV"],
+    tags: ["circumvention"],
+    description:
+      "Российский сервис на протоколах VLESS+Reality и AmneziaWG для обхода DPI-блокировок, поддерживает 4K-стриминг. Работает через сторонний клиент Happ на Smart TV. Юридическое лицо и юрисдикция компании не раскрыты, политика отказа от логов заявлена без независимого аудита.",
+  },
+  {
+    slug: "geodema",
+    name: "Geodema",
+    logo: "🌍",
+    websiteUrl: "https://geodema.app/",
+    priceFrom: "166 ₽/мес",
+    priceMonthlyUsd: 1.91,
+    freeOption: "3-дневный пробный период за 10 ₽",
+    platforms: ["Windows", "macOS", "Linux", "iOS", "Android", "TV", "Router"],
+    tags: [],
+    description:
+      "VPN на протоколе VLESS с широким охватом серверных локаций (70+ стран). На сайте указано юрлицо Geodema Group Limited (Онтарио, Канада), хотя часть сторонних источников называет другое юрлицо — это расхождение стоит иметь в виду. Политика отказа от логов заявлена без независимого аудита.",
+  },
+  {
+    slug: "vpn-satoshi",
+    name: "VPN Satoshi",
+    logo: "₿",
+    websiteUrl: "https://vpnsatoshi.com/",
+    priceFrom: "249 ₽/мес",
+    priceMonthlyUsd: 2.86,
+    freeOption: "бесплатный тариф Lite (~3 ГБ трафика по данным Google Play)",
+    platforms: ["Windows", "macOS", "iOS", "Android", "Linux", "Browser", "TV"],
+    tags: ["free-tier"],
+    description:
+      "Провайдер с Британских Виргинских островов, использующий децентрализованные узлы на блокчейне Cosmos как маркетинговое отличие от обычных VPN. До 5 устройств на платном тарифе, 40+ стран. Есть отдельные неподтверждённые жалобы пользователей на биллинг и маршрутизацию — не задокументированы как официальный инцидент, но стоит иметь в виду.",
+  },
+  {
+    slug: "nosok-vpn",
+    name: "Nosok VPN",
+    logo: "🧦",
+    websiteUrl: "https://nosokvpn.com/",
+    priceFrom: "175 ₽/мес",
+    priceMonthlyUsd: 2.01,
+    freeOption: "1 день бесплатно без карты",
+    platforms: ["Windows", "macOS", "iOS", "Android"],
+    tags: ["ad-block"],
+    description:
+      "Российский сервис, работающий с 2020 года, с блокировкой рекламы и трекеров и поддержкой до 10 устройств на одном тарифе. Юридическое лицо не раскрыто, упоминается только требование соответствия РКН. Политика отказа от логов заявлена без независимого аудита; условия возврата денег ограничены (аннулируется при использовании более 1 МБ трафика).",
+  },
 ];
 
 export const TAG_LABELS: Record<string, string> = {
