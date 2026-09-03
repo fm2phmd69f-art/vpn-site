@@ -2173,6 +2173,32 @@ export const SEED_SERVICES: SeedService[] = [
     description:
       "Южнокорейский сервис, ориентированный на получение южнокорейского локального IP-адреса (фиксированного или ротируемого) для удалённого доступа, а не на приватность как таковую. Поддержка iOS/macOS анонсирована, но не подтверждена как реально выпущенная. Независимый аудит и политика отказа от логов на сайте не заявлены.",
   },
+  {
+    slug: "edge-secure-network",
+    name: "Microsoft Edge Secure Network",
+    logo: "🌐",
+    websiteUrl: "https://www.microsoft.com/en-us/edge/features/edge-secure-network-vpn",
+    priceFrom: "0 $ (бесплатно)",
+    priceMonthlyUsd: 0,
+    freeOption: "полностью бесплатно, лимит 5 ГБ/мес",
+    platforms: ["Windows", "macOS", "Browser"],
+    tags: ["free-tier"],
+    description:
+      "Не полноценный VPN, а встроенный в браузер Edge прокси на инфраструктуре Cloudflare — защищает только трафик внутри самого браузера (5 ГБ в месяц), а не всё устройство целиком. Стриминговые сервисы (Netflix, Hulu, HBO) прямо исключены из маршрутизации для экономии лимита. Несколько независимых изданий (PCWorld, Windows Latest) прямо предупреждали, что это не полноценный VPN.",
+  },
+  {
+    slug: "avira-phantom-vpn",
+    name: "Avira Phantom VPN",
+    logo: "🔴",
+    websiteUrl: "https://www.avira.com/en/free-vpn",
+    priceFrom: "6.5 $/мес (точная цена на чекауте не подтверждена)",
+    priceMonthlyUsd: 6.5,
+    freeOption: "бесплатный тариф 500 МБ/мес",
+    platforms: ["Windows", "macOS", "iOS", "Android"],
+    tags: ["free-tier", "antivirus-bundle"],
+    description:
+      "VPN немецкого по происхождению бренда Avira, сейчас принадлежит конгломерату Gen Digital (образован слиянием NortonLifeLock и Avast) — уже не независимая немецкая компания. Бесплатный тариф ограничен 500 МБ трафика в месяц. Недоступен в Индии из-за конфликта с местным законодательством о хранении данных. Политика отказа от логов заявлена без независимого аудита.",
+  },
 ];
 
 export const TAG_LABELS: Record<string, string> = {
