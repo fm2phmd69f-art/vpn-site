@@ -2095,6 +2095,84 @@ export const SEED_SERVICES: SeedService[] = [
     description:
       "VPN от Carbonite (подразделение канадской OpenText) под брендом Webroot. По данным независимых обзоров, собственная политика конфиденциальности сервиса противоречит сама себе: заявляет отсутствие логов IP и DNS-запросов, но в другом разделе признаёт сбор данных о сервере подключения, примерной геолокации и DNS-запросов при диагностике сбоев. Split tunneling не работает на устройствах Apple. Недоступен в Китае, России, Египте и ОАЭ по собственным ограничениям сервиса.",
   },
+  {
+    slug: "dashlane-vpn",
+    name: "Dashlane VPN",
+    logo: "🔑",
+    websiteUrl: "https://www.dashlane.com/",
+    priceFrom: "4.99 $/мес",
+    priceMonthlyUsd: 4.99,
+    freeOption: "нет (в бесплатном тарифе Dashlane VPN не входит)",
+    platforms: ["Windows", "macOS", "iOS", "Android"],
+    tags: [],
+    description:
+      "VPN встроен только в платный тариф Premium менеджера паролей Dashlane, отдельно не продаётся. Технически работает на инфраструктуре Hotspot Shield (AnchorFree) — в 2017 году эта инфраструктура стала предметом жалобы в FTC от Center for Democracy & Technology из-за использования сторонних трекинг-библиотек и сбора данных вопреки заявлениям об анонимности; компания тогда оспорила обвинения. Политика отказа от логов заявлена без независимого аудита.",
+  },
+  {
+    slug: "netgear-armor-vpn",
+    name: "NETGEAR Armor VPN",
+    logo: "📡",
+    websiteUrl: "https://www.netgear.com/home/services/armor/",
+    priceFrom: "8.33 $/мес",
+    priceMonthlyUsd: 8.33,
+    freeOption: "нет",
+    platforms: ["Windows", "macOS", "iOS", "Android"],
+    tags: [],
+    description:
+      "VPN, встроенный в подписку NETGEAR Armor для владельцев роутеров Nighthawk и Orbi — покупается только вместе с совместимым оборудованием Netgear, отдельно недоступен. Технология предоставлена Bitdefender. На базовом тарифе Armor трафик VPN ограничен (точный лимит не подтверждён), безлимитный доступ — только на тарифе Armor Plus. До 50 устройств.",
+  },
+  {
+    slug: "att-activearmor-vpn",
+    name: "AT&T ActiveArmor VPN",
+    logo: "📞",
+    websiteUrl: "https://www.att.com/security/advanced-internet-security/",
+    priceFrom: "7 $/мес",
+    priceMonthlyUsd: 7,
+    freeOption: "нет (входит только в платный тариф Advanced)",
+    platforms: ["iOS", "Android"],
+    tags: [],
+    description:
+      "Защита публичного Wi-Fi через VPN, встроенная в тариф ActiveArmor Advanced для абонентов мобильной связи AT&T — доступна только как часть более широкого пакета мобильной безопасности, только в приложении для смартфона, десктопной версии нет.",
+  },
+  {
+    slug: "verizon-digital-secure-vpn",
+    name: "Verizon Digital Secure VPN",
+    logo: "☎️",
+    websiteUrl: "https://www.verizon.com/support/digital-secure-faqs/",
+    priceFrom: "5 $/мес",
+    priceMonthlyUsd: 5,
+    freeOption: "нет (входит только в платный тариф Premium)",
+    platforms: ["Windows", "macOS", "iOS", "Android"],
+    tags: [],
+    description:
+      "VPN, встроенный в тариф Digital Secure Premium для абонентов Verizon Wireless — пришёл на смену закрытому приложению Verizon Safe Wi-Fi. Доступен только для обычных постоплатных потребительских аккаунтов Verizon, не для предоплатных, бизнес- или государственных тарифов.",
+  },
+  {
+    slug: "millenvpn",
+    name: "MillenVPN",
+    logo: "🎌",
+    websiteUrl: "https://millenvpn.jp/",
+    priceFrom: "2.89 $/мес",
+    priceMonthlyUsd: 2.89,
+    freeOption: "нет, 30 дней возврат денег",
+    platforms: ["Windows", "macOS", "iOS", "Android", "TV"],
+    tags: ["static-ip", "streaming", "unlimited-devices"],
+    description:
+      "Японский провайдер (Azpocket, Inc.) с 2000+ серверами в 140+ локациях, оптимизирован под японские стриминговые сервисы (TVer, U-NEXT, ABEMA) наряду с Netflix и Amazon Prime. Безлимитное число одновременных подключений, статический IP доступен как опция. Политика отказа от логов заявлена без независимого аудита.",
+  },
+  {
+    slug: "mastervpn-kr",
+    name: "MasterVPN",
+    logo: "🇰🇷",
+    websiteUrl: "https://mastervpn.co.kr/",
+    priceFrom: "8.7 $/мес",
+    priceMonthlyUsd: 8.7,
+    freeOption: "нет",
+    platforms: ["Windows", "Android"],
+    tags: ["static-ip"],
+    description:
+      "Южнокорейский сервис, ориентированный на получение южнокорейского локального IP-адреса (фиксированного или ротируемого) для удалённого доступа, а не на приватность как таковую. Поддержка iOS/macOS анонсирована, но не подтверждена как реально выпущенная. Независимый аудит и политика отказа от логов на сайте не заявлены.",
+  },
 ];
 
 export const TAG_LABELS: Record<string, string> = {
