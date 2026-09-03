@@ -6,6 +6,10 @@ import "./globals.css";
 import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { getAllServices } from "@/lib/getServices";
+import { computeScore } from "@/lib/score";
+
+export const revalidate = 1800;
 
 const YANDEX_METRIKA_ID = 111914335;
 
@@ -59,7 +63,21 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+async function getTopServices() {
+  try {
+    const services = await getAllServices();
+    return services
+      .map((s) => ({ slug: s.slug, name: s.name, score: computeScore(s).overall }))
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 5)
+      .map(({ slug, name }) => ({ slug, name }));
+  } catch {
+    return [];
+  }
+}
+
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const topServices = await getTopServices();
   return (
     <html lang="ru">
       <body className="font-sans antialiased">
@@ -94,7 +112,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </noscript>
         <SiteHeader />
         {children}
-        <SiteFooter />
+        <SiteFooter topServices={topServices} />
         <Analytics />
         <SpeedInsights />
       </body>
