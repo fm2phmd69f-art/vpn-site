@@ -1952,6 +1952,58 @@ export const SEED_SERVICES: SeedService[] = [
     description:
       "Российский сервис, работающий с 2020 года, с блокировкой рекламы и трекеров и поддержкой до 10 устройств на одном тарифе. Юридическое лицо не раскрыто, упоминается только требование соответствия РКН. Политика отказа от логов заявлена без независимого аудита; условия возврата денег ограничены (аннулируется при использовании более 1 МБ трафика).",
   },
+  {
+    slug: "bens-vpn",
+    name: "Bens VPN",
+    logo: "😎",
+    websiteUrl: "https://bensvpn.us/",
+    priceFrom: "5 €/мес",
+    priceMonthlyUsd: 5.41,
+    freeOption: "3-дневный пробный период за 0.5 €, далее автопродление",
+    platforms: ["Windows", "macOS", "iOS", "Android"],
+    tags: ["unlimited-devices"],
+    description:
+      "Казахстанский провайдер (ТОО «ПУПА»), работает с 2022 года, с проверенным работающим оформлением подписки через Stripe и приём российских карт МИР. Заявлен kill switch по умолчанию, собственный протокол обфускации «ShadowSocks++», 174 локации серверов, безлимитное число устройств на одном тарифе. По отзывам в Google Play, выбор страны сервера иногда работает нестабильно. Политика отказа от логов заявлена без независимого аудита.",
+  },
+  {
+    slug: "chavpn",
+    name: "ChaVPN",
+    logo: "🍵",
+    websiteUrl: "https://chavpn.org/",
+    priceFrom: "2.13 $/мес",
+    priceMonthlyUsd: 2.13,
+    freeOption: "3-дневный пробный период без карты",
+    platforms: ["Windows", "macOS", "iOS", "Android", "Router"],
+    tags: ["ad-block", "circumvention"],
+    description:
+      "Сервис для обхода блокировок на протоколах VLESS+Reality, Hysteria2 и AmneziaWG2, с DNS-фильтрацией рекламы на основе AdGuard и отдельной функцией «обратного VPN» для доступа к российским банкам и Госуслугам из-за границы. Нет собственного приложения — работает через сторонние клиенты (Happ, INCY, AmneziaWG). Лимит трафика 500 ГБ/мес на всех тарифах. Юрисдикция компании не раскрыта.",
+  },
+  {
+    slug: "fulli-vpn",
+    name: "Fulli VPN",
+    logo: "🎈",
+    websiteUrl: "https://fulli.net/",
+    priceFrom: "65 ₽/мес",
+    priceMonthlyUsd: 0.75,
+    freeOption: "есть бесплатный пробный период (точная длительность не подтверждена)",
+    platforms: ["Windows", "Android", "TV"],
+    tags: ["budget", "circumvention"],
+    description:
+      "Бюджетный российский сервис на протоколе VLESS+Reality с тарификацией по числу устройств (от 65 ₽/мес за одно устройство). Для iOS/macOS и Linux требуются сторонние клиенты (V2RayTun, Nekoray), для Windows и Android TV есть собственное приложение. Юрисдикция компании не раскрыта, политика отказа от логов заявлена без независимого аудита.",
+  },
+  {
+    slug: "greatfirevpn",
+    name: "GreatFireVPN",
+    logo: "🔥",
+    websiteUrl: "https://greatfirevpn.com/",
+    priceFrom: "3.33 $/мес",
+    priceMonthlyUsd: 3.33,
+    freeOption: "30-дневный пробный период без регистрации",
+    platforms: ["Windows", "macOS", "iOS", "Android"],
+    tags: ["circumvention", "unlimited-devices"],
+    description:
+      "Продукт известной антицензурной организации GreatFire.org (запущен в 2025 году как продолжение их более раннего инструмента FreeBrowser), с семью разными методами обхода блокировок (Meek, Webtunnel, V2Ray, Hysteria2, XRay-XHTTP, DNSTT) и отдельной функцией доступа к банкам и госсайтам из России, Китая, Ирана и Туркменистана. Split tunneling — только на Android. До 10 устройств. Юрисдикция самой организации публично не раскрывается, что типично для антицензурных проектов такого профиля.",
+  },
 ];
 
 export const TAG_LABELS: Record<string, string> = {
