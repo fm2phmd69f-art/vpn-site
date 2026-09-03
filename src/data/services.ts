@@ -1549,6 +1549,19 @@ export const SEED_SERVICES: SeedService[] = [
     description:
       "Ещё один VPN семейства Pango/Point Wild (та же группа, что владеет Hotspot Shield, Betternet и VPN360) на собственном протоколе Hydra — без OpenVPN и WireGuard. До 10 одновременных устройств, split tunneling только на Windows, обфускация трафика под HTTPS. Политика отказа от логов заявлена самим сервисом без независимого аудита; точная цена продления после первого периода на официальном сайте не подтверждена напрямую.",
   },
+  {
+    slug: "vpn-one-click",
+    name: "VPN One Click",
+    logo: "🖱️",
+    websiteUrl: "https://www.vpnoneclick.com/",
+    priceFrom: "1.41 $/мес",
+    priceMonthlyUsd: 1.41,
+    freeOption: "7-дневный пробный период",
+    platforms: ["Windows", "macOS", "iOS", "Android"],
+    tags: [],
+    description:
+      "Сервис гонконгской BravoTelco Limited без обязательной регистрации аккаунта для использования приложения. На официальном сайте не указаны конкретные протоколы (WireGuard/OpenVPN отдельно не упоминаются), kill switch или split tunneling — набор технических деталей заметно скромнее большинства конкурентов; политика отказа от логов заявлена без независимого аудита.",
+  },
 ];
 
 export const TAG_LABELS: Record<string, string> = {
