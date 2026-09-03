@@ -1614,6 +1614,45 @@ export const SEED_SERVICES: SeedService[] = [
     description:
       "VPN, ориентированный на пользователей Ближнего Востока, с протоколом OpenVPN-через-SSH и Shadowsocks для обхода DPI-блокировок в регионах с активной цензурой. На момент проверки у официального сайта был просрочен SSL-сертификат, а соучредитель компании в открытом интервью подтвердил, что сервис хранит метаданные сессий (объём трафика, время подключения/отключения) — это прямо расходится с заявленной на сайте политикой «без логов».",
   },
+  {
+    slug: "12vpn",
+    name: "12VPN (12VPX)",
+    logo: "🐉",
+    websiteUrl: "https://12vpx.com/",
+    priceFrom: "11.25 $/мес",
+    priceMonthlyUsd: 11.25,
+    freeOption: "нет",
+    platforms: ["Windows", "macOS", "iOS", "Android", "Linux"],
+    tags: ["circumvention"],
+    description:
+      "Один из старейших VPN-брендов (работает с 2009 года, недавно переименован в 12VPX), специализируется на обходе «Великого китайского файрвола». До 6 одновременных устройств, kill switch; конкретные протоколы (WireGuard и другие) на сайте не раскрываются. Политика отказа от логов заявлена самим сервисом без независимого аудита.",
+  },
+  {
+    slug: "steganos-online-shield",
+    name: "Steganos Online Shield VPN",
+    logo: "🛡️",
+    websiteUrl: "https://www.steganos.com/en/products/steganos-vpn-online-shield",
+    priceFrom: "2.91 €/мес",
+    priceMonthlyUsd: 3.15,
+    freeOption: "нет, 30 дней возврат денег",
+    platforms: ["Windows", "macOS", "iOS", "Android"],
+    tags: ["ad-block", "torrents"],
+    description:
+      "Немецкий VPN (Steganos Software GmbH, Берлин) под юрисдикцией GDPR, с 244 серверами в 43 странах, встроенной блокировкой рекламы и трекеров и автоматическим удалением cookies. Конкретный протокол (WireGuard/OpenVPN/IKEv2) на сайте не указан. Политика отказа от логов заявлена самим сервисом без независимого аудита.",
+  },
+  {
+    slug: "redru",
+    name: "RedRU",
+    logo: "🔴",
+    websiteUrl: "https://redru.ru/",
+    priceFrom: "250 ₽/мес",
+    priceMonthlyUsd: 2.87,
+    freeOption: "1 день бесплатно, 10 ГБ, 1 устройство (единоразово)",
+    platforms: ["Windows", "macOS", "iOS", "Android", "Linux"],
+    tags: ["budget"],
+    description:
+      "Российский VPN-сервис с управлением подпиской через вход по Telegram вместо обычной регистрации — до 5 устройств и 500 ГБ трафика на платных тарифах. На официальном сайте не раскрыты используемые протоколы, политика логирования, наличие kill switch или юридическое лицо/юрисдикция компании — набор публичной информации заметно скромнее большинства конкурентов.",
+  },
 ];
 
 export const TAG_LABELS: Record<string, string> = {
