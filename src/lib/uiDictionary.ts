@@ -2,7 +2,7 @@ import { Locale } from "./i18n";
 
 export const UI = {
   ru: {
-    nav: { compare: "Сравнить сервисы", blog: "Блог", about: "О проекте" },
+    nav: { compare: "Сравнить сервисы", prices: "Цены на VPN", blog: "Блог", about: "О проекте" },
     status: { online: "Сайт доступен", offline: "Недоступен", unknown: "Не проверен" },
     score: {
       title: "VPNmarket Score",
@@ -51,7 +51,7 @@ export const UI = {
     langSwitcher: { ru: "RU", en: "EN" },
   },
   en: {
-    nav: { compare: "Compare services", blog: "Blog", about: "About" },
+    nav: { compare: "Compare services", prices: "VPN Prices", blog: "Blog", about: "About" },
     status: { online: "Site is up", offline: "Down", unknown: "Not checked yet" },
     score: {
       title: "VPNmarket Score",

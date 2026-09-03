@@ -10,6 +10,7 @@ const COPY = {
   ru: {
     about: "О проекте",
     compare: "Сравнить сервисы",
+    prices: "Цены на VPN",
     blog: "Блог",
     score: "VPNmarket Score",
     tagline: "Каталог и сравнение VPN-сервисов. Не продаём доступ к VPN.",
@@ -17,6 +18,7 @@ const COPY = {
   en: {
     about: "About",
     compare: "Compare services",
+    prices: "VPN Prices",
     blog: "Blog",
     score: "VPNmarket Score",
     tagline: "A VPN comparison catalog. We don't sell VPN access ourselves.",
@@ -29,6 +31,7 @@ export function SiteFooter() {
   const c = COPY[locale];
   const aboutHref = locale === "en" ? "/en/about" : "/about";
   const scoreHref = locale === "en" ? "/en/vpnmarket-score" : "/vpnmarket-score";
+  const pricesHref = locale === "en" ? "/en/vpn-prices" : "/vpn-prices";
 
   return (
     <footer className="mt-16 border-t border-border">
@@ -43,6 +46,9 @@ export function SiteFooter() {
           </Link>
           <Link href="/compare" className="transition-colors hover:text-fg">
             {c.compare}
+          </Link>
+          <Link href={pricesHref} className="transition-colors hover:text-fg">
+            {c.prices}
           </Link>
           <Link href="/blog" className="transition-colors hover:text-fg">
             {c.blog}
