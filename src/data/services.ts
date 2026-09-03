@@ -2056,6 +2056,45 @@ export const SEED_SERVICES: SeedService[] = [
     description:
       "Индийский провайдер (Systweak Software, Джайпур), позиционируется в первую очередь как VPN для Windows. WireGuard, kill switch, split tunneling и статический IP на официальном сайте не заявлены. Политика отказа от логов заявлена без независимого аудита; по неподтверждённым данным, сервис недоступен в самой Индии из-за конфликта с местным законодательством о хранении данных.",
   },
+  {
+    slug: "eset-vpn",
+    name: "ESET VPN",
+    logo: "🧿",
+    websiteUrl: "https://www.eset.com/us/home/eset-vpn/",
+    priceFrom: "3.33 $/мес (точная цена на офиц. чекауте не подтверждена)",
+    priceMonthlyUsd: 3.33,
+    freeOption: "30-дневный пробный период без карты",
+    platforms: ["Windows", "macOS", "iOS", "Android"],
+    tags: ["antivirus-bundle"],
+    description:
+      "VPN словацкого антивирусного вендора ESET, продаётся только в составе тарифов ESET HOME Security Premium и Ultimate — отдельно не покупается. Поддерживает WireGuard, есть kill switch и split tunneling. Политика отказа от логов заявлена без независимого аудита.",
+  },
+  {
+    slug: "g-data-vpn",
+    name: "G DATA VPN",
+    logo: "🔰",
+    websiteUrl: "https://www.gdata.de/en/consumer/vpn",
+    priceFrom: "5 $/мес",
+    priceMonthlyUsd: 5,
+    freeOption: "нет, 30 дней возврат денег",
+    platforms: ["Windows", "macOS", "iOS", "Android"],
+    tags: ["antivirus-bundle"],
+    description:
+      "VPN немецкого антивирусного вендора G DATA CyberDefense (Бохум), около 2000 серверов в 75+ локациях, до 10 устройств на тарифе. Kill switch есть только на Windows, WireGuard не заявлен (только IKEv2/OpenVPN/IPSec). Политика отказа от логов заявлена без независимого аудита.",
+  },
+  {
+    slug: "webroot-secure-vpn",
+    name: "Webroot Secure VPN",
+    logo: "🌳",
+    websiteUrl: "https://www.webroot.com/products/secure-vpn/",
+    priceFrom: "3 $/мес",
+    priceMonthlyUsd: 3,
+    freeOption: "7-дневный пробный период только в мобильном приложении",
+    platforms: ["Windows", "macOS", "iOS", "Android"],
+    tags: ["antivirus-bundle"],
+    description:
+      "VPN от Carbonite (подразделение канадской OpenText) под брендом Webroot. По данным независимых обзоров, собственная политика конфиденциальности сервиса противоречит сама себе: заявляет отсутствие логов IP и DNS-запросов, но в другом разделе признаёт сбор данных о сервере подключения, примерной геолокации и DNS-запросов при диагностике сбоев. Split tunneling не работает на устройствах Apple. Недоступен в Китае, России, Египте и ОАЭ по собственным ограничениям сервиса.",
+  },
 ];
 
 export const TAG_LABELS: Record<string, string> = {
