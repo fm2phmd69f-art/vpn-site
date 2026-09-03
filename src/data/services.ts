@@ -2004,6 +2004,58 @@ export const SEED_SERVICES: SeedService[] = [
     description:
       "Продукт известной антицензурной организации GreatFire.org (запущен в 2025 году как продолжение их более раннего инструмента FreeBrowser), с семью разными методами обхода блокировок (Meek, Webtunnel, V2Ray, Hysteria2, XRay-XHTTP, DNSTT) и отдельной функцией доступа к банкам и госсайтам из России, Китая, Ирана и Туркменистана. Split tunneling — только на Android. До 10 устройств. Юрисдикция самой организации публично не раскрывается, что типично для антицензурных проектов такого профиля.",
   },
+  {
+    slug: "aura-vpn",
+    name: "Aura VPN",
+    logo: "🌌",
+    websiteUrl: "https://www.aura.com/vpn",
+    priceFrom: "12 $/мес",
+    priceMonthlyUsd: 12,
+    freeOption: "14-дневный пробный период",
+    platforms: ["Windows", "macOS", "iOS", "Android"],
+    tags: ["antivirus-bundle"],
+    description:
+      "VPN продаётся только в составе подписки на защиту от кражи личных данных Aura (США), отдельно не покупается. Есть kill switch и split tunneling. Компания сама признаёт, что при отключении удаляет данные об IP, но сохраняет посещённые домены, объём трафика и длительность сессий — это расходится с идеей строгого «no-logs». В марте 2026 года у компании произошла утечка около 900 000 записей клиентов через скомпрометированный аккаунт сотрудника (фишинг), хотя сама утечка не касалась трафика VPN.",
+  },
+  {
+    slug: "trend-micro-vpn",
+    name: "Trend Micro VPN",
+    logo: "🦔",
+    websiteUrl: "https://www.trendmicro.com/en_us/forHome/products/trend-micro-vpn.html",
+    priceFrom: "2.5 $/мес",
+    priceMonthlyUsd: 2.5,
+    freeOption: "нет",
+    platforms: ["Windows", "macOS", "iOS", "Android"],
+    tags: ["antivirus-bundle"],
+    description:
+      "VPN-надстройка от японского антивирусного вендора Trend Micro. На официальном сайте не заявлены WireGuard, kill switch, split tunneling или независимый аудит политики логов. В 2019 году у компании был случай, когда сотрудник похитил и продал контактные данные около 70 000 клиентов — инцидент не связан с самим VPN-продуктом, но стоит иметь в виду при оценке доверия к компании в целом.",
+  },
+  {
+    slug: "panda-dome-vpn",
+    name: "Panda Dome VPN",
+    logo: "🐼",
+    websiteUrl: "https://www.pandasecurity.com/en/features/vpn/",
+    priceFrom: "2.92 $/мес",
+    priceMonthlyUsd: 2.92,
+    freeOption: "бесплатный тариф с лимитом 150 МБ защищённого трафика в день",
+    platforms: ["Windows", "macOS", "iOS", "Android"],
+    tags: ["free-tier", "antivirus-bundle"],
+    description:
+      "VPN от испанского антивирусного бренда Panda Security (сейчас часть WatchGuard Technologies, США), продаётся в составе тарифов Panda Dome. Бесплатный тариф ограничен 150 МБ трафика в день без выбора страны сервера. WireGuard, kill switch и split tunneling на сайте не заявлены. Это отдельный продукт от гонконгского PandaVPN Pro — не путать по похожему названию.",
+  },
+  {
+    slug: "systweak-vpn",
+    name: "Systweak VPN",
+    logo: "🐘",
+    websiteUrl: "https://systweakvpn.com/",
+    priceFrom: "5.95 $/мес",
+    priceMonthlyUsd: 5.95,
+    freeOption: "нет, 30 дней возврат денег",
+    platforms: ["Windows", "macOS", "iOS", "Android"],
+    tags: ["streaming"],
+    description:
+      "Индийский провайдер (Systweak Software, Джайпур), позиционируется в первую очередь как VPN для Windows. WireGuard, kill switch, split tunneling и статический IP на официальном сайте не заявлены. Политика отказа от логов заявлена без независимого аудита; по неподтверждённым данным, сервис недоступен в самой Индии из-за конфликта с местным законодательством о хранении данных.",
+  },
 ];
 
 export const TAG_LABELS: Record<string, string> = {
