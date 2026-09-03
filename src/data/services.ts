@@ -1705,6 +1705,97 @@ export const SEED_SERVICES: SeedService[] = [
     description:
       "Российский сервис с протоколами VLESS Reality/Trojan/Hysteria2 для обхода DPI-блокировок, 1000+ серверов в 100+ странах, до 3 устройств. Политика отказа от логов заявлена самим сервисом без независимого аудита, юрисдикция компании не раскрыта.",
   },
+  {
+    slug: "fornex-vpn",
+    name: "Fornex VPN",
+    logo: "🔥",
+    websiteUrl: "https://fornex.com/vpn/",
+    priceFrom: "1.4 €/мес",
+    priceMonthlyUsd: 1.51,
+    freeOption: "нет, 7 дней возврат денег",
+    platforms: ["Windows", "macOS", "Linux", "iOS", "Android", "Router"],
+    tags: ["double-vpn", "wireguard", "circumvention"],
+    description:
+      "Отдельный продукт испанской хостинг-компании Fornex (Fornex Hosting SL) с полноценным мультихопом (double VPN с выбором страны входа и выхода), WireGuard и обфускацией трафика через VLESS/XRay. Политика отказа от логов заявлена самим сервисом без независимого аудита.",
+  },
+  {
+    slug: "finevpn",
+    name: "FineVPN",
+    logo: "🎯",
+    websiteUrl: "https://finevpn.org/",
+    priceFrom: "7 $/мес",
+    priceMonthlyUsd: 7,
+    freeOption: "14-дневный пробный период без карты",
+    platforms: ["Windows", "macOS", "Linux", "iOS", "Android", "Router"],
+    tags: ["wireguard", "circumvention"],
+    description:
+      "Сервис, ориентированный на российский рынок, без собственного приложения — подключение через сторонние клиенты (WireGuard, FoXray, NapsternetV) или Telegram-бота с конфигурациями на протоколах WireGuard и Xray (VLESS/VMess). Юрисдикция компании не раскрыта, политика отказа от логов заявлена без независимого аудита.",
+  },
+  {
+    slug: "thesafety",
+    name: "TheSafety",
+    logo: "🔐",
+    websiteUrl: "https://thesafety.us/",
+    priceFrom: "8.33 $/мес",
+    priceMonthlyUsd: 8.33,
+    freeOption: "есть бесплатный тестовый аккаунт (точные лимиты не подтверждены)",
+    platforms: ["Windows", "macOS", "iOS", "Android", "Linux"],
+    tags: ["double-vpn", "static-ip", "circumvention"],
+    description:
+      "Провайдер, работающий с 2006 года (по данным сторонних обзоров — с юрисдикцией в Панаме, не подтверждено напрямую на сайте), с протоколом AmneziaWG (обфусцированный WireGuard) и инструментом маскировки трафика под HTTPS. Double VPN, kill switch и статический IP доступны только на тарифах выше самого дешёвого Lite. Политика отказа от логов заявлена без независимого аудита.",
+  },
+  {
+    slug: "hide-my-ip",
+    name: "Hide My IP",
+    logo: "🙈",
+    websiteUrl: "https://www.hidemyip.com/",
+    priceFrom: "2.91 $/мес",
+    priceMonthlyUsd: 2.91,
+    freeOption: "есть ограниченный пробный тариф (точные лимиты не подтверждены)",
+    platforms: ["Windows", "macOS", "Linux", "iOS", "Android", "Browser"],
+    tags: [],
+    description:
+      "Давний сервис (My Privacy Tools, Inc.), не связанный ни с HMA, ни с Hide.me несмотря на похожее название — до 7 устройств, 140+ локаций серверов. По данным сторонних обзоров, юрисдикция компании переносилась на Багамы; поддержка современных протоколов (WireGuard/OpenVPN) не подтверждена напрямую. Политика отказа от логов заявлена без независимого аудита.",
+  },
+  {
+    slug: "papervpn",
+    name: "PaperVPN",
+    logo: "📰",
+    websiteUrl: "https://papervpn.io/",
+    priceFrom: "150 ₽/мес (точная цена на самом длинном тарифе не подтверждена)",
+    priceMonthlyUsd: 1.72,
+    freeOption: "нет, но реферальная программа даёт 30 бесплатных дней за приглашение",
+    platforms: ["Windows", "macOS", "iOS", "Android", "TV"],
+    tags: ["circumvention"],
+    description:
+      "VPN-проект независимого российского медиа «Бумага» на протоколе VLESS — безлимитный трафик и число устройств на одной подписке, split tunneling, до 10 переключений сервера в день. Юрисдикция компании не раскрыта, политика отказа от логов заявлена без независимого аудита.",
+  },
+  {
+    slug: "mz-vpn",
+    name: "MZ VPN (Зона VPN)",
+    logo: "⚡",
+    websiteUrl: "https://mzvpn.com/",
+    priceFrom: "8.33 $/мес",
+    priceMonthlyUsd: 8.33,
+    freeOption: "нет, 14 дней возврат денег",
+    platforms: ["Windows", "macOS", "iOS", "Android", "TV", "Router"],
+    tags: ["wireguard", "circumvention"],
+    description:
+      "VPN-проект независимого российского медиа «Медиазона», зарегистрирован как EUPHORIATECH LIMITED (Кипр). Протокол AmneziaWG (обфусцированный WireGuard), безлимитный трафик, до 5 устройств, серверы в 5 странах плюс Россия для доступа к российским госсайтам. Политика отказа от логов заявлена без независимого аудита.",
+  },
+  {
+    slug: "hidemy-name-vpn",
+    name: "hidemy.name VPN",
+    logo: "🎭",
+    websiteUrl: "https://hidemy.name/",
+    priceFrom: "4 $/мес",
+    priceMonthlyUsd: 4,
+    freeOption: "нет, 30 дней возврат денег",
+    platforms: ["Windows", "macOS", "Linux", "iOS", "Android", "Router"],
+    tags: [],
+    description:
+      "Работает с 2006 года (ранее также известен как InCloak), не связан с Hide.me несмотря на похожее название. Поддерживает IKEv2 и OpenVPN, а по данным стороннего обзора — также устаревший PPTP. Юрисдикция указана на сайте противоречиво (то Белиз, то английское право), политика отказа от логов не подтверждена независимым аудитом; регистрация не требуется.",
+  },
 ];
 
 export const TAG_LABELS: Record<string, string> = {
