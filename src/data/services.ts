@@ -1653,6 +1653,19 @@ export const SEED_SERVICES: SeedService[] = [
     description:
       "Российский VPN-сервис с управлением подпиской через вход по Telegram вместо обычной регистрации — до 5 устройств и 500 ГБ трафика на платных тарифах. На официальном сайте не раскрыты используемые протоколы, политика логирования, наличие kill switch или юридическое лицо/юрисдикция компании — набор публичной информации заметно скромнее большинства конкурентов.",
   },
+  {
+    slug: "red-shield-vpn",
+    name: "Red Shield VPN",
+    logo: "🔰",
+    websiteUrl: "https://redshieldvpn.com/",
+    priceFrom: "5.95 $/мес",
+    priceMonthlyUsd: 5.95,
+    freeOption: "нет, 14 дней возврат денег",
+    platforms: ["Windows", "macOS", "iOS", "Android", "Browser"],
+    tags: ["wireguard", "double-vpn", "anonymous-payment"],
+    description:
+      "Продолжение сервиса TgVPN (ребрендинг 2019 года), американский провайдер (Private Network Labs LLC) с поддержкой WireGuard, double VPN на части локаций, split tunneling и собственным протоколом обфускации RedLink. Принимает оплату криптовалютой, публикует warrant canary. Политика отказа от логов заявлена самим сервисом без независимого аудита.",
+  },
 ];
 
 export const TAG_LABELS: Record<string, string> = {
