@@ -1796,6 +1796,45 @@ export const SEED_SERVICES: SeedService[] = [
     description:
       "Работает с 2006 года (ранее также известен как InCloak), не связан с Hide.me несмотря на похожее название. Поддерживает IKEv2 и OpenVPN, а по данным стороннего обзора — также устаревший PPTP. Юрисдикция указана на сайте противоречиво (то Белиз, то английское право), политика отказа от логов не подтверждена независимым аудитом; регистрация не требуется.",
   },
+  {
+    slug: "blancvpn",
+    name: "BlancVPN",
+    logo: "⚪",
+    websiteUrl: "https://blancvpn.com/",
+    priceFrom: "2.99 €/мес",
+    priceMonthlyUsd: 3.23,
+    freeOption: "нет, 30 дней возврат денег (кроме оплаты криптовалютой)",
+    platforms: ["Windows", "macOS", "Linux", "iOS", "Android", "TV", "Router"],
+    tags: ["wireguard", "unlimited-devices", "circumvention"],
+    description:
+      "Эстонский провайдер (Yadda OÜ) с поддержкой WireGuard, V2Ray и OpenVPN, split tunneling и безлимитным числом устройств. Политика отказа от логов заявлена самим сервисом без независимого аудита; по неподтверждённым данным сторонних обзоров, ранее сервис работал под другим названием.",
+  },
+  {
+    slug: "altvpn",
+    name: "AltVPN",
+    logo: "🔀",
+    websiteUrl: "https://altvpn.com/en/",
+    priceFrom: "2.9 $/мес",
+    priceMonthlyUsd: 2.9,
+    freeOption: "24-часовой пробный период (одноразово, по email)",
+    platforms: ["Windows", "macOS", "Linux", "iOS", "Android", "TV", "Router"],
+    tags: ["static-ip"],
+    description:
+      "Провайдер из Белиза (ALTVPN INC.) с протоколами OpenVPN, IKEv2, L2TP/PPTP — WireGuard не заявлен. Статический IP доступен как платная опция. Политика отказа от логов заявлена самим сервисом без независимого аудита.",
+  },
+  {
+    slug: "rks-vpn",
+    name: "RKS VPN",
+    logo: "🗽",
+    websiteUrl: "https://rksvpn.com/",
+    priceFrom: "2.5 $/мес",
+    priceMonthlyUsd: 2.5,
+    freeOption: "нет, 14 дней возврат денег",
+    platforms: ["Windows", "macOS", "Linux", "Android", "TV"],
+    tags: ["circumvention"],
+    description:
+      "Продукт исследовательской группы RKS Global (изучает интернет-цензуру более 10 лет) на протоколах XRay/VLESS Reality и AmneziaWG для обхода DPI-блокировок. Нет собственного приложения — конфигурация импортируется в сторонний клиент (рекомендуется Amnezia VPN); официального способа установки на iOS через App Store нет. До 7 устройств, 6 локаций серверов.",
+  },
 ];
 
 export const TAG_LABELS: Record<string, string> = {
