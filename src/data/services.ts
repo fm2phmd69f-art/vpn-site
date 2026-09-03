@@ -1835,6 +1835,71 @@ export const SEED_SERVICES: SeedService[] = [
     description:
       "Продукт исследовательской группы RKS Global (изучает интернет-цензуру более 10 лет) на протоколах XRay/VLESS Reality и AmneziaWG для обхода DPI-блокировок. Нет собственного приложения — конфигурация импортируется в сторонний клиент (рекомендуется Amnezia VPN); официального способа установки на iOS через App Store нет. До 7 устройств, 6 локаций серверов.",
   },
+  {
+    slug: "hynet",
+    name: "Hynet",
+    logo: "💻",
+    websiteUrl: "https://hynet.cloud/",
+    priceFrom: "59 ₽/мес",
+    priceMonthlyUsd: 0.68,
+    freeOption: "нет отдельного бесплатного тарифа",
+    platforms: ["Windows", "macOS", "Linux", "iOS", "Android", "TV", "Router"],
+    tags: ["circumvention"],
+    description:
+      "Необычная модель («Y2Y» — you-to-you): вместо подключения к общим серверам провайдера сервис арендует для вас личный выделенный сервер (VDS) за рубежом с протоколами VLESS, VMess, Shadowsocks, OpenVPN и Trojan. Юридическое лицо и юрисдикция компании нигде не раскрыты.",
+  },
+  {
+    slug: "brovpn",
+    name: "BroVPN",
+    logo: "🤙",
+    websiteUrl: "https://brovpn.io/",
+    priceFrom: "2.99 $/мес",
+    priceMonthlyUsd: 2.99,
+    freeOption: "3-дневный пробный период, 500 МБ, 1 устройство",
+    platforms: ["Windows", "macOS", "Android"],
+    tags: ["circumvention"],
+    description:
+      "Небольшой сервис, распространяемый через Telegram-бота, на протоколах V2Ray/VLESS/VMess для обхода блокировок. Kill switch есть на месячном тарифе, «стелс»-режим и приватный DNS — на годовом. По отзывам пользователей, официального приложения для iOS нет. Независимых отзывов крайне мало; юрисдикция компании не раскрыта.",
+  },
+  {
+    slug: "vpn-how",
+    name: "Vpn.how",
+    logo: "🌐",
+    websiteUrl: "https://vpn.how/",
+    priceFrom: "14.99 $/мес",
+    priceMonthlyUsd: 14.99,
+    freeOption: "12-часовой пробный период",
+    platforms: ["Windows", "macOS", "Linux", "iOS", "Android", "Router"],
+    tags: ["static-ip", "wireguard", "circumvention"],
+    description:
+      "Продаёт персональные выделенные серверы (не общую инфраструктуру) с необычно широким набором протоколов — WireGuard, VLESS+Reality, AmneziaWG, Hysteria2, Shadowsocks и другие, ориентирован на обход блокировок. Собственного приложения нет — доступ через конфигурации протоколов. Юридическое лицо и юрисдикция нигде не раскрыты.",
+  },
+  {
+    slug: "potato-vpn",
+    name: "Potato VPN",
+    logo: "🥔",
+    websiteUrl: "https://potatovpn.com/",
+    priceFrom: "5.99 $/мес",
+    priceMonthlyUsd: 5.99,
+    freeOption: "нет, 30 дней возврат денег",
+    platforms: ["Windows", "macOS", "iOS", "Android"],
+    tags: [],
+    description:
+      "Сингапурский провайдер (FASTPOTATO PTE. LTD). По данным независимых обзоров (vpnMentor, vpncentral), использует собственные протоколы вместо WireGuard/OpenVPN/IKEv2 и не имеет kill switch — это стоит учитывать при выборе. Политика отказа от логов заявлена самим сервисом без независимого аудита.",
+  },
+  {
+    slug: "vpn99",
+    name: "VPN99",
+    logo: "9️⃣",
+    websiteUrl: "https://vpn99.net/",
+    priceFrom: "2.5 $/мес",
+    priceMonthlyUsd: 2.5,
+    freeOption: "3-дневный пробный период с безлимитным трафиком",
+    platforms: ["Windows", "macOS", "iOS", "Android", "Browser"],
+    tags: ["wireguard", "budget"],
+    description:
+      "Американский провайдер (Shopcut LLC, Нью-Джерси) с поддержкой WireGuard, 300+ серверами в 60+ странах, до 5 устройств. Политика отказа от логов заявлена самим сервисом без независимого аудита; kill switch, split tunneling и другие продвинутые функции на сайте не заявлены.",
+  },
 ];
 
 export const TAG_LABELS: Record<string, string> = {
