@@ -105,7 +105,7 @@ export default async function BlogPostPage(props: Props) {
         <span>{post.title}</span>
       </nav>
 
-      <h1 className="text-2xl font-semibold tracking-tight">{post.title}</h1>
+      <h1 className="text-[30px] font-semibold leading-tight tracking-tight">{post.title}</h1>
       <p className="mt-2 text-sm text-muted">
         {new Date(post.publishedAt).toLocaleDateString("ru-RU", {
           day: "numeric",
@@ -133,11 +133,11 @@ export default async function BlogPostPage(props: Props) {
         </figure>
       )}
 
-      <article className="mt-6 flex flex-col gap-4 text-sm leading-relaxed">
+      <article className="mt-6 flex flex-col gap-4 text-base leading-relaxed">
         {post.content.map((block, i) => {
           if (block.type === "h2") {
             return (
-              <h2 key={i} className="mt-2 text-lg font-semibold text-fg">
+              <h2 key={i} className="mt-2 text-2xl font-semibold text-fg">
                 {block.text}
               </h2>
             );
