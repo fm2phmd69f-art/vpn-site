@@ -1666,6 +1666,45 @@ export const SEED_SERVICES: SeedService[] = [
     description:
       "Продолжение сервиса TgVPN (ребрендинг 2019 года), американский провайдер (Private Network Labs LLC) с поддержкой WireGuard, double VPN на части локаций, split tunneling и собственным протоколом обфускации RedLink. Принимает оплату криптовалютой, публикует warrant canary. Политика отказа от логов заявлена самим сервисом без независимого аудита.",
   },
+  {
+    slug: "kryon-vpn",
+    name: "Kryon VPN",
+    logo: "🌀",
+    websiteUrl: "https://kryon.pro/",
+    priceFrom: "3.5 $/мес",
+    priceMonthlyUsd: 3.5,
+    freeOption: "3-дневный пробный период",
+    platforms: ["Windows", "macOS", "Linux", "iOS", "Android", "Browser"],
+    tags: ["torrents", "double-vpn", "circumvention"],
+    description:
+      "Британский провайдер (Fusion Edge LLP, Лондон) с «стелс»-протоколами для обхода DPI-блокировок и мультихопом по данным FAQ; разрешает торренты, до 10 устройств, 30+ локаций. Политика отказа от логов заявлена самим сервисом без независимого аудита.",
+  },
+  {
+    slug: "dozor-vpn",
+    name: "Dozor VPN",
+    logo: "🚨",
+    websiteUrl: "https://dozor-vpn.net/",
+    priceFrom: "132.5 ₽/мес",
+    priceMonthlyUsd: 1.52,
+    freeOption: "3-дневный пробный период без карты",
+    platforms: ["Windows", "macOS", "iOS", "Android", "TV"],
+    tags: ["circumvention"],
+    description:
+      "Российский сервис на протоколе VLESS (маскирует трафик под HTTPS), оптимизированный под обход блокировок конкретно российских интернет-провайдеров (МТС, Билайн, МегаФон, Т2, Ростелеком). Работает через сторонние клиенты (Happ, v2rayN) вместо собственного приложения. Политика отказа от логов заявлена самим сервисом без независимого аудита, юрисдикция компании не раскрыта.",
+  },
+  {
+    slug: "volnalink",
+    name: "VolnaLink",
+    logo: "〰️",
+    websiteUrl: "https://volnalink.com/",
+    priceFrom: "209.4 ₽/мес",
+    priceMonthlyUsd: 2.41,
+    freeOption: "8 часов бесплатно без карты",
+    platforms: ["Windows", "macOS", "Linux", "iOS", "Android", "TV", "Router"],
+    tags: ["circumvention"],
+    description:
+      "Российский сервис с протоколами VLESS Reality/Trojan/Hysteria2 для обхода DPI-блокировок, 1000+ серверов в 100+ странах, до 3 устройств. Политика отказа от логов заявлена самим сервисом без независимого аудита, юрисдикция компании не раскрыта.",
+  },
 ];
 
 export const TAG_LABELS: Record<string, string> = {
