@@ -11,7 +11,7 @@ export function LocaleSwitcher() {
   const labels = UI[locale].langSwitcher;
 
   return (
-    <div className="flex items-center gap-1 rounded-full border border-border p-0.5 text-xs font-medium">
+    <div className="inline-flex items-center gap-1 rounded-full border border-border p-0.5 text-xs font-medium">
       <Link
         href={switchLocalePath(pathname, "ru")}
         className={`rounded-full px-2 py-1 transition-colors ${
