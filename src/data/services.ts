@@ -1562,6 +1562,45 @@ export const SEED_SERVICES: SeedService[] = [
     description:
       "Сервис гонконгской BravoTelco Limited без обязательной регистрации аккаунта для использования приложения. На официальном сайте не указаны конкретные протоколы (WireGuard/OpenVPN отдельно не упоминаются), kill switch или split tunneling — набор технических деталей заметно скромнее большинства конкурентов; политика отказа от логов заявлена без независимого аудита.",
   },
+  {
+    slug: "goodaccess",
+    name: "GoodAccess",
+    logo: "🏢",
+    websiteUrl: "https://www.goodaccess.com/",
+    priceFrom: "7 $/пользователь/мес",
+    priceMonthlyUsd: 7,
+    freeOption: "бесплатный ограниченный тариф GoodAccess Starter",
+    platforms: ["Windows", "macOS", "Linux", "iOS", "Android", "ChromeOS"],
+    tags: ["business", "static-ip"],
+    description:
+      "Не классический потребительский VPN, а корпоративный ZTNA-сервис (от 5 пользователей на тариф) со статическими IP для белых списков и облачными шлюзами в 35+ локациях; есть постоянный бесплатный урезанный тариф Starter.",
+  },
+  {
+    slug: "flyvpn",
+    name: "FlyVPN",
+    logo: "🛫",
+    websiteUrl: "https://www.flyvpn.com/",
+    priceFrom: "4.96 $/мес (при оплате за 2 года)",
+    priceMonthlyUsd: 4.96,
+    freeOption: "нет, есть сутки пробного доступа за $0.99 для новых пользователей",
+    platforms: ["Windows", "macOS", "iOS", "Android", "Linux"],
+    tags: ["static-ip", "budget"],
+    description:
+      "Гонконгский провайдер с 500+ серверами в 40 странах, помимо обычных общих IP продаёт выделенные статические IP (США, Корея) за отдельную плату; политика отказа от логов заявлена самим сервисом без независимого аудита.",
+  },
+  {
+    slug: "celo-vpn",
+    name: "Celo VPN",
+    logo: "🐨",
+    websiteUrl: "https://celo.net/",
+    priceFrom: "6 $/мес",
+    priceMonthlyUsd: 6,
+    freeOption: "нет, 10 дней возврат денег",
+    platforms: ["Windows", "macOS", "Linux", "iOS", "Android", "Router"],
+    tags: ["no-logs", "anonymous-payment", "privacy"],
+    description:
+      "Австралийский провайдер (с 2014 года) с серверами в 15+ странах, до 8 устройств на аккаунт и поддержкой обфускации Shadowsocks/V2Ray для обхода блокировок; принимает оплату криптовалютой без привязки к личным данным. Политика отказа от логов заявлена самим сервисом без независимого аудита.",
+  },
 ];
 
 export const TAG_LABELS: Record<string, string> = {
