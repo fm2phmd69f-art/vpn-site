@@ -12,6 +12,7 @@ import { ServiceLogo } from "@/components/ServiceLogo";
 import { computeScore } from "@/lib/score";
 import { ScoreBreakdownCard } from "@/components/ScoreBreakdownCard";
 import { COMPARISON_SLUGS, allComparisonPairs } from "@/lib/comparisons";
+import { renderInlineText } from "@/components/RichText";
 
 export const revalidate = 1800;
 
@@ -207,7 +208,7 @@ export default async function ServicePage(props: Props) {
                 {extras.pros.map((item, i) => (
                   <li key={i} className="flex gap-1.5">
                     <span aria-hidden>✅</span>
-                    <span>{item}</span>
+                    <span>{renderInlineText(item)}</span>
                   </li>
                 ))}
               </ul>
@@ -220,7 +221,7 @@ export default async function ServicePage(props: Props) {
                 {extras.cons.map((item, i) => (
                   <li key={i} className="flex gap-1.5">
                     <span aria-hidden>⚠️</span>
-                    <span>{item}</span>
+                    <span>{renderInlineText(item)}</span>
                   </li>
                 ))}
               </ul>
@@ -302,7 +303,7 @@ export default async function ServicePage(props: Props) {
                     ⌄
                   </span>
                 </summary>
-                <p className="mt-2 text-sm text-muted">{item.a}</p>
+                <p className="mt-2 text-sm text-muted">{renderInlineText(item.a)}</p>
               </details>
             ))}
           </div>
