@@ -158,11 +158,45 @@ export default async function ServicePage(props: Props) {
             <dd className="font-medium">{service.freeOption}</dd>
           </div>
         )}
+        {extras.serverCountText && (
+          <div>
+            <dt className="text-muted">Серверы</dt>
+            <dd className="font-medium">{extras.serverCountText}</dd>
+          </div>
+        )}
+        {extras.simultaneousConnections != null && (
+          <div>
+            <dt className="text-muted">Устройств одновременно</dt>
+            <dd className="font-medium">{extras.simultaneousConnections}</dd>
+          </div>
+        )}
+        {extras.killSwitch != null && (
+          <div>
+            <dt className="text-muted">Kill switch</dt>
+            <dd className="font-medium">{extras.killSwitch ? "Есть" : "Не заявлен"}</dd>
+          </div>
+        )}
+        {extras.protocols && extras.protocols.length > 0 && (
+          <div className="col-span-2 sm:col-span-3">
+            <dt className="text-muted">Протоколы</dt>
+            <dd className="font-medium">{extras.protocols.join(", ")}</dd>
+          </div>
+        )}
         <div className="col-span-2 sm:col-span-3">
           <dt className="text-muted">Платформы</dt>
           <dd className="font-medium">{service.platforms.join(", ")}</dd>
         </div>
       </dl>
+      {extras.specsCheckedAt && (
+        <p className="mt-1.5 text-xs text-muted">
+          Характеристики выше сверены с официальным сайтом провайдера:{" "}
+          {new Date(extras.specsCheckedAt).toLocaleDateString("ru-RU", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          })}
+        </p>
+      )}
 
       {(extras.pros?.length || extras.cons?.length) && (
         <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">

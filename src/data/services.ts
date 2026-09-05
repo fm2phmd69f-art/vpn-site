@@ -16,12 +16,39 @@ export interface SeedService {
   pros?: string[];
   cons?: string[];
   faq?: { q: string; a: string }[];
+  /** Researched technical specs (verified against the provider's own site), not synced to the DB. */
+  protocols?: string[];
+  killSwitch?: boolean;
+  serverCountText?: string;
+  simultaneousConnections?: number;
+  specsCheckedAt?: string;
 }
 
 /** Slug -> editorial extras lookup, used by the VPN page template. */
-export function getServiceExtras(slug: string): Pick<SeedService, "pros" | "cons" | "faq"> {
+export function getServiceExtras(
+  slug: string
+): Pick<
+  SeedService,
+  | "pros"
+  | "cons"
+  | "faq"
+  | "protocols"
+  | "killSwitch"
+  | "serverCountText"
+  | "simultaneousConnections"
+  | "specsCheckedAt"
+> {
   const seed = SEED_SERVICES.find((s) => s.slug === slug);
-  return { pros: seed?.pros, cons: seed?.cons, faq: seed?.faq };
+  return {
+    pros: seed?.pros,
+    cons: seed?.cons,
+    faq: seed?.faq,
+    protocols: seed?.protocols,
+    killSwitch: seed?.killSwitch,
+    serverCountText: seed?.serverCountText,
+    simultaneousConnections: seed?.simultaneousConnections,
+    specsCheckedAt: seed?.specsCheckedAt,
+  };
 }
 
 /**
