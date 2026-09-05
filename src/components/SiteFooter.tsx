@@ -30,6 +30,15 @@ const USE_CASE_LINKS = [
   { slug: "vpn-for-travel", ru: "VPN для путешествий", en: "VPN for travel" },
 ] as const;
 
+const TROUBLESHOOTING_LINKS = [
+  { slug: "vpn-not-connecting", ru: "VPN не подключается" },
+  { slug: "vpn-is-slow", ru: "VPN тормозит" },
+  { slug: "netflix-not-working-with-vpn", ru: "Netflix не работает через VPN" },
+  { slug: "vpn-not-changing-ip", ru: "VPN не меняет IP" },
+  { slug: "vpn-is-blocked", ru: "VPN блокируется" },
+  { slug: "vpn-keeps-disconnecting", ru: "VPN постоянно отключается" },
+] as const;
+
 const TOOL_LINKS = [
   { slug: "vpn-matcher", ru: "VPN Matcher — подбор VPN", en: "VPN Matcher" },
   { slug: "vpn-prices", ru: "Цены на VPN", en: "VPN Prices" },
@@ -53,6 +62,7 @@ const COPY = {
     topTitle: "Топ-5 VPN",
     topSubtitle: "по VPNmarket Score",
     useCasesTitle: "VPN по задачам",
+    troubleshootingTitle: "Решение проблем",
     toolsTitle: "Инструменты",
     rights: "Все права защищены.",
   },
@@ -67,6 +77,7 @@ const COPY = {
     topTitle: "Top 5 VPNs",
     topSubtitle: "by VPNmarket Score",
     useCasesTitle: "VPN by use case",
+    troubleshootingTitle: "",
     toolsTitle: "Tools",
     rights: "All rights reserved.",
   },
@@ -82,7 +93,7 @@ export function SiteFooter({ topServices }: SiteFooterProps) {
   return (
     <footer className="mt-16 border-t border-border bg-surface">
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-        <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-5">
+        <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-6">
           <div className="col-span-2 sm:col-span-3 lg:col-span-1">
             <Link href={homeHref} className="flex items-center gap-2 text-base font-semibold">
               <span className="text-xl leading-none">🛡️</span>
@@ -138,6 +149,23 @@ export function SiteFooter({ topServices }: SiteFooterProps) {
               ))}
             </ul>
           </div>
+
+          {locale === "ru" && (
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-muted">
+                {c.troubleshootingTitle}
+              </p>
+              <ul className="mt-3 flex flex-col gap-2 text-sm">
+                {TROUBLESHOOTING_LINKS.map((l) => (
+                  <li key={l.slug}>
+                    <Link href={`/${l.slug}`} className="text-muted transition-colors hover:text-fg">
+                      {l.ru}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           <div>
             <p className="text-xs font-semibold uppercase tracking-wide text-muted">

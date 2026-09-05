@@ -7,6 +7,7 @@ import { BLOG_POSTS_EN } from "@/data/postsEn";
 import { allIntentSlugs } from "@/data/intents";
 import { INTENTS_EN } from "@/data/intentsEn";
 import { TAG_LABELS_EN } from "@/data/tagLabelsEn";
+import { allTroubleshootingSlugs } from "@/data/troubleshooting";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -302,5 +303,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ] as MetadataRoute.Sitemap;
   });
 
-  return [...home, ...services, ...categories, ...comparisons, ...posts, ...intents];
+  const troubleshooting: MetadataRoute.Sitemap = allTroubleshootingSlugs().map((slug) => ({
+    url: `${SITE_URL}/${slug}`,
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 0.7,
+  }));
+
+  return [
+    ...home,
+    ...services,
+    ...categories,
+    ...comparisons,
+    ...posts,
+    ...intents,
+    ...troubleshooting,
+  ];
 }
