@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllServices, getServiceBySlug } from "@/lib/getServices";
-import { TAG_LABELS } from "@/data/services";
+import { TAG_LABELS, getServiceExtras } from "@/data/services";
 import { StatusBadge } from "@/components/StatusBadge";
 import { ServiceCard } from "@/components/ServiceCard";
 import { ReportForm } from "@/components/ReportForm";
@@ -11,6 +11,7 @@ import { getUptimeStats } from "@/lib/uptime";
 import { ServiceLogo } from "@/components/ServiceLogo";
 import { computeScore } from "@/lib/score";
 import { ScoreBreakdownCard } from "@/components/ScoreBreakdownCard";
+import { COMPARISON_SLUGS, allComparisonPairs } from "@/lib/comparisons";
 
 export const revalidate = 1800;
 
@@ -55,6 +56,10 @@ export default async function ServicePage(props: Props) {
 
   const uptime30d = await getUptimeStats(service.id, 30);
   const score = computeScore(service);
+  const extras = getServiceExtras(service.slug);
+  const comparisons = COMPARISON_SLUGS.includes(service.slug)
+    ? allComparisonPairs().filter((p) => p.a === service.slug || p.b === service.slug)
+    : [];
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -71,12 +76,31 @@ export default async function ServicePage(props: Props) {
     ],
   };
 
+  const faqJsonLd =
+    extras.faq && extras.faq.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: extras.faq.map((item) => ({
+            "@type": "Question",
+            name: item.q,
+            acceptedAnswer: { "@type": "Answer", text: item.a },
+          })),
+        }
+      : null;
+
   return (
     <main className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLdScript(breadcrumbJsonLd) }}
       />
+      {faqJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: jsonLdScript(faqJsonLd) }}
+        />
+      )}
 
       <nav className="mb-6 text-sm text-muted">
         <Link href="/" className="hover:text-fg">
@@ -140,6 +164,37 @@ export default async function ServicePage(props: Props) {
         </div>
       </dl>
 
+      {(extras.pros?.length || extras.cons?.length) && (
+        <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {extras.pros && extras.pros.length > 0 && (
+            <div className="rounded-2xl border border-border bg-surface p-4">
+              <p className="mb-2 text-sm font-semibold text-fg">Плюсы</p>
+              <ul className="flex flex-col gap-1.5 text-sm text-fg">
+                {extras.pros.map((item, i) => (
+                  <li key={i} className="flex gap-1.5">
+                    <span aria-hidden>✅</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {extras.cons && extras.cons.length > 0 && (
+            <div className="rounded-2xl border border-border bg-surface p-4">
+              <p className="mb-2 text-sm font-semibold text-fg">Минусы</p>
+              <ul className="flex flex-col gap-1.5 text-sm text-fg">
+                {extras.cons.map((item, i) => (
+                  <li key={i} className="flex gap-1.5">
+                    <span aria-hidden>⚠️</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
+
       <div className="mt-5 flex flex-wrap gap-1.5">
         {service.tags.map((tag) => (
           <Link
@@ -174,6 +229,47 @@ export default async function ServicePage(props: Props) {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {related.map((s) => (
               <ServiceCard key={s.id} service={s} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {comparisons.length > 0 && (
+        <section className="mt-12">
+          <h2 className="mb-4 text-lg font-semibold">Сравнения с {service.name}</h2>
+          <div className="flex flex-wrap gap-2">
+            {comparisons.map((c) => {
+              const otherSlug = c.a === service.slug ? c.b : c.a;
+              const otherName =
+                allServices.find((s) => s.slug === otherSlug)?.name ?? otherSlug;
+              return (
+                <Link
+                  key={c.pairSlug}
+                  href={`/compare/${c.pairSlug}`}
+                  className="rounded-full border border-border bg-surface px-3 py-1.5 text-sm text-fg transition-colors hover:border-accent"
+                >
+                  {service.name} vs {otherName}
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      {extras.faq && extras.faq.length > 0 && (
+        <section className="mt-12">
+          <h2 className="mb-4 text-lg font-semibold">Частые вопросы</h2>
+          <div className="flex flex-col gap-2">
+            {extras.faq.map((item) => (
+              <details key={item.q} className="group rounded-xl border border-border p-4">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-medium [&::-webkit-details-marker]:hidden">
+                  {item.q}
+                  <span className="shrink-0 text-muted transition-transform duration-200 group-open:rotate-180">
+                    ⌄
+                  </span>
+                </summary>
+                <p className="mt-2 text-sm text-muted">{item.a}</p>
+              </details>
             ))}
           </div>
         </section>
