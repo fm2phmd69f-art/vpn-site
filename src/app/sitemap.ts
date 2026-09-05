@@ -126,6 +126,44 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     },
     {
+      url: `${SITE_URL}/vpn-security-check`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.65,
+      alternates: {
+        languages: {
+          ru: `${SITE_URL}/vpn-security-check`,
+          en: `${SITE_URL}/en/vpn-security-check`,
+        },
+      },
+    },
+    {
+      url: `${SITE_URL}/en/vpn-security-check`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.6,
+      alternates: {
+        languages: {
+          ru: `${SITE_URL}/vpn-security-check`,
+          en: `${SITE_URL}/en/vpn-security-check`,
+        },
+      },
+    },
+    {
+      url: `${SITE_URL}/tools`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.5,
+      alternates: { languages: { ru: `${SITE_URL}/tools`, en: `${SITE_URL}/en/tools` } },
+    },
+    {
+      url: `${SITE_URL}/en/tools`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.45,
+      alternates: { languages: { ru: `${SITE_URL}/tools`, en: `${SITE_URL}/en/tools` } },
+    },
+    {
       url: `${SITE_URL}/about`,
       lastModified: now,
       changeFrequency: "monthly",

@@ -5,7 +5,16 @@ import { CatalogClient } from "@/components/CatalogClient";
 import LightRays from "@/components/LightRays";
 import { TAG_LABELS } from "@/data/services";
 import { INTENTS } from "@/data/intents";
+import { BLOG_POSTS } from "@/data/posts";
+import { pairSlug } from "@/lib/comparisons";
 import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
+
+const POPULAR_COMPARISONS: [string, string][] = [
+  ["nordvpn", "surfshark"],
+  ["nordvpn", "expressvpn"],
+  ["surfshark", "protonvpn"],
+  ["expressvpn", "surfshark"],
+];
 
 export const revalidate = 1800;
 
@@ -51,6 +60,17 @@ const FAQ_ITEMS = [
 
 export default async function HomePage() {
   const services = await getAllServices();
+
+  const lastCheckedTimestamps = services
+    .map((s) => s.lastCheckedAt)
+    .filter((d): d is string => Boolean(d))
+    .map((d) => new Date(d).getTime());
+  const lastChecked =
+    lastCheckedTimestamps.length > 0 ? new Date(Math.max(...lastCheckedTimestamps)) : null;
+
+  const recentPosts = [...BLOG_POSTS]
+    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+    .slice(0, 3);
 
   const itemListJsonLd = {
     "@context": "https://schema.org",
@@ -104,13 +124,25 @@ export default async function HomePage() {
           <span>{SITE_NAME}</span>
         </div>
         <h1 className="relative z-10 text-4xl font-semibold tracking-tight text-white">
-          VPN-сервисы {new Date().getFullYear()}
+          Лучшие VPN-сервисы {new Date().getFullYear()}
         </h1>
         <p className="relative z-10 max-w-2xl text-white/70">
           Каталог из {services.length} VPN-провайдеров: цены, заявленная скорость, платформы и
           особенности — от no-logs и бесплатных тарифов до сервисов для Netflix и торрентов.
           Статус «сайт доступен» и задержка проверяются автоматически по расписанию.
         </p>
+        {lastChecked && (
+          <p className="relative z-10 text-xs text-white/50">
+            Последняя автопроверка доступности сайтов:{" "}
+            {lastChecked.toLocaleDateString("ru-RU", { day: "numeric", month: "long", year: "numeric" })}
+          </p>
+        )}
+        <Link
+          href="/vpnmarket-score"
+          className="relative z-10 mt-1 text-xs text-white/60 underline underline-offset-2 hover:text-white/90"
+        >
+          Как считается рейтинг VPNmarket Score →
+        </Link>
       </header>
 
       <section className="mb-8">
@@ -149,6 +181,12 @@ export default async function HomePage() {
         <h2 className="mb-3 text-center text-lg font-semibold">Бесплатные инструменты</h2>
         <div className="flex flex-wrap justify-center gap-2">
           <Link
+            href="/vpn-security-check"
+            className="rounded-full border border-border bg-surface px-3 py-1.5 text-sm text-fg transition-colors hover:border-accent"
+          >
+            🛡️ Проверка безопасности VPN
+          </Link>
+          <Link
             href="/what-is-my-ip"
             className="rounded-full border border-border bg-surface px-3 py-1.5 text-sm text-fg transition-colors hover:border-accent"
           >
@@ -165,6 +203,33 @@ export default async function HomePage() {
             className="rounded-full border border-border bg-surface px-3 py-1.5 text-sm text-fg transition-colors hover:border-accent"
           >
             🚫 Проверка IP на блокировки
+          </Link>
+          <Link
+            href="/tools"
+            className="rounded-full border border-border bg-surface px-3 py-1.5 text-sm text-fg transition-colors hover:border-accent"
+          >
+            Все инструменты →
+          </Link>
+        </div>
+      </section>
+
+      <section className="mt-12">
+        <h2 className="mb-3 text-center text-lg font-semibold">Популярные сравнения</h2>
+        <div className="flex flex-wrap justify-center gap-2">
+          {POPULAR_COMPARISONS.map(([a, b]) => (
+            <Link
+              key={pairSlug(a, b)}
+              href={`/compare/${pairSlug(a, b)}`}
+              className="rounded-full border border-border bg-surface px-3 py-1.5 text-sm text-fg transition-colors hover:border-accent"
+            >
+              {a} vs {b}
+            </Link>
+          ))}
+          <Link
+            href="/compare"
+            className="rounded-full border border-border bg-surface px-3 py-1.5 text-sm text-fg transition-colors hover:border-accent"
+          >
+            Все сравнения →
           </Link>
         </div>
       </section>
@@ -193,6 +258,27 @@ export default async function HomePage() {
         >
           🎯 Подобрать VPN
         </Link>
+      </section>
+
+      <section className="mt-12">
+        <div className="mb-3 flex items-center justify-between">
+          <h2 className="text-lg font-semibold">Последние статьи</h2>
+          <Link href="/blog" className="text-sm text-accent hover:underline">
+            Все статьи →
+          </Link>
+        </div>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+          {recentPosts.map((post) => (
+            <Link
+              key={post.slug}
+              href={`/blog/${post.slug}`}
+              className="rounded-2xl border border-border bg-surface p-4 transition-colors hover:border-accent"
+            >
+              <p className="text-sm font-medium text-fg">{post.title}</p>
+              <p className="mt-1.5 line-clamp-2 text-xs text-muted">{post.description}</p>
+            </Link>
+          ))}
+        </div>
       </section>
 
       <section className="mt-12 max-w-3xl">

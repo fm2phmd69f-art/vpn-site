@@ -37,6 +37,8 @@ const TOOL_LINKS = [
   { slug: "what-is-my-ip", ru: "Мой IP-адрес", en: "What is my IP" },
   { slug: "is-my-ip-blocked", ru: "Проверка IP на блокировки", en: "IP blocklist check" },
   { slug: "webrtc-leak-test", ru: "Проверка утечки WebRTC", en: "WebRTC leak test" },
+  { slug: "vpn-security-check", ru: "Проверка безопасности VPN", en: "VPN security check" },
+  { slug: "tools", ru: "Все инструменты", en: "All tools" },
 ] as const;
 
 const COPY = {
