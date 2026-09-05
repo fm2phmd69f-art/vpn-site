@@ -229,12 +229,17 @@ export default async function BlogPostPage(props: Props) {
           }
           if (block.type === "faq") {
             return (
-              <div key={i} className="flex flex-col gap-4">
+              <div key={i} className="flex flex-col gap-2">
                 {block.items.map((item, j) => (
-                  <div key={j}>
-                    <p className="font-semibold text-fg">{item.q}</p>
-                    <p className="mt-1 text-fg">{renderInlineText(item.a)}</p>
-                  </div>
+                  <details key={j} className="group rounded-xl border border-border p-4">
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-3 font-semibold text-fg [&::-webkit-details-marker]:hidden">
+                      {item.q}
+                      <span className="shrink-0 text-muted transition-transform duration-200 group-open:rotate-180">
+                        ⌄
+                      </span>
+                    </summary>
+                    <p className="mt-2 text-fg">{renderInlineText(item.a)}</p>
+                  </details>
                 ))}
               </div>
             );

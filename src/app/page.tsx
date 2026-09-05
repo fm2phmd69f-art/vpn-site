@@ -197,12 +197,17 @@ export default async function HomePage() {
 
       <section className="mt-12 max-w-3xl">
         <h2 className="mb-4 text-lg font-semibold">Частые вопросы</h2>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
           {FAQ_ITEMS.map((item) => (
-            <div key={item.q}>
-              <h3 className="text-sm font-medium">{item.q}</h3>
-              <p className="mt-1 text-sm text-muted">{item.a}</p>
-            </div>
+            <details key={item.q} className="group rounded-xl border border-border p-4">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-medium [&::-webkit-details-marker]:hidden">
+                {item.q}
+                <span className="shrink-0 text-muted transition-transform duration-200 group-open:rotate-180">
+                  ⌄
+                </span>
+              </summary>
+              <p className="mt-2 text-sm text-muted">{item.a}</p>
+            </details>
           ))}
         </div>
       </section>
