@@ -123,6 +123,13 @@ export default function VpnmarketScorePageEn() {
         removed another provider — it only changes when the service&apos;s own real data changes.
       </p>
 
+      <p className="mt-4 text-xs text-muted">
+        How often the data updates: the Reliability component (site uptime) recalculates
+        automatically on a schedule, in real time. The other components — based on provider
+        data (price, speed, platforms, tags) — are updated manually when a service&apos;s catalog
+        entry is edited, with no fixed calendar schedule.
+      </p>
+
       <p className="mt-10">
         <Link href="/en/about" className="text-sm text-accent hover:underline">
           ← About the project and our data methodology
