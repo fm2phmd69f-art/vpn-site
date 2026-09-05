@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BLOG_POSTS_EN, getPostBySlugEn, getRandomPostsEn } from "@/data/postsEn";
 import { BlogPostCard } from "@/components/BlogPostCard";
+import { renderInlineText } from "@/components/RichText";
 import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
 
 interface Props {
@@ -77,6 +78,22 @@ export default async function BlogPostPageEn(props: Props) {
     ],
   };
 
+  const faqBlocks = post.content.filter((b) => b.type === "faq");
+  const faqJsonLd =
+    faqBlocks.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqBlocks.flatMap((b) =>
+            b.items.map((item) => ({
+              "@type": "Question",
+              name: item.q,
+              acceptedAnswer: { "@type": "Answer", text: item.a },
+            })),
+          ),
+        }
+      : null;
+
   return (
     <main className="mx-auto max-w-2xl px-4 py-10 sm:px-6">
       <script
@@ -87,6 +104,12 @@ export default async function BlogPostPageEn(props: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLdScript(breadcrumbJsonLd) }}
       />
+      {faqJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: jsonLdScript(faqJsonLd) }}
+        />
+      )}
 
       <nav className="mb-6 text-sm text-muted">
         <Link href="/en" className="hover:text-fg">
@@ -137,11 +160,18 @@ export default async function BlogPostPageEn(props: Props) {
               </h2>
             );
           }
+          if (block.type === "h3") {
+            return (
+              <h3 key={i} className="mt-1 text-lg font-semibold text-fg">
+                {block.text}
+              </h3>
+            );
+          }
           if (block.type === "ul") {
             return (
               <ul key={i} className="ml-5 flex list-disc flex-col gap-1.5">
                 {block.items.map((item, j) => (
-                  <li key={j}>{item}</li>
+                  <li key={j}>{renderInlineText(item)}</li>
                 ))}
               </ul>
             );
@@ -164,9 +194,49 @@ export default async function BlogPostPageEn(props: Props) {
               </figure>
             );
           }
+          if (block.type === "table") {
+            return (
+              <div key={i} className="-mx-4 overflow-x-auto sm:mx-0">
+                <table className="w-full min-w-[480px] border-collapse text-sm">
+                  <thead>
+                    <tr className="border-b border-border">
+                      {block.headers.map((h, j) => (
+                        <th key={j} className="px-3 py-2 text-left font-semibold text-fg">
+                          {h}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {block.rows.map((row, j) => (
+                      <tr key={j} className="border-b border-border/60">
+                        {row.map((cell, k) => (
+                          <td key={k} className="px-3 py-2 text-fg">
+                            {cell}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            );
+          }
+          if (block.type === "faq") {
+            return (
+              <div key={i} className="flex flex-col gap-4">
+                {block.items.map((item, j) => (
+                  <div key={j}>
+                    <p className="font-semibold text-fg">{item.q}</p>
+                    <p className="mt-1 text-fg">{renderInlineText(item.a)}</p>
+                  </div>
+                ))}
+              </div>
+            );
+          }
           return (
             <p key={i} className="text-fg">
-              {block.text}
+              {renderInlineText(block.text)}
             </p>
           );
         })}
