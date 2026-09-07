@@ -281,7 +281,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="mt-12 max-w-3xl">
+      <section className="mt-12">
         <h2 className="mb-4 text-lg font-semibold">Частые вопросы</h2>
         <div className="flex flex-col gap-2">
           {FAQ_ITEMS.map((item) => (
