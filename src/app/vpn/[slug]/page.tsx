@@ -13,6 +13,8 @@ import { computeScore } from "@/lib/score";
 import { ScoreBreakdownCard } from "@/components/ScoreBreakdownCard";
 import { COMPARISON_SLUGS, allComparisonPairs } from "@/lib/comparisons";
 import { renderInlineText } from "@/components/RichText";
+import { getReviewsForService, computeAggregate } from "@/lib/reviews";
+import { ReviewsSection } from "@/components/ReviewsSection";
 
 export const revalidate = 1800;
 
@@ -25,11 +27,15 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const service = await getServiceBySlug(params.slug);
   if (!service) return {};
 
-  const title = `${service.name} — цена, скорость, отзывы`;
-  const description = `${service.name}: ${service.priceFrom}. ${service.description}`.slice(
-    0,
-    160
-  );
+  const reviews = await getReviewsForService(service.id);
+  const aggregate = computeAggregate(reviews);
+
+  const title = aggregate
+    ? `${service.name} — отзывы (${aggregate.count}), цена, скорость`
+    : `${service.name} — цена, скорость, отзывы`;
+  const description = aggregate
+    ? `${service.name}: ${aggregate.count} отзывов пользователей, средняя оценка ${aggregate.avgStars.toFixed(1)} из 5. ${service.priceFrom}. ${service.description}`.slice(0, 160)
+    : `${service.name}: ${service.priceFrom}. ${service.description}`.slice(0, 160);
 
   return {
     title,
@@ -62,6 +68,9 @@ export default async function ServicePage(props: Props) {
     ? allComparisonPairs().filter((p) => p.a === service.slug || p.b === service.slug)
     : [];
 
+  const reviews = await getReviewsForService(service.id);
+  const aggregate = computeAggregate(reviews);
+
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -76,6 +85,34 @@ export default async function ServicePage(props: Props) {
       },
     ],
   };
+
+  const productJsonLd = aggregate
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        name: service.name,
+        description: service.description,
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: aggregate.avgStars,
+          reviewCount: aggregate.count,
+          bestRating: 5,
+          worstRating: 1,
+        },
+        review: reviews.slice(0, 20).map((r) => ({
+          "@type": "Review",
+          author: { "@type": "Person", name: r.authorName },
+          datePublished: r.createdAt.slice(0, 10),
+          reviewBody: r.text,
+          reviewRating: {
+            "@type": "Rating",
+            ratingValue: r.stars,
+            bestRating: 5,
+            worstRating: 1,
+          },
+        })),
+      }
+    : null;
 
   const faqJsonLd =
     extras.faq && extras.faq.length > 0
@@ -100,6 +137,12 @@ export default async function ServicePage(props: Props) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: jsonLdScript(faqJsonLd) }}
+        />
+      )}
+      {productJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: jsonLdScript(productJsonLd) }}
         />
       )}
 
@@ -257,6 +300,13 @@ export default async function ServicePage(props: Props) {
       </p>
 
       <ReportForm serviceId={service.id} />
+
+      <ReviewsSection
+        serviceId={service.id}
+        serviceName={service.name}
+        reviews={reviews}
+        aggregate={aggregate}
+      />
 
       {related.length > 0 && (
         <section className="mt-12">

@@ -48,7 +48,7 @@ const SECTIONS = [
     h2: "Editorial policy",
     body: [
       "We don't publish paid reviews and we don't take money for a listing or a higher position in the catalog.",
-      "We don't show made-up ratings, reviews, or user scores — there isn't a single star rating or \"review count\" on this site that wasn't sourced from real users through a separately disclosed review program.",
+      "Reviews on provider pages can be posted anonymously, with no account required — we don't verify that the author actually used the service, so treat them as opinions rather than confirmed purchases.",
       "If you spot an inaccuracy on a provider's card — an out-of-date price, feature set, or audit status — you can report it through the form on that service's page.",
     ],
   },

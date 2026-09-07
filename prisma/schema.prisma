@@ -68,3 +68,26 @@ model StatusCheck {
 
   @@index([serviceId, checkedAt])
 }
+
+/// User-submitted reviews on a VPN's catalog page. Anonymous — no account
+/// system — so `authorName` is free text, not tied to any identity.
+model Review {
+  id        String   @id @default(cuid())
+  serviceId String
+
+  authorName String
+  text       String
+
+  stars             Int // 1-5 overall rating
+  speedRating       Int // 1-10
+  reliabilityRating Int // 1-10
+  valueRating       Int // 1-10 — соотношение цена/качество
+
+  /// Salted hash of the submitter's IP — used only for rate-limiting new
+  /// submissions, never displayed or linkable back to a real address.
+  ipHash String?
+
+  createdAt DateTime @default(now())
+
+  @@index([serviceId, createdAt])
+}
