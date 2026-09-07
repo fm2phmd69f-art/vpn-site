@@ -114,18 +114,27 @@ export default async function ServicePage(props: Props) {
       }
     : null;
 
-  const faqJsonLd =
-    extras.faq && extras.faq.length > 0
-      ? {
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: extras.faq.map((item) => ({
-            "@type": "Question",
-            name: item.q,
-            acceptedAnswer: { "@type": "Answer", text: item.a },
-          })),
-        }
-      : null;
+  const reviewFaq = [
+    {
+      q: `Можно ли доверять отзывам о ${service.name} на этом сайте?`,
+      a: `Отзывы можно оставить анонимно, без регистрации — мы не проверяем, что автор действительно пользовался сервисом, поэтому воспринимайте их как мнения, а не как подтверждённые покупки. Для более объективной картины смотрите характеристики, плюсы и минусы выше.`,
+    },
+    {
+      q: `Как оставить отзыв о ${service.name}?`,
+      a: `В разделе «Отзывы пользователей» ниже нажмите «Оставить отзыв» — форма открывается прямо на странице, регистрация и email не нужны.`,
+    },
+  ];
+  const combinedFaq = [...(extras.faq ?? []), ...reviewFaq];
+
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: combinedFaq.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  };
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
@@ -341,11 +350,11 @@ export default async function ServicePage(props: Props) {
         </section>
       )}
 
-      {extras.faq && extras.faq.length > 0 && (
+      {combinedFaq.length > 0 && (
         <section className="mt-12">
           <h2 className="mb-4 text-lg font-semibold">Частые вопросы</h2>
           <div className="flex flex-col gap-2">
-            {extras.faq.map((item) => (
+            {combinedFaq.map((item) => (
               <details key={item.q} className="group rounded-xl border border-border p-4">
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-medium [&::-webkit-details-marker]:hidden">
                   {item.q}

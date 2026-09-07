@@ -14,7 +14,7 @@ export function ReviewsSection({
   aggregate: ReviewAggregate | null;
 }) {
   return (
-    <section className="mt-12">
+    <section id="reviews" className="mt-12 scroll-mt-20">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 className="text-lg font-semibold">Отзывы пользователей о {serviceName}</h2>
         {aggregate && (
