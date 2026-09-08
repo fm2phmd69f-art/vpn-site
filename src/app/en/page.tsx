@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllServices } from "@/lib/getServices";
 import { CatalogClient } from "@/components/CatalogClient";
+import { LinkDropdown } from "@/components/LinkDropdown";
 import LightRays from "@/components/LightRays";
 import { TAG_LABELS_EN } from "@/data/tagLabelsEn";
 import { INTENTS_EN } from "@/data/intentsEn";
@@ -84,6 +85,16 @@ export default async function HomePageEn() {
     .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
     .slice(0, 3);
 
+  const categoryItems = FEATURED_TAGS.map((tag) => ({
+    href: `/en/vpn/category/${tag}`,
+    label: TAG_LABELS_EN[tag] ?? tag,
+  }));
+
+  const intentItems = allIntentSlugs().map((slug) => ({
+    href: `/en/${slug}`,
+    label: INTENTS_EN[slug]?.h1 ?? slug,
+  }));
+
   const itemListJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -157,37 +168,16 @@ export default async function HomePageEn() {
         </Link>
       </header>
 
-      <section className="mb-8">
-        <h2 className="mb-3 text-center text-lg font-semibold">Popular categories</h2>
-        <div className="flex flex-wrap justify-center gap-2">
-          {FEATURED_TAGS.map((tag) => (
-            <Link
-              key={tag}
-              href={`/en/vpn/category/${tag}`}
-              className="rounded-full border border-border bg-surface px-3 py-1.5 text-sm text-fg transition-colors hover:border-accent"
-            >
-              {TAG_LABELS_EN[tag] ?? tag}
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="mb-8">
-        <h2 className="mb-3 text-center text-lg font-semibold">Shortlists by use case</h2>
-        <div className="flex flex-wrap justify-center gap-2">
-          {allIntentSlugs().map((slug) => (
-            <Link
-              key={slug}
-              href={`/en/${slug}`}
-              className="rounded-full border border-border bg-surface px-3 py-1.5 text-sm text-fg transition-colors hover:border-accent"
-            >
-              {INTENTS_EN[slug]?.h1 ?? slug}
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <CatalogClient services={services} locale="en" />
+      <CatalogClient
+        services={services}
+        locale="en"
+        extraControls={
+          <div className="flex flex-wrap items-center gap-2">
+            <LinkDropdown label="Popular categories" items={categoryItems} />
+            <LinkDropdown label="Shortlists by use case" items={intentItems} />
+          </div>
+        }
+      />
 
       <section className="mt-12">
         <h2 className="mb-3 text-center text-lg font-semibold">Free tools</h2>

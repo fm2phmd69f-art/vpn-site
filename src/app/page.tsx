@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllServices } from "@/lib/getServices";
 import { CatalogClient } from "@/components/CatalogClient";
+import { LinkDropdown } from "@/components/LinkDropdown";
 import LightRays from "@/components/LightRays";
 import { TAG_LABELS } from "@/data/services";
 import { INTENTS } from "@/data/intents";
@@ -71,6 +72,16 @@ export default async function HomePage() {
   const recentPosts = [...BLOG_POSTS]
     .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
     .slice(0, 3);
+
+  const categoryItems = FEATURED_TAGS.map((tag) => ({
+    href: `/vpn/category/${tag}`,
+    label: TAG_LABELS[tag] ?? tag,
+  }));
+
+  const intentItems = Object.values(INTENTS).map((intent) => ({
+    href: `/${intent.slug}`,
+    label: intent.h1,
+  }));
 
   const itemListJsonLd = {
     "@context": "https://schema.org",
@@ -145,37 +156,15 @@ export default async function HomePage() {
         </Link>
       </header>
 
-      <section className="mb-8">
-        <h2 className="mb-3 text-center text-lg font-semibold">Популярные категории</h2>
-        <div className="flex flex-wrap justify-center gap-2">
-          {FEATURED_TAGS.map((tag) => (
-            <Link
-              key={tag}
-              href={`/vpn/category/${tag}`}
-              className="rounded-full border border-border bg-surface px-3 py-1.5 text-sm text-fg transition-colors hover:border-accent"
-            >
-              {TAG_LABELS[tag] ?? tag}
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="mb-8">
-        <h2 className="mb-3 text-center text-lg font-semibold">Подборки под задачу</h2>
-        <div className="flex flex-wrap justify-center gap-2">
-          {Object.values(INTENTS).map((intent) => (
-            <Link
-              key={intent.slug}
-              href={`/${intent.slug}`}
-              className="rounded-full border border-border bg-surface px-3 py-1.5 text-sm text-fg transition-colors hover:border-accent"
-            >
-              {intent.h1}
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <CatalogClient services={services} />
+      <CatalogClient
+        services={services}
+        extraControls={
+          <div className="flex flex-wrap items-center gap-2">
+            <LinkDropdown label="Популярные категории" items={categoryItems} />
+            <LinkDropdown label="Подборки под задачу" items={intentItems} />
+          </div>
+        }
+      />
 
       <section className="mt-12">
         <h2 className="mb-3 text-center text-lg font-semibold">Бесплатные инструменты</h2>
