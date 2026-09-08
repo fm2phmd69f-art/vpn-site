@@ -138,13 +138,13 @@ export default async function ComparePairPageEn(props: Props) {
             href={`/en/vpn/${a.slug}`}
             className="flex items-center gap-1.5 hover:text-accent hover:underline"
           >
-            <ServiceLogo name={a.name} emoji={a.logo} websiteUrl={a.websiteUrl} status={a.status} locale="en" /> {a.name}
+            <ServiceLogo name={a.name} emoji={a.logo} websiteUrl={a.websiteUrl} status={a.status} slug={a.slug} locale="en" /> {a.name}
           </Link>
           <Link
             href={`/en/vpn/${b.slug}`}
             className="flex items-center gap-1.5 hover:text-accent hover:underline"
           >
-            <ServiceLogo name={b.name} emoji={b.logo} websiteUrl={b.websiteUrl} status={b.status} locale="en" /> {b.name}
+            <ServiceLogo name={b.name} emoji={b.logo} websiteUrl={b.websiteUrl} status={b.status} slug={b.slug} locale="en" /> {b.name}
           </Link>
         </div>
 

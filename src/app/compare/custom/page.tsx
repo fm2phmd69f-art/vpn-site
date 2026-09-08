@@ -108,7 +108,7 @@ export default async function CustomComparePage(props: Props) {
               href={`/vpn/${s.slug}`}
               className="flex flex-col items-start gap-1.5 font-semibold hover:text-accent"
             >
-              <ServiceLogo name={s.name} emoji={s.logo} websiteUrl={s.websiteUrl} status={s.status} />
+              <ServiceLogo name={s.name} emoji={s.logo} websiteUrl={s.websiteUrl} status={s.status} slug={s.slug} />
               {s.name}
             </Link>
           ))}

@@ -133,6 +133,7 @@ export default async function VpnPricesPageEn() {
                       emoji={s.logo}
                       websiteUrl={s.websiteUrl}
                       status={s.status}
+                      slug={s.slug}
                       locale="en"
                     />
                     {s.name}

@@ -170,6 +170,7 @@ export default async function ServicePage(props: Props) {
           emoji={service.logo}
           websiteUrl={service.websiteUrl}
           status={service.status}
+          slug={service.slug}
         />
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">{service.name}</h1>

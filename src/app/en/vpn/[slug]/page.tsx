@@ -102,6 +102,7 @@ export default async function ServicePageEn(props: Props) {
           emoji={service.logo}
           websiteUrl={service.websiteUrl}
           status={service.status}
+          slug={service.slug}
           locale="en"
         />
         <div>

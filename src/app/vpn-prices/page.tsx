@@ -127,7 +127,7 @@ export default async function VpnPricesPage() {
                     href={`/vpn/${s.slug}`}
                     className="flex items-center gap-2 font-medium hover:text-accent"
                   >
-                    <ServiceLogo name={s.name} emoji={s.logo} websiteUrl={s.websiteUrl} status={s.status} />
+                    <ServiceLogo name={s.name} emoji={s.logo} websiteUrl={s.websiteUrl} status={s.status} slug={s.slug} />
                     {s.name}
                   </Link>
                 </td>
