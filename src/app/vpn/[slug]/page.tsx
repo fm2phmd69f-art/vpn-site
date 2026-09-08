@@ -31,12 +31,13 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const reviews = await getReviewsForService(service.id);
   const aggregate = computeAggregate(reviews);
 
+  const year = new Date().getFullYear();
   const title = aggregate
-    ? `${service.name} — отзывы (${aggregate.count}), цена, скорость`
-    : `${service.name} — цена, скорость, отзывы`;
+    ? `${service.name} — обзор ${year}, цена и отзывы (${aggregate.count})`
+    : `${service.name} — обзор ${year}, цена и отзывы`;
   const description = aggregate
-    ? `${service.name}: ${aggregate.count} отзывов пользователей, средняя оценка ${aggregate.avgStars.toFixed(1)} из 5. ${service.priceFrom}. ${service.description}`.slice(0, 160)
-    : `${service.name}: ${service.priceFrom}. ${service.description}`.slice(0, 160);
+    ? `${service.name}: обзор ${year}, актуальная цена и ${aggregate.count} отзывов пользователей (средняя оценка ${aggregate.avgStars.toFixed(1)} из 5). ${service.priceFrom}. ${service.description}`.slice(0, 160)
+    : `${service.name}: обзор ${year}, актуальная цена, скорость и отзывы пользователей. ${service.priceFrom}. ${service.description}`.slice(0, 160);
 
   return {
     title,
@@ -87,33 +88,48 @@ export default async function ServicePage(props: Props) {
     ],
   };
 
-  const productJsonLd = aggregate
-    ? {
-        "@context": "https://schema.org",
-        "@type": "Product",
-        name: service.name,
-        description: service.description,
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: aggregate.avgStars,
-          reviewCount: aggregate.count,
-          bestRating: 5,
-          worstRating: 1,
-        },
-        review: reviews.slice(0, 20).map((r) => ({
-          "@type": "Review",
-          author: { "@type": "Person", name: r.authorName },
-          datePublished: r.createdAt.slice(0, 10),
-          reviewBody: r.text,
-          reviewRating: {
-            "@type": "Rating",
-            ratingValue: r.stars,
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: service.name,
+    description: service.description,
+    applicationCategory: "SecurityApplication",
+    operatingSystem: service.platforms.join(", "),
+    url: `${SITE_URL}/vpn/${service.slug}`,
+    ...(service.priceMonthlyUsd != null
+      ? {
+          offers: {
+            "@type": "Offer",
+            price: service.priceMonthlyUsd,
+            priceCurrency: "USD",
+            url: withUtm(service.referralUrl ?? service.websiteUrl, service.slug),
+          },
+        }
+      : {}),
+    ...(aggregate
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: aggregate.avgStars,
+            reviewCount: aggregate.count,
             bestRating: 5,
             worstRating: 1,
           },
-        })),
-      }
-    : null;
+          review: reviews.slice(0, 20).map((r) => ({
+            "@type": "Review",
+            author: { "@type": "Person", name: r.authorName },
+            datePublished: r.createdAt.slice(0, 10),
+            reviewBody: r.text,
+            reviewRating: {
+              "@type": "Rating",
+              ratingValue: r.stars,
+              bestRating: 5,
+              worstRating: 1,
+            },
+          })),
+        }
+      : {}),
+  };
 
   const reviewFaq = [
     {

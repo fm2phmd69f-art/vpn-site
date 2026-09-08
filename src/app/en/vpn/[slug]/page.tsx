@@ -27,8 +27,13 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const service = localizeServiceEn(raw);
 
   const description = service.description;
-  const title = `${service.name} — price, speed, review`;
-  const metaDescription = `${service.name}: ${service.priceFrom}. ${description}`.slice(0, 160);
+  const year = new Date().getFullYear();
+  const title = `${service.name} — review ${year}, pricing and features`;
+  const metaDescription =
+    `${service.name}: ${year} review, current pricing, speed, and features. ${service.priceFrom}. ${description}`.slice(
+      0,
+      160
+    );
 
   return {
     title,
@@ -81,11 +86,35 @@ export default async function ServicePageEn(props: Props) {
     ],
   };
 
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: service.name,
+    description: service.description,
+    applicationCategory: "SecurityApplication",
+    operatingSystem: service.platforms.join(", "),
+    url: `${SITE_URL}/en/vpn/${service.slug}`,
+    ...(service.priceMonthlyUsd != null
+      ? {
+          offers: {
+            "@type": "Offer",
+            price: service.priceMonthlyUsd,
+            priceCurrency: "USD",
+            url: withUtm(service.referralUrl ?? service.websiteUrl, service.slug),
+          },
+        }
+      : {}),
+  };
+
   return (
     <main className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLdScript(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLdScript(productJsonLd) }}
       />
 
       <nav className="mb-6 text-sm text-muted">
