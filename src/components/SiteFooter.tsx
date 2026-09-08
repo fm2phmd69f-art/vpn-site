@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { SITE_NAME } from "@/lib/seo";
 import { localeFromPathname } from "@/lib/i18n";
 import { LocaleSwitcher } from "./LocaleSwitcher";
+import { ContactModal } from "./ContactModal";
 
 interface TopService {
   slug: string;
@@ -115,6 +116,9 @@ export function SiteFooter({ topServices }: SiteFooterProps) {
                   </Link>
                 </li>
               ))}
+              <li>
+                <ContactModal />
+              </li>
             </ul>
           </div>
 

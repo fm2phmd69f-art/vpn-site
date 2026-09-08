@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
 import { AdminLoginForm } from "@/components/AdminLoginForm";
@@ -45,7 +46,12 @@ export default async function AdminReviewsPage() {
     <main className="mx-auto max-w-2xl px-4 py-10 sm:px-6">
       <MarkReviewsSeen />
 
-      <h1 className="text-2xl font-semibold tracking-tight">Отзывы пользователей</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-semibold tracking-tight">Отзывы пользователей</h1>
+        <Link href="/admin" className="text-sm text-accent hover:underline">
+          Сообщения →
+        </Link>
+      </div>
       <p className="mt-2 text-sm text-muted">
         Всего {reviews.length} отзывов (показаны последние 300).{" "}
         {newCount > 0 && (

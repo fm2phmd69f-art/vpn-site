@@ -48,6 +48,14 @@ model VpnService {
   @@index([status])
 }
 
+/// Messages submitted through the "Связаться с нами" contact form in the footer.
+model ContactMessage {
+  id        String   @id @default(cuid())
+  message   String
+  contact   String
+  createdAt DateTime @default(now())
+}
+
 model PriceReport {
   id        String   @id @default(cuid())
   serviceId String
