@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { faviconUrl } from "@/lib/logo";
 import { ServiceStatus } from "@/lib/types";
 import { Locale } from "@/lib/i18n";
@@ -85,8 +86,7 @@ export function ServiceLogo({
   }
 
   return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
+    <Image
       src={src}
       alt={locale === "en" ? `${name} logo` : `Логотип ${name}`}
       width={SIZE}

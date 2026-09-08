@@ -15,6 +15,11 @@ const nextConfig = {
         protocol: "https",
         hostname: "cdn.pixabay.com",
       },
+      {
+        protocol: "https",
+        hostname: "www.google.com",
+        pathname: "/s2/favicons",
+      },
     ],
   },
 };

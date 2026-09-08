@@ -6,8 +6,12 @@ import { Manrope, Fragment_Mono } from "next/font/google";
 import { localeFromPathname } from "@/lib/i18n";
 import { withUtm } from "@/lib/utm";
 
-const manrope = Manrope({ subsets: ["latin", "cyrillic"], weight: ["500", "700", "800"] });
-const fragmentMono = Fragment_Mono({ subsets: ["latin"], weight: "400" });
+const manrope = Manrope({
+  subsets: ["latin", "cyrillic"],
+  weight: ["500", "700", "800"],
+  display: "optional",
+});
+const fragmentMono = Fragment_Mono({ subsets: ["latin"], weight: "400", display: "optional" });
 
 const HREF = withUtm("https://magnit.help/p7b27319c", "geodema");
 
@@ -287,8 +291,8 @@ const BANNER_CSS = `
   filter: brightness(1.2);
 }
 @keyframes gdCellBreath {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); filter: brightness(0.92); }
-  50% { transform: translate3d(0, var(--float, -4px), 0) scale(var(--scale, 1.01)); filter: brightness(1.12); }
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: var(--alpha, 0.38); }
+  50% { transform: translate3d(0, var(--float, -4px), 0) scale(var(--scale, 1.01)); opacity: calc(var(--alpha, 0.38) + 0.22); }
 }
 @keyframes gdGlowShift {
   0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.42; }

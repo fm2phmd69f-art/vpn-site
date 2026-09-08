@@ -1,23 +1,14 @@
 /**
- * DuckDuckGo's icon proxy returns its own generic "not found" placeholder image
- * (HTTP 404, but with a valid image body) for these hosts, so a plain <img onError>
- * can't detect the failure client-side — checked manually against the live catalog.
+ * Real favicon of the provider's own site, proxied through Google's favicon service.
+ * Unlike DuckDuckGo's icon proxy (which serves whatever raw favicon file a site has,
+ * sometimes an oversized multi-hundred-KB .ico), Google's endpoint accepts a `sz` and
+ * always returns a small, pre-sized PNG — so no separate image-optimization step is
+ * needed to keep these cards lightweight.
  */
-const NO_FAVICON_HOSTS = new Set([
-  "ivpn.net",
-  "strongvpn.com",
-  "atlasvpn.com",
-  "perfect-privacy.com",
-  "rusvpn.com",
-  "vpnarea.com",
-]);
-
-/** Real favicon of the provider's own site, proxied through DuckDuckGo's icon service. */
 export function faviconUrl(websiteUrl: string): string | null {
   try {
     const hostname = new URL(websiteUrl).hostname.replace(/^www\./, "");
-    if (NO_FAVICON_HOSTS.has(hostname)) return null;
-    return `https://icons.duckduckgo.com/ip3/${hostname}.ico`;
+    return `https://www.google.com/s2/favicons?sz=64&domain=${hostname}`;
   } catch {
     return null;
   }
