@@ -8,6 +8,7 @@ import { ScoreBadge } from "./ScoreBadge";
 import { computeScore } from "@/lib/score";
 import { Locale } from "@/lib/i18n";
 import { UI } from "@/lib/uiDictionary";
+import { withUtm } from "@/lib/utm";
 
 const ADVANTAGE_TAG_PRIORITY = [
   "no-logs",
@@ -136,7 +137,7 @@ export function ServiceCard({ service, locale = "ru", compare }: Props) {
           {t.learnMore}
         </Link>
         <a
-          href={service.referralUrl ?? service.websiteUrl}
+          href={withUtm(service.referralUrl ?? service.websiteUrl, service.slug)}
           target="_blank"
           rel="noopener noreferrer nofollow"
           className="flex-1 inline-flex items-center justify-center rounded-full bg-accent px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90"

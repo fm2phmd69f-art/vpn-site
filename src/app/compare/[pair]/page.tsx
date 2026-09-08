@@ -10,6 +10,7 @@ import { ServiceDTO } from "@/lib/types";
 import { ServiceLogo } from "@/components/ServiceLogo";
 import { ScoreBadge } from "@/components/ScoreBadge";
 import { computeScore } from "@/lib/score";
+import { withUtm } from "@/lib/utm";
 
 export const revalidate = 1800;
 
@@ -182,7 +183,7 @@ export default async function ComparePairPage(props: Props) {
 
       <div className="mt-6 flex flex-col gap-2 sm:flex-row">
         <a
-          href={a.referralUrl ?? a.websiteUrl}
+          href={withUtm(a.referralUrl ?? a.websiteUrl, a.slug)}
           target="_blank"
           rel="noopener noreferrer nofollow"
           className="flex-1 rounded-full bg-accent px-4 py-2.5 text-center text-sm font-medium text-white transition-opacity hover:opacity-90"
@@ -190,7 +191,7 @@ export default async function ComparePairPage(props: Props) {
           Перейти на сайт {a.name}
         </a>
         <a
-          href={b.referralUrl ?? b.websiteUrl}
+          href={withUtm(b.referralUrl ?? b.websiteUrl, b.slug)}
           target="_blank"
           rel="noopener noreferrer nofollow"
           className="flex-1 rounded-full border border-border px-4 py-2.5 text-center text-sm font-medium transition-colors hover:border-accent"

@@ -9,6 +9,7 @@ import { ScoreBadge } from "@/components/ScoreBadge";
 import { computeScore } from "@/lib/score";
 import { SITE_NAME } from "@/lib/seo";
 import { ServiceDTO } from "@/lib/types";
+import { withUtm } from "@/lib/utm";
 
 interface Props {
   searchParams: Promise<{ ids?: string }>;
@@ -168,7 +169,7 @@ export default async function CustomComparePageEn(props: Props) {
           services={services}
           render={(s) => (
             <a
-              href={s.referralUrl ?? s.websiteUrl}
+              href={withUtm(s.referralUrl ?? s.websiteUrl, s.slug)}
               target="_blank"
               rel="noopener noreferrer nofollow"
               className="inline-flex items-center justify-center rounded-full bg-accent px-4 py-2 text-xs font-medium text-white transition-opacity hover:opacity-90"

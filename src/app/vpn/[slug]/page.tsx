@@ -15,6 +15,7 @@ import { COMPARISON_SLUGS, allComparisonPairs } from "@/lib/comparisons";
 import { renderInlineText } from "@/components/RichText";
 import { getReviewsForService, computeAggregate } from "@/lib/reviews";
 import { ReviewsSection } from "@/components/ReviewsSection";
+import { withUtm } from "@/lib/utm";
 
 export const revalidate = 1800;
 
@@ -295,7 +296,7 @@ export default async function ServicePage(props: Props) {
       </div>
 
       <a
-        href={service.referralUrl ?? service.websiteUrl}
+        href={withUtm(service.referralUrl ?? service.websiteUrl, service.slug)}
         target="_blank"
         rel="noopener noreferrer nofollow"
         className="mt-8 inline-flex items-center justify-center rounded-full bg-accent px-6 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"

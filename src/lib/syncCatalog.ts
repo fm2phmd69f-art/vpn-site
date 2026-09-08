@@ -9,10 +9,28 @@ import { SEED_SERVICES } from "../data/services";
  */
 export async function syncCatalogFromSeed(): Promise<{ synced: number; removed: number }> {
   for (const service of SEED_SERVICES) {
+    // Only the fields that actually exist on the VpnService model — SeedService
+    // also carries editorial extras (pros/cons/faq/protocols/etc.) that are
+    // looked up directly from SEED_SERVICES at render time, never synced to the DB.
+    const dbFields = {
+      slug: service.slug,
+      name: service.name,
+      logo: service.logo,
+      websiteUrl: service.websiteUrl,
+      referralUrl: service.referralUrl,
+      priceFrom: service.priceFrom,
+      priceMonthlyUsd: service.priceMonthlyUsd,
+      claimedSpeedMbps: service.claimedSpeedMbps,
+      freeOption: service.freeOption,
+      rating: service.rating,
+      platforms: service.platforms,
+      tags: service.tags,
+      description: service.description,
+    };
     await prisma.vpnService.upsert({
       where: { slug: service.slug },
-      create: { ...service },
-      update: { ...service },
+      create: dbFields,
+      update: dbFields,
     });
   }
 
