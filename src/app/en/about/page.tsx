@@ -41,7 +41,7 @@ const SECTIONS = [
     h2: "How we make money",
     body: [
       "The catalog and every tool on the site (IP check, WebRTC test, blocklist check, VPN matcher) are free and require no signup.",
-      "Some links to provider sites may be affiliate links — following one and later paying for a subscription may earn us a small commission from the provider. That doesn't affect your price at all, and it doesn't affect the catalog's sort order — sorting is controlled by you, by price, speed, or other criteria, not by us.",
+      "Some links to provider sites may be affiliate links — following one and later paying for a subscription may earn us a small commission from the provider. That doesn't affect your price at all. When you sort by price, speed, rating, or VPNmarket Score, the order is based only on that data.",
     ],
   },
   {

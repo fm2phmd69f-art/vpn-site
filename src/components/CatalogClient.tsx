@@ -13,6 +13,9 @@ import { UI } from "@/lib/uiDictionary";
 const MAX_COMPARE = 4;
 const MIN_COMPARE = 2;
 
+/** Sponsored slot — pinned to position 3 in the default "recommended" view, clearly labeled on the card. */
+const PINNED_SLUG = "geodema";
+
 const DESKTOP_PAGE_SIZE = 50;
 const MOBILE_PAGE_SIZE = 30;
 const MOBILE_BREAKPOINT = 640; // matches Tailwind's `sm`
@@ -41,9 +44,11 @@ const TASK_TAGS = [
 export function CatalogClient({
   services,
   locale = "ru",
+  extraControls,
 }: {
   services: ServiceDTO[];
   locale?: Locale;
+  extraControls?: React.ReactNode;
 }) {
   const router = useRouter();
   const t = UI[locale].catalog;
@@ -90,7 +95,15 @@ export function CatalogClient({
       result = result.filter((s) => s.tags.includes(task));
     }
 
-    if (sort === "recommended") return result;
+    if (sort === "recommended" && locale === "ru") {
+      const pinnedIndex = result.findIndex((s) => s.slug === PINNED_SLUG);
+      if (pinnedIndex > 2) {
+        const pinned = result[pinnedIndex];
+        const rest = result.filter((s) => s.slug !== PINNED_SLUG);
+        result = [...rest.slice(0, 2), pinned, ...rest.slice(2)];
+      }
+      return result;
+    }
 
     const withScore = result.map((s) => ({ s, score: computeScore(s).overall }));
     withScore.sort((a, b) => {
@@ -110,7 +123,7 @@ export function CatalogClient({
       }
     });
     return withScore.map((x) => x.s);
-  }, [services, sort, platform, task]);
+  }, [services, sort, platform, task, locale]);
 
   useEffect(() => {
     setVisibleCount(pageSize);
@@ -139,19 +152,26 @@ export function CatalogClient({
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="text-xs font-medium text-muted">{t.sort}</span>
-          <select
-            value={sort}
-            onChange={(e) => setSort(e.target.value as SortKey)}
-            className="rounded-full border border-border bg-bg px-3 py-1.5 text-sm"
-          >
-            {(Object.keys(t.sortLabels) as SortKey[]).map((key) => (
-              <option key={key} value={key}>
-                {t.sortLabels[key]}
-              </option>
-            ))}
-          </select>
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          {extraControls ? (
+            <div className="flex flex-wrap items-center gap-2">{extraControls}</div>
+          ) : (
+            <span />
+          )}
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-medium text-muted">{t.sort}</span>
+            <select
+              value={sort}
+              onChange={(e) => setSort(e.target.value as SortKey)}
+              className="rounded-full border border-border bg-bg px-3 py-1.5 text-sm"
+            >
+              {(Object.keys(t.sortLabels) as SortKey[]).map((key) => (
+                <option key={key} value={key}>
+                  {t.sortLabels[key]}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
         <div className="flex flex-wrap items-center gap-1.5">
@@ -217,6 +237,7 @@ export function CatalogClient({
               key={service.id}
               service={service}
               locale={locale}
+              sponsored={service.slug === PINNED_SLUG}
               compare={{
                 selected: compareSlugs.includes(service.slug),
                 disabled:

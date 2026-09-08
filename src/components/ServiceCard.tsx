@@ -44,6 +44,7 @@ function topAdvantageTags(tags: string[], max = 3): string[] {
 interface Props {
   service: ServiceDTO;
   locale?: Locale;
+  sponsored?: boolean;
   compare?: {
     selected: boolean;
     disabled: boolean;
@@ -51,7 +52,7 @@ interface Props {
   };
 }
 
-export function ServiceCard({ service, locale = "ru", compare }: Props) {
+export function ServiceCard({ service, locale = "ru", sponsored = false, compare }: Props) {
   const score = computeScore(service);
   const advantages = topAdvantageTags(service.tags);
   const labels = locale === "en" ? TAG_LABELS_EN : TAG_LABELS;
@@ -82,6 +83,11 @@ export function ServiceCard({ service, locale = "ru", compare }: Props) {
           {compare.selected ? t.compareOn : t.compareAdd}
         </label>
       )}
+      {sponsored && (
+        <span className="-mb-1 inline-flex w-fit items-center rounded-full border border-border px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-muted">
+          {locale === "en" ? "Sponsored" : "Реклама"}
+        </span>
+      )}
       <div className="flex items-center justify-between gap-2.5">
         <div className="flex items-center gap-2.5">
           <ServiceLogo
@@ -90,6 +96,7 @@ export function ServiceCard({ service, locale = "ru", compare }: Props) {
             websiteUrl={service.websiteUrl}
             status={service.status}
             locale={locale}
+            slug={service.slug}
           />
           <div>
             <h3 className="text-base font-semibold leading-tight">
