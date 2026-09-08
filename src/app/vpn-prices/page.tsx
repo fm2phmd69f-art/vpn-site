@@ -33,14 +33,24 @@ const FAQ = [
   },
 ];
 
+const PINNED_SLUG = "geodema";
+
 export default async function VpnPricesPage() {
   const services = await getAllServices();
 
-  const sorted = [...services].sort((a, b) => {
+  const byPrice = [...services].sort((a, b) => {
     const pa = a.priceMonthlyUsd ?? Infinity;
     const pb = b.priceMonthlyUsd ?? Infinity;
     return pa - pb;
   });
+
+  const pinnedIndex = byPrice.findIndex((s) => s.slug === PINNED_SLUG);
+  let sorted = byPrice;
+  if (pinnedIndex > 2) {
+    const pinned = byPrice[pinnedIndex];
+    const rest = byPrice.filter((s) => s.slug !== PINNED_SLUG);
+    sorted = [...rest.slice(0, 2), pinned, ...rest.slice(2)];
+  }
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -100,8 +110,8 @@ export default async function VpnPricesPage() {
         Цены на VPN — сравнение тарифов
       </h1>
       <p className="mt-2 max-w-2xl text-sm text-muted">
-        Все {sorted.length} провайдеров из каталога {SITE_NAME}, отсортированные от дешёвых к
-        дорогим по минимальной заявленной цене подписки.
+        Все {sorted.length} провайдеров из каталога {SITE_NAME} — от бюджетных вариантов к более
+        дорогим тарифам, с ценой, которую заявляет сам сервис.
       </p>
 
       <div className="mt-6 overflow-x-auto rounded-2xl border border-border">
