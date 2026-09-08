@@ -5,7 +5,7 @@ import { getServicesByTag } from "@/lib/getServices";
 import { TAG_LABELS_EN } from "@/data/tagLabelsEn";
 import { ServiceCard } from "@/components/ServiceCard";
 import { localizeServiceEn } from "@/lib/localizeService";
-import { SITE_NAME, SITE_URL } from "@/lib/seo";
+import { SITE_NAME, SITE_URL, jsonLdScript } from "@/lib/seo";
 
 export const revalidate = 1800;
 
@@ -50,8 +50,27 @@ export default async function CategoryPageEn(props: Props) {
 
   const cleanLabel = tagLabel.split(" ").slice(1).join(" ") || tagLabel;
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/en` },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: cleanLabel,
+        item: `${SITE_URL}/en/vpn/category/${params.tag}`,
+      },
+    ],
+  };
+
   return (
     <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLdScript(breadcrumbJsonLd) }}
+      />
+
       <nav className="mb-6 text-sm text-muted">
         <Link href="/en" className="hover:text-fg">
           Home

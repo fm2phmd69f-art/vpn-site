@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
+import { renderInlineText } from "@/components/RichText";
 
 export const revalidate = 86400;
 
@@ -20,14 +21,14 @@ const SECTIONS = [
     h2: "What this site is",
     body: [
       `${SITE_NAME} is a catalog and comparison service for VPN providers. We don't sell VPN access and we're not a middleman between you and a provider: you always subscribe directly on the provider's own site.`,
-      "The site helps you quickly compare prices, platforms, claimed speed, and features across providers in one place, and pick a service for a specific task — Netflix, torrenting, or anonymity, for example.",
+      "The site helps you quickly compare prices, platforms, claimed speed, and features across providers in one place, and pick a service for a specific task — [Netflix](/en/vpn-for-netflix), [torrenting](/en/vpn/category/torrents), or anonymity, for example.",
     ],
   },
   {
     h2: "Where the provider data comes from",
     body: [
       "Each service's specs (price, platforms, server count, logging policy, claimed speed) are stated by the provider itself — from its official site or public documentation. We don't run our own lab speed tests or our own no-logs audits.",
-      "If a provider has undergone an independent external audit (e.g. a no-logs policy audit by an auditing firm), that's noted separately in the service description as the fact that such an audit was published — not as our own assessment.",
+      "If a provider has undergone an independent no-logs policy audit (for example, [NordVPN](/en/vpn/nordvpn), [ExpressVPN](/en/vpn/expressvpn), or [Surfshark](/en/vpn/surfshark)), that's noted separately in the service description as the fact that such an audit was published — not as our own assessment.",
       "\"Site is up\" status and response latency are the only metrics we measure ourselves: an automated check regularly requests the provider's site and times the response. That shows whether the provider's site is alive right now, not the quality or speed of the VPN tunnel itself.",
     ],
   },
@@ -87,7 +88,7 @@ export default function AboutPageEn() {
             <h2 className="mb-2 text-lg font-semibold">{section.h2}</h2>
             <div className="flex flex-col gap-3 text-sm leading-relaxed text-muted">
               {section.body.map((p, i) => (
-                <p key={i}>{p}</p>
+                <p key={i}>{renderInlineText(p)}</p>
               ))}
             </div>
           </section>

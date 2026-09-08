@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllServices } from "@/lib/getServices";
 import { allComparisonPairs } from "@/lib/comparisons";
-import { SITE_NAME, SITE_URL } from "@/lib/seo";
+import { SITE_NAME, SITE_URL, jsonLdScript } from "@/lib/seo";
 import { ServiceLogo } from "@/components/ServiceLogo";
 
 export const revalidate = 1800;
@@ -22,8 +22,22 @@ export default async function ComparePageEn() {
   const byId = new Map(services.map((s) => [s.slug, s]));
   const pairs = allComparisonPairs();
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/en` },
+      { "@type": "ListItem", position: 2, name: "Comparisons", item: `${SITE_URL}/en/compare` },
+    ],
+  };
+
   return (
     <main className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLdScript(breadcrumbJsonLd) }}
+      />
+
       <nav className="mb-6 text-sm text-muted">
         <Link href="/en" className="hover:text-fg">
           Home
