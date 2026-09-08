@@ -6,6 +6,7 @@ import "./globals.css";
 import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { GeodemaBanner } from "@/components/GeodemaBanner";
 import { getAllServices } from "@/lib/getServices";
 import { computeScore } from "@/lib/score";
 
@@ -101,6 +102,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           `}
         </Script>
         <SiteHeader />
+        <GeodemaBanner />
         {children}
         <SiteFooter topServices={topServices} />
         <Analytics />
