@@ -8,6 +8,7 @@ export const UI = {
       blog: "Блог",
       about: "О проекте",
       menu: "Меню",
+      close: "Закрыть",
     },
     status: { online: "Сайт доступен", offline: "Недоступен", unknown: "Не проверен" },
     score: {
@@ -63,6 +64,7 @@ export const UI = {
       blog: "Blog",
       about: "About",
       menu: "Menu",
+      close: "Close",
     },
     status: { online: "Site is up", offline: "Down", unknown: "Not checked yet" },
     score: {

@@ -13,7 +13,7 @@ export function SiteHeader() {
   const locale = localeFromPathname(pathname);
   const nav = UI[locale].nav;
   const [menuOpen, setMenuOpen] = useState(false);
-  const navRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     document.documentElement.lang = locale;
@@ -24,9 +24,16 @@ export function SiteHeader() {
   }, [pathname]);
 
   useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
+  useEffect(() => {
     if (!menuOpen) return;
     function onClickOutside(e: MouseEvent) {
-      if (navRef.current && !navRef.current.contains(e.target as Node)) setMenuOpen(false);
+      if (headerRef.current && !headerRef.current.contains(e.target as Node)) setMenuOpen(false);
     }
     function onEscape(e: KeyboardEvent) {
       if (e.key === "Escape") setMenuOpen(false);
@@ -53,7 +60,7 @@ export function SiteHeader() {
   ];
 
   return (
-    <header className="border-b border-border">
+    <header ref={headerRef} className="border-b border-border">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
         <Link
           href={homeHref}
@@ -63,7 +70,7 @@ export function SiteHeader() {
           <span>{SITE_NAME}</span>
         </Link>
 
-        <div ref={navRef} className="flex items-center gap-3 sm:gap-5">
+        <div className="flex items-center gap-3 sm:gap-5">
           <nav className="hidden items-center gap-5 text-sm text-muted sm:flex">
             {links.map((l) => (
               <Link key={l.href} href={l.href} className="transition-colors hover:text-fg">
@@ -77,36 +84,41 @@ export function SiteHeader() {
           <button
             type="button"
             onClick={() => setMenuOpen((v) => !v)}
-            aria-label={nav.menu}
+            aria-label={menuOpen ? nav.close : nav.menu}
             aria-expanded={menuOpen}
-            className="flex h-8 w-8 items-center justify-center rounded-full text-fg transition-colors hover:bg-surface sm:hidden"
+            className="relative z-[60] flex h-8 w-8 items-center justify-center rounded-full text-fg transition-colors hover:bg-surface sm:hidden"
           >
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
-              <path
-                d="M2 4.5H16M2 9H16M2 13.5H16"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
-            </svg>
+            <span
+              className={`absolute left-1/2 top-1/2 h-[1.5px] w-[18px] -translate-x-1/2 bg-current transition-transform duration-200 ${
+                menuOpen ? "translate-y-0 rotate-45" : "-translate-y-[5px]"
+              }`}
+            />
+            <span
+              className={`absolute left-1/2 top-1/2 h-[1.5px] w-[18px] -translate-x-1/2 bg-current transition-opacity duration-150 ${
+                menuOpen ? "opacity-0" : "opacity-100"
+              }`}
+            />
+            <span
+              className={`absolute left-1/2 top-1/2 h-[1.5px] w-[18px] -translate-x-1/2 bg-current transition-transform duration-200 ${
+                menuOpen ? "translate-y-0 -rotate-45" : "translate-y-[5px]"
+              }`}
+            />
           </button>
         </div>
       </div>
 
       {menuOpen && (
-        <nav className="border-t border-border sm:hidden">
-          <div className="mx-auto flex max-w-6xl flex-col px-4 py-2">
-            {links.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                onClick={() => setMenuOpen(false)}
-                className="border-b border-border py-3 text-sm text-muted transition-colors last:border-b-0 hover:text-fg"
-              >
-                {l.label}
-              </Link>
-            ))}
-          </div>
+        <nav className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-6 bg-bg sm:hidden">
+          {links.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              onClick={() => setMenuOpen(false)}
+              className="text-[24px] font-medium text-fg transition-colors hover:text-accent"
+            >
+              {l.label}
+            </Link>
+          ))}
         </nav>
       )}
     </header>
