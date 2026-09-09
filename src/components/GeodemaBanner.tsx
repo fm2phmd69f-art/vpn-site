@@ -238,7 +238,7 @@ export function GeodemaBanner() {
   if (locale !== "ru" || pathname.startsWith("/admin")) return null;
 
   const shell =
-    `group relative block overflow-hidden ${isHome ? "" : "sticky top-0 z-50"} ` +
+    `group relative block overflow-hidden ${isHome ? "" : "sticky top-16 z-40"} ` +
     manrope.className;
   const shellStyle = {
     background:
