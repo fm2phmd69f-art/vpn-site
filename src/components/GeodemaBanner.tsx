@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Manrope, Fragment_Mono } from "next/font/google";
+import { Manrope } from "next/font/google";
 import { localeFromPathname } from "@/lib/i18n";
 import { withUtm } from "@/lib/utm";
 
@@ -11,7 +11,6 @@ const manrope = Manrope({
   weight: ["500", "700", "800"],
   display: "optional",
 });
-const fragmentMono = Fragment_Mono({ subsets: ["latin"], weight: "400", display: "optional" });
 
 const HREF = withUtm("https://magnit.help/p7b27319c", "geodema");
 
@@ -128,79 +127,6 @@ function CtaBackground({ rows, cellSize }: { rows: number; cellSize: number }) {
           />
         ))}
       </div>
-    </div>
-  );
-}
-
-/** Recreates geodema.app's speedometer: lime arc, needle sweeping up from the left, counting value. */
-function Speedometer() {
-  const [value, setValue] = useState(0);
-  const max = 40;
-
-  useEffect(() => {
-    const start = performance.now();
-    const durationMs = 1600;
-    let raf = 0;
-    const tick = (now: number) => {
-      const t = Math.min(1, (now - start) / durationMs);
-      const eased = 1 - Math.pow(1 - t, 3);
-      setValue(Math.round(eased * max));
-      if (t < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, []);
-
-  const ratio = value / max;
-  const angle = -90 + ratio * 180;
-
-  return (
-    <div className="flex flex-col items-center">
-      <div className="relative flex h-[120px] w-[240px] items-start justify-center">
-        <svg width="240" height="86" viewBox="0 0 240 86" fill="none" className="block overflow-visible">
-          <path
-            d="M15.0015 70.1726C26.7227 53.1565 42.4039 39.244 60.695 29.6329C78.9861 20.0217 99.339 15 120.001 15C140.664 15 161.017 20.0217 179.308 29.6329C197.599 39.244 213.28 53.1565 225.001 70.1726"
-            stroke="rgba(229,231,235,0.14)"
-            strokeWidth="30"
-            strokeLinecap="round"
-          />
-          <path
-            d="M15.0015 70.1726C26.7227 53.1565 42.4039 39.244 60.695 29.6329C78.9861 20.0217 99.339 15 120.001 15C140.664 15 161.017 20.0217 179.308 29.6329C197.599 39.244 213.28 53.1565 225.001 70.1726"
-            stroke="#D1F701"
-            strokeWidth="30"
-            strokeLinecap="round"
-            pathLength={100}
-            strokeDasharray="100"
-            strokeDashoffset={100 - ratio * 100}
-            style={{ filter: "drop-shadow(0 8px 20px rgba(209,247,1,0.35))", transition: "stroke-dashoffset 90ms linear" }}
-          />
-        </svg>
-        <svg
-          width="19"
-          height="49"
-          viewBox="0 0 19 49"
-          fill="none"
-          className="absolute bottom-3 left-1/2"
-          style={{
-            transformOrigin: "9.5px 39.5px",
-            transform: `translateX(-50%) rotate(${angle}deg)`,
-            filter: "drop-shadow(0 10px 24px rgba(209,247,1,0.28))",
-            transition: "transform 90ms linear",
-          }}
-        >
-          <line x1="10" y1="40" x2="10" y2="2" stroke="#D1F701" strokeWidth="4" strokeLinecap="round" />
-          <circle cx="9.5" cy="39.5" r="9" fill="#D1F701" stroke="#D1F701" />
-        </svg>
-      </div>
-      <span
-        className={`${fragmentMono.className} -mt-3 text-[44px] leading-none`}
-        style={{ color: "#917be6" }}
-      >
-        {value}
-      </span>
-      <span className={`${fragmentMono.className} mt-2 text-sm`} style={{ color: "#917be6" }}>
-        Gbit/s
-      </span>
     </div>
   );
 }
@@ -324,15 +250,16 @@ export function GeodemaBanner() {
       <a href={HREF} target="_blank" rel="noopener noreferrer sponsored" className={shell} style={shellStyle}>
         <style>{BANNER_CSS}</style>
         <CtaBackground rows={5} cellSize={96} />
-        <div className="relative z-[2] mx-auto flex max-w-6xl flex-col items-center gap-8 px-4 py-12 sm:px-6 md:flex-row md:justify-between">
-          <div className="flex-1 text-center md:text-left">
-            <span className="inline-block rounded-full border border-white/15 px-3 py-1 text-[11px] font-medium uppercase tracking-wide text-white/50">
-              Реклама · Geodema VPN
-            </span>
-            <h2 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl">
-              Ваш доступ к{" "}
+        <div className="relative z-[2] mx-auto flex max-w-6xl flex-col items-center gap-6 px-4 py-8 text-center sm:px-6 md:items-start md:text-left">
+          <span className="inline-block rounded-full border border-white/15 px-3 py-1 text-[11px] font-medium uppercase tracking-wide text-white/50">
+            Geodema VPN
+          </span>
+          <div>
+            <h2 className="text-2xl font-extrabold leading-tight tracking-tight text-white sm:text-3xl">
+              Ваш доступ к
+              <br />
               <span
-                className="inline-block rounded-full px-4 py-1 align-middle text-white"
+                className="mt-1 inline-block rounded-full px-4 py-1 align-middle text-white"
                 style={{ backgroundColor: "#917be6" }}
               >
                 {scrambled}
@@ -342,21 +269,18 @@ export function GeodemaBanner() {
               VPN на VLESS с серверами в 70+ странах. Избавьтесь от ограничений и слежки в любой
               точке мира.
             </p>
-            <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center md:justify-start">
-              <span className="inline-flex h-12 items-center gap-1.5 rounded-full bg-white/10 px-5 text-white">
-                <span className="text-xl font-extrabold leading-none">299 ₽</span>
-                <span className="text-sm text-white/60">/мес</span>
-              </span>
-              <span
-                className="inline-flex h-12 items-center justify-center rounded-full px-6 text-sm font-semibold text-[#171717] transition-transform group-hover:scale-105"
-                style={{ backgroundColor: "#d1f701" }}
-              >
-                Подключиться →
-              </span>
-            </div>
           </div>
-          <div className="shrink-0 scale-90 sm:scale-100">
-            <Speedometer />
+          <div className="flex w-full max-w-xs flex-col items-center gap-3 sm:max-w-none sm:flex-row md:w-full">
+            <span className="inline-flex h-12 shrink-0 items-center gap-1.5 rounded-full bg-white/10 px-5 text-white">
+              <span className="text-xl font-extrabold leading-none">299 ₽</span>
+              <span className="text-sm text-white/60">/мес</span>
+            </span>
+            <span
+              className="inline-flex h-12 w-full items-center justify-center rounded-full px-6 text-sm font-semibold text-[#171717] transition-transform group-hover:scale-105 sm:w-auto"
+              style={{ backgroundColor: "#d1f701" }}
+            >
+              Подключиться →
+            </span>
           </div>
         </div>
       </a>
@@ -367,21 +291,23 @@ export function GeodemaBanner() {
     <a href={HREF} target="_blank" rel="noopener noreferrer sponsored" className={shell} style={shellStyle}>
       <style>{BANNER_CSS}</style>
       <CtaBackground rows={2} cellSize={64} />
-      <div className="relative z-[2] mx-auto flex max-w-6xl flex-col items-center justify-center gap-1.5 px-4 py-4 text-center text-white sm:flex-row sm:gap-4 sm:py-3.5">
-        <span className="hidden text-[10px] font-medium uppercase tracking-wide text-white/40 sm:inline">
-          Реклама
-        </span>
-        <span className="text-sm font-medium sm:text-base">
-          Geodema VPN — доступ к{" "}
-          <span className="font-semibold" style={{ color: "#c3b3f5" }}>
-            {scrambled}
+      <div className="relative z-[2] mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-2 text-white sm:px-6 sm:py-2.5">
+        <div className="flex min-w-0 flex-col text-left">
+          <span className="truncate text-xs font-medium sm:text-sm">
+            <span className="mr-1 hidden text-[10px] font-medium uppercase tracking-wide text-white/40 sm:inline">
+              Реклама ·
+            </span>
+            Geodema VPN — доступ к{" "}
+            <span className="font-semibold" style={{ color: "#c3b3f5" }}>
+              {scrambled}
+            </span>
           </span>
-        </span>
-        <span className="text-xs text-white/60 sm:text-sm">
-          от 299 ₽/мес — VLESS, серверы в 70+ странах
-        </span>
+          <span className="truncate text-[11px] text-white/60 sm:text-sm">
+            от 299 ₽/мес — VLESS, серверы в 70+ странах
+          </span>
+        </div>
         <span
-          className="mt-1 shrink-0 rounded-full px-4 py-1.5 text-xs font-semibold text-[#171717] transition-transform group-hover:scale-105 sm:mt-0"
+          className="shrink-0 rounded-full px-4 py-1.5 text-xs font-semibold text-[#171717] transition-transform group-hover:scale-105"
           style={{ backgroundColor: "#d1f701" }}
         >
           Подключиться
