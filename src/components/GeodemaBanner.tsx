@@ -250,16 +250,16 @@ export function GeodemaBanner() {
       <a href={HREF} target="_blank" rel="noopener noreferrer sponsored" className={shell} style={shellStyle}>
         <style>{BANNER_CSS}</style>
         <CtaBackground rows={5} cellSize={96} />
-        <div className="relative z-[2] mx-auto flex max-w-6xl flex-col items-center gap-6 px-4 py-8 text-center sm:px-6 md:items-start md:text-left">
-          <span className="inline-block rounded-full border border-white/15 px-3 py-1 text-[11px] font-medium uppercase tracking-wide text-white/50">
-            Geodema VPN
-          </span>
+        <div className="relative z-[2] mx-auto flex max-w-6xl flex-col items-center gap-6 px-4 py-8 text-center sm:px-6 md:flex-row md:items-center md:justify-between md:text-left">
           <div>
-            <h2 className="text-2xl font-extrabold leading-tight tracking-tight text-white sm:text-3xl">
+            <span className="inline-block rounded-full border border-white/15 px-3 py-1 text-[11px] font-medium uppercase tracking-wide text-white/50">
+              Geodema VPN
+            </span>
+            <h2 className="mt-4 text-2xl font-extrabold leading-tight tracking-tight text-white sm:text-3xl">
               Ваш доступ к
-              <br />
+              <br className="sm:hidden" />
               <span
-                className="mt-1 inline-block rounded-full px-4 py-1 align-middle text-white"
+                className="mt-1 inline-block rounded-full px-4 py-1 align-middle text-white sm:ml-2 sm:mt-0"
                 style={{ backgroundColor: "#917be6" }}
               >
                 {scrambled}
@@ -270,7 +270,7 @@ export function GeodemaBanner() {
               точке мира.
             </p>
           </div>
-          <div className="flex w-full max-w-xs flex-col items-center gap-3 sm:max-w-none sm:flex-row md:w-full">
+          <div className="flex w-full max-w-xs flex-col items-center gap-3 sm:max-w-none sm:flex-row md:w-auto md:shrink-0">
             <span className="inline-flex h-12 shrink-0 items-center gap-1.5 rounded-full bg-white/10 px-5 text-white">
               <span className="text-xl font-extrabold leading-none">299 ₽</span>
               <span className="text-sm text-white/60">/мес</span>
