@@ -21,11 +21,11 @@ export default async function OgImage() {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 20, fontSize: 56 }}>
-          <span>🛡️</span>
-          <span style={{ fontWeight: 700 }}>VPN Маркетплейс</span>
+          <span>🔍</span>
+          <span style={{ fontWeight: 700 }}>WebRTC Leak Test</span>
         </div>
         <div style={{ display: "flex", marginTop: 24, fontSize: 32, opacity: 0.9 }}>
-          Сравнение VPN-сервисов: цены, скорость, доступность
+          Check if your real IP is exposed around your VPN — free, in your browser
         </div>
       </div>
     ),

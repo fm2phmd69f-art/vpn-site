@@ -21,11 +21,11 @@ export default async function OgImage() {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 20, fontSize: 56 }}>
-          <span>🛡️</span>
-          <span style={{ fontWeight: 700 }}>VPN Маркетплейс</span>
+          <span>🚫</span>
+          <span style={{ fontWeight: 700 }}>Проверка IP на блокировку</span>
         </div>
         <div style={{ display: "flex", marginTop: 24, fontSize: 32, opacity: 0.9 }}>
-          Сравнение VPN-сервисов: цены, скорость, доступность
+          Тест по спам-листам DNSBL — Spamhaus, SpamCop, SORBS и другие
         </div>
       </div>
     ),

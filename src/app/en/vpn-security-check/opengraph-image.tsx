@@ -22,10 +22,10 @@ export default async function OgImage() {
       >
         <div style={{ display: "flex", alignItems: "center", gap: 20, fontSize: 56 }}>
           <span>🛡️</span>
-          <span style={{ fontWeight: 700 }}>VPN Маркетплейс</span>
+          <span style={{ fontWeight: 700 }}>VPN Security Check</span>
         </div>
         <div style={{ display: "flex", marginTop: 24, fontSize: 32, opacity: 0.9 }}>
-          Сравнение VPN-сервисов: цены, скорость, доступность
+          IP, blocklists, and WebRTC leaks — all on one page, one click
         </div>
       </div>
     ),
