@@ -242,7 +242,11 @@ export default async function ServicePage(props: Props) {
         {extras.simultaneousConnections != null && (
           <div>
             <dt className="text-muted">Устройств одновременно</dt>
-            <dd className="font-medium">{extras.simultaneousConnections}</dd>
+            <dd className="font-medium">
+              {extras.simultaneousConnections === "unlimited"
+                ? "Безлимит"
+                : extras.simultaneousConnections}
+            </dd>
           </div>
         )}
         {extras.killSwitch != null && (

@@ -20,7 +20,7 @@ export interface SeedService {
   protocols?: string[];
   killSwitch?: boolean;
   serverCountText?: string;
-  simultaneousConnections?: number;
+  simultaneousConnections?: number | "unlimited";
   specsCheckedAt?: string;
 }
 
@@ -68,7 +68,7 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "7-дневный пробный период",
     rating: 4.7,
     platforms: ["Windows", "macOS", "iOS", "Android", "Linux"],
-    tags: ["no-logs", "netflix", "torrents", "double-vpn"],
+    tags: ["no-logs", "netflix", "torrents", "double-vpn", "wireguard"],
     description:
       "Один из крупнейших VPN-провайдеров. Более 6000 серверов в 60+ странах, политика no-logs, собственный протокол NordLynx на базе WireGuard.",
     pros: [
@@ -107,7 +107,7 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "нет, но 30 дней возврат денег",
     rating: 4.8,
     platforms: ["Windows", "macOS", "iOS", "Android", "Linux", "Router"],
-    tags: ["no-logs", "netflix", "streaming", "fast"],
+    tags: ["no-logs", "netflix", "streaming", "fast", "wireguard"],
     description:
       "Premium-сервис с упором на скорость и простоту. Собственный протокол Lightway, серверы в 105 странах.",
     pros: [
@@ -146,7 +146,7 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "7-дневный пробный период",
     rating: 4.5,
     platforms: ["Windows", "macOS", "iOS", "Android", "Linux", "TV"],
-    tags: ["no-logs", "netflix", "torrents", "budget", "unlimited-devices"],
+    tags: ["no-logs", "netflix", "torrents", "budget", "unlimited-devices", "wireguard"],
     description:
       "Бюджетный вариант с неограниченным числом устройств на одной подписке. Есть CleanWeb — блокировка рекламы и трекеров.",
     pros: [
@@ -168,6 +168,7 @@ export const SEED_SERVICES: SeedService[] = [
       { q: "Подходит ли Surfshark для торрентов и Netflix?", a: "Да, это заявлено в тегах сервиса." },
     ],
     protocols: ["Dausos", "WireGuard", "OpenVPN", "IKEv2"],
+    simultaneousConnections: "unlimited",
     killSwitch: true,
     serverCountText: "4500+ серверов в 100 странах",
     specsCheckedAt: "2026-09-05",
@@ -183,7 +184,7 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "бессрочный бесплатный план",
     rating: 4.6,
     platforms: ["Windows", "macOS", "iOS", "Android", "Linux"],
-    tags: ["no-logs", "free-tier", "open-source", "swiss-based"],
+    tags: ["no-logs", "free-tier", "open-source", "swiss-based", "wireguard"],
     description:
       "От создателей ProtonMail. Швейцарская юрисдикция, открытый код клиентов, есть полностью бесплатный тариф без ограничения трафика.",
     pros: [
@@ -259,7 +260,7 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "нет, но 30 дней возврат денег",
     rating: 4.3,
     platforms: ["Windows", "macOS", "iOS", "Android", "Linux", "Router"],
-    tags: ["no-logs", "torrents", "budget", "open-source"],
+    tags: ["no-logs", "torrents", "budget", "open-source", "wireguard"],
     description:
       "Большое количество серверов (35000+), гибкая настройка, открытый исходный код приложений.",
     pros: [
@@ -281,6 +282,7 @@ export const SEED_SERVICES: SeedService[] = [
       { q: "Подходит ли PIA для торрентов?", a: "Да, это один из заявленных тегов сервиса." },
     ],
     protocols: ["WireGuard", "OpenVPN"],
+    simultaneousConnections: "unlimited",
     killSwitch: true,
     serverCountText: "серверы в 91 стране",
     specsCheckedAt: "2026-09-05",
@@ -296,7 +298,7 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "бесплатный тариф 10 ГБ/мес",
     rating: 4.4,
     platforms: ["Windows", "macOS", "iOS", "Android", "Linux", "Browser"],
-    tags: ["free-tier", "torrents", "ad-block"],
+    tags: ["free-tier", "torrents", "ad-block", "wireguard"],
     description:
       "Гибкий бесплатный тариф, встроенный блокировщик рекламы (R.O.B.E.R.T), генератор конфигов OpenVPN/WireGuard.",
     pros: [
@@ -318,6 +320,7 @@ export const SEED_SERVICES: SeedService[] = [
       { q: "Подходит ли Windscribe для торрентов?", a: "Да, это заявлено в тегах сервиса." },
     ],
     protocols: ["OpenVPN", "IKEv2", "WireGuard"],
+    simultaneousConnections: "unlimited",
     killSwitch: true,
     serverCountText: "серверы в 69+ странах, 135+ городах",
     specsCheckedAt: "2026-09-05",
@@ -333,7 +336,7 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "24 часа бесплатно + 45 дней возврат",
     rating: 4.3,
     platforms: ["Windows", "macOS", "iOS", "Android", "Linux", "Router"],
-    tags: ["no-logs", "netflix", "torrents", "budget", "streaming"],
+    tags: ["no-logs", "netflix", "torrents", "budget", "streaming", "wireguard"],
     description:
       "Румынский провайдер с большим количеством выделенных серверов под конкретные задачи (стриминг, торренты). Простой интерфейс для новичков.",
     pros: [
@@ -371,7 +374,7 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "нет, 30 дней возврат",
     rating: 4.2,
     platforms: ["Windows", "macOS", "iOS", "Android", "Linux", "Router", "Fire TV"],
-    tags: ["no-logs", "torrents", "unlimited-devices", "budget"],
+    tags: ["no-logs", "torrents", "unlimited-devices", "budget", "wireguard"],
     description:
       "Американский провайдер с собственной сетью серверов (без аренды у третьих лиц) и безлимитом устройств на одном тарифе.",
     pros: [
@@ -392,6 +395,7 @@ export const SEED_SERVICES: SeedService[] = [
       { q: "Подходит ли IPVanish для торрентов?", a: "Да, это заявлено в тегах сервиса." },
     ],
     protocols: ["WireGuard", "OpenVPN", "IKEv2", "IPSec"],
+    simultaneousConnections: "unlimited",
     killSwitch: true,
     serverCountText: "3400+ серверов в 150+ локациях",
     specsCheckedAt: "2026-09-05",
@@ -407,7 +411,7 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "7 дней за $0.99",
     rating: 4.0,
     platforms: ["Windows", "macOS", "iOS", "Android", "Linux", "Router"],
-    tags: ["no-logs", "netflix", "torrents", "budget"],
+    tags: ["no-logs", "netflix", "torrents", "budget", "wireguard"],
     description:
       "Сеть из 6500+ серверов в 78+ странах, аудит политики no-logs, есть выделенный IP за доплату.",
     pros: [
@@ -444,7 +448,7 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "3 дня бесплатно",
     rating: 4.1,
     platforms: ["Windows", "macOS", "iOS", "Android", "Router", "TV"],
-    tags: ["no-logs", "privacy", "streaming"],
+    tags: ["no-logs", "privacy", "streaming", "wireguard"],
     description:
       "Собственный протокол Chameleon для обхода блокировки VPN-трафика, вся инфраструктура серверов принадлежит компании.",
     pros: [
@@ -481,7 +485,7 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "бесплатно 2 ГБ/мес",
     rating: 4.3,
     platforms: ["Windows", "macOS", "iOS", "Android", "Browser"],
-    tags: ["free-tier", "privacy", "ad-block"],
+    tags: ["free-tier", "privacy", "ad-block", "wireguard"],
     description:
       "Дружелюбный интерфейс, ежегодный независимый аудит безопасности, есть скромный бесплатный тариф.",
     pros: [
@@ -517,7 +521,7 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "бесплатная версия с рекламой",
     rating: 3.9,
     platforms: ["Windows", "macOS", "iOS", "Android", "Router"],
-    tags: ["fast", "free-tier", "streaming"],
+    tags: ["fast", "free-tier", "streaming", "wireguard"],
     description:
       "Собственный протокол Hydra, заявлен как один из самых быстрых VPN на рынке, есть бесплатная версия с ограничениями и рекламой.",
     pros: [
@@ -555,7 +559,7 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "бесплатно 10 ГБ/мес",
     rating: 4.4,
     platforms: ["Windows", "macOS", "iOS", "Android", "Linux", "Router"],
-    tags: ["no-logs", "free-tier", "privacy"],
+    tags: ["no-logs", "free-tier", "privacy", "wireguard"],
     description:
       "Малазийский провайдер вне альянсов слежки (14 Eyes), независимый аудит no-logs, честный бесплатный тариф без рекламы.",
     pros: [
@@ -592,7 +596,7 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "нет, 7 дней возврат",
     rating: 4.6,
     platforms: ["Windows", "macOS", "iOS", "Android", "Linux"],
-    tags: ["no-logs", "privacy", "open-source", "anonymous-payment"],
+    tags: ["no-logs", "privacy", "open-source", "anonymous-payment", "wireguard"],
     description:
       "Провайдер с упором на приватность: оплата криптовалютой без привязки к email, открытый код приложений.",
     pros: [
@@ -613,6 +617,9 @@ export const SEED_SERVICES: SeedService[] = [
       { q: "Открыт ли исходный код приложений IVPN?", a: "Да." },
       { q: "На каких платформах работает IVPN?", a: "Windows, macOS, iOS, Android, Linux." },
     ],
+    protocols: ["WireGuard", "OpenVPN"],
+    simultaneousConnections: 5,
+    specsCheckedAt: "2026-09-12",
   },
   {
     slug: "airvpn",
@@ -645,6 +652,9 @@ export const SEED_SERVICES: SeedService[] = [
       { q: "Открыт ли код приложений AirVPN?", a: "Да, включая собственный клиент Eddie." },
       { q: "На каких платформах доступен AirVPN?", a: "Windows, macOS, Linux, iOS, Android." },
     ],
+    protocols: ["OpenVPN", "WireGuard (бета)"],
+    simultaneousConnections: 5,
+    specsCheckedAt: "2026-09-12",
   },
   {
     slug: "perfectprivacy",
@@ -721,7 +731,7 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "нет, 30 дней возврат",
     rating: 4.0,
     platforms: ["Windows", "macOS", "iOS", "Android", "Linux", "Router"],
-    tags: ["no-logs", "budget", "torrents", "static-ip"],
+    tags: ["no-logs", "budget", "torrents", "static-ip", "wireguard"],
     description:
       "На рынке с 1994 года, собственная сеть серверов и IP-адресов, статические IP за доплату.",
     pros: [
@@ -795,7 +805,7 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "бесплатное расширение для браузера",
     rating: 3.6,
     platforms: ["Windows", "macOS", "iOS", "Android", "Browser"],
-    tags: ["budget", "streaming", "ad-block"],
+    tags: ["budget", "streaming", "ad-block", "wireguard"],
     description:
       "Немецкий провайдер, начинал как расширение для браузера, сейчас есть полноценные приложения для устройств.",
     pros: [
@@ -832,7 +842,7 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "нет, 7 дней возврат",
     rating: 3.7,
     platforms: ["Windows", "macOS", "iOS", "Android"],
-    tags: ["antivirus-bundle", "budget"],
+    tags: ["antivirus-bundle", "budget", "no-logs", "wireguard"],
     description:
       "VPN-модуль от разработчика антивируса Avast, часто продаётся в комплекте с антивирусным ПО.",
     pros: [
@@ -882,7 +892,7 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "нет, 30 дней возврат",
     rating: 3.6,
     platforms: ["Windows", "macOS", "iOS", "Android"],
-    tags: ["antivirus-bundle", "budget"],
+    tags: ["antivirus-bundle", "budget", "no-logs", "wireguard"],
     description:
       "Родственный продукт Avast (обе компании принадлежат Gen Digital) с похожим функционалом и той же инфраструктурой серверов.",
     pros: [
@@ -927,7 +937,7 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "нет",
     rating: 3.7,
     platforms: ["Windows", "macOS", "iOS", "Android"],
-    tags: ["antivirus-bundle", "budget"],
+    tags: ["antivirus-bundle", "budget", "no-logs"],
     description:
       "VPN в экосистеме Norton 360, чаще берут в комплекте с антивирусом, чем как отдельный продукт.",
     pros: [
@@ -971,7 +981,7 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "нет",
     rating: 3.5,
     platforms: ["Windows", "macOS", "iOS", "Android"],
-    tags: ["antivirus-bundle", "budget"],
+    tags: ["antivirus-bundle", "budget", "no-logs", "wireguard"],
     description:
       "Базовый VPN от McAfee, обычно идёт бонусом к антивирусным подпискам, без тонкой настройки.",
     pros: [
@@ -1327,7 +1337,7 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "нет, 30 дней возврат",
     rating: 4.1,
     platforms: ["Windows", "macOS", "iOS", "Android", "Linux", "Router"],
-    tags: ["no-logs", "streaming", "torrents", "budget"],
+    tags: ["no-logs", "streaming", "torrents", "budget", "wireguard"],
     description:
       "Небольшой шведский провайдер, известен персональной поддержкой и ручной настройкой удалённого доступа к серверам.",
     pros: [
@@ -1730,7 +1740,7 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "бесплатное расширение для браузера",
     rating: 3.5,
     platforms: ["Browser", "iOS", "Android"],
-    tags: ["free-tier", "budget"],
+    tags: ["free-tier", "budget", "no-logs"],
     description:
       "В первую очередь расширение для браузера; полноценные мобильные приложения платные, бесплатно — только смена IP в браузере.",
     pros: [
@@ -1773,7 +1783,7 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "бесплатно без ограничений (WARP+ по желанию)",
     rating: 4.3,
     platforms: ["Windows", "macOS", "iOS", "Android", "Linux"],
-    tags: ["free-tier", "open-source", "privacy"],
+    tags: ["free-tier", "open-source", "privacy", "wireguard"],
     description:
       "Публичный DNS-резолвер Cloudflare со встроенным туннелем WARP — ускоряет и шифрует трафик, но не даёт выбирать страну выхода, поэтому не заменяет обычный VPN для смены геолокации.",
     pros: [
@@ -1991,7 +2001,7 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "нет, 7 дней возврат",
     rating: 4.0,
     platforms: ["Windows", "macOS", "iOS", "Android", "Linux", "Router"],
-    tags: ["no-logs", "torrents", "static-ip"],
+    tags: ["no-logs", "torrents", "static-ip", "wireguard"],
     description:
       "Ориентирован на торренты и приватность, множество опций выделенных/статических IP и портов за доплату.",
     pros: [

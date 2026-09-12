@@ -187,7 +187,11 @@ export default async function VpnPricesPage() {
                     <span className="text-base font-bold text-fg">{s.priceFrom}</span>
                   </td>
                   <td className="px-4 py-3 text-muted">
-                    {extras.simultaneousConnections != null ? extras.simultaneousConnections : "—"}
+                    {extras.simultaneousConnections == null
+                      ? "—"
+                      : extras.simultaneousConnections === "unlimited"
+                        ? "Безлимит"
+                        : extras.simultaneousConnections}
                   </td>
                   <td className="px-4 py-3">
                     {s.tags.includes("no-logs") ? (
