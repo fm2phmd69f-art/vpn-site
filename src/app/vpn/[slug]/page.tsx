@@ -280,6 +280,12 @@ export default async function ServicePage(props: Props) {
         </p>
       )}
 
+      <p className="mt-3 text-sm">
+        <Link href="/vpn-prices" className="text-accent hover:underline">
+          Сравнить цену {service.name} с другими VPN-сервисами →
+        </Link>
+      </p>
+
       {(extras.pros?.length || extras.cons?.length) && (
         <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
           {extras.pros && extras.pros.length > 0 && (

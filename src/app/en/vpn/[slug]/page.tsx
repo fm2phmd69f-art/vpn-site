@@ -190,6 +190,12 @@ export default async function ServicePageEn(props: Props) {
         </div>
       </dl>
 
+      <p className="mt-3 text-sm">
+        <Link href="/en/vpn-prices" className="text-accent hover:underline">
+          Compare {service.name}&apos;s price with other VPN services →
+        </Link>
+      </p>
+
       <div className="mt-5 flex flex-wrap gap-1.5">
         {service.tags.map((tag) => (
           <Link
