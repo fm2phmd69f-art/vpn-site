@@ -31,11 +31,14 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
   const reviews = await getReviewsForService(service.id);
   const aggregate = computeAggregate(reviews);
+  const { seoHook } = getServiceExtras(service.slug);
 
   const year = new Date().getFullYear();
   const title = aggregate
     ? `${service.name} — обзор ${year}, цена и отзывы (${aggregate.count})`
-    : `${service.name} — обзор ${year}, цена и отзывы`;
+    : seoHook
+      ? `${service.name} — обзор ${year}: ${seoHook}`
+      : `${service.name} — обзор ${year}, цена и отзывы`;
   const description = aggregate
     ? `${service.name}: обзор ${year}, актуальная цена и ${aggregate.count} отзывов пользователей (средняя оценка ${aggregate.avgStars.toFixed(1)} из 5). ${service.priceFrom}. ${service.description}`.slice(0, 160)
     : `${service.name}: обзор ${year}, актуальная цена, скорость и отзывы пользователей. ${service.priceFrom}. ${service.description}`.slice(0, 160);

@@ -22,6 +22,9 @@ export interface SeedService {
   serverCountText?: string;
   simultaneousConnections?: number | "unlimited";
   specsCheckedAt?: string;
+  /** Short distinguishing phrase promoted into the SEO title for pages with good search position but low CTR. */
+  seoHook?: string;
+  seoHookEn?: string;
 }
 
 /** Slug -> editorial extras lookup, used by the VPN page template. */
@@ -37,6 +40,8 @@ export function getServiceExtras(
   | "serverCountText"
   | "simultaneousConnections"
   | "specsCheckedAt"
+  | "seoHook"
+  | "seoHookEn"
 > {
   const seed = SEED_SERVICES.find((s) => s.slug === slug);
   return {
@@ -48,6 +53,8 @@ export function getServiceExtras(
     serverCountText: seed?.serverCountText,
     simultaneousConnections: seed?.simultaneousConnections,
     specsCheckedAt: seed?.specsCheckedAt,
+    seoHook: seed?.seoHook,
+    seoHookEn: seed?.seoHookEn,
   };
 }
 
@@ -223,6 +230,8 @@ export const SEED_SERVICES: SeedService[] = [
     rating: 4.6,
     platforms: ["Windows", "macOS", "iOS", "Android", "Linux"],
     tags: ["no-logs", "privacy", "wireguard", "anonymous-payment"],
+    seoHook: "анонимная регистрация без email, WireGuard",
+    seoHookEn: "No Email Signup, Fixed Price & WireGuard",
     description:
       "Максимальный фокус на приватность: регистрация без email, оплата криптой или наличными по почте, поддержка WireGuard.",
     pros: [
@@ -598,6 +607,8 @@ export const SEED_SERVICES: SeedService[] = [
     rating: 4.6,
     platforms: ["Windows", "macOS", "iOS", "Android", "Linux"],
     tags: ["no-logs", "privacy", "open-source", "anonymous-payment", "wireguard"],
+    seoHook: "оплата криптой без привязки к email",
+    seoHookEn: "Pay With Crypto, No Email Required",
     description:
       "Провайдер с упором на приватность: оплата криптовалютой без привязки к email, открытый код приложений.",
     pros: [
@@ -634,6 +645,8 @@ export const SEED_SERVICES: SeedService[] = [
     rating: 4.5,
     platforms: ["Windows", "macOS", "Linux", "iOS", "Android"],
     tags: ["no-logs", "privacy", "open-source", "torrents"],
+    seoHook: "open-source VPN от итальянских активистов",
+    seoHookEn: "Open-Source VPN, Torrents Allowed",
     description:
       "Проект итальянских активистов и разработчиков, открытый код, гибкая настройка через собственный клиент Eddie, разрешены торренты.",
     pros: [
@@ -895,6 +908,8 @@ export const SEED_SERVICES: SeedService[] = [
     rating: 3.6,
     platforms: ["Windows", "macOS", "iOS", "Android"],
     tags: ["antivirus-bundle", "budget", "no-logs", "wireguard"],
+    seoHook: "от Avast, тот же движок и серверы",
+    seoHookEn: "From Avast, Same Engine & Servers",
     description:
       "Родственный продукт Avast (обе компании принадлежат Gen Digital) с похожим функционалом и той же инфраструктурой серверов.",
     pros: [
@@ -1028,6 +1043,8 @@ export const SEED_SERVICES: SeedService[] = [
     rating: 3.8,
     platforms: ["Windows", "macOS", "iOS", "Android"],
     tags: ["antivirus-bundle", "free-tier", "budget", "wireguard"],
+    seoHook: "от Kaspersky, с WireGuard",
+    seoHookEn: "From Kaspersky, With WireGuard",
     description:
       "VPN от Kaspersky с ограниченным бесплатным лимитом трафика в день и полной версией по подписке.",
     pros: [
@@ -1121,6 +1138,8 @@ export const SEED_SERVICES: SeedService[] = [
     rating: 3.9,
     platforms: ["Windows", "macOS", "iOS", "Android"],
     tags: ["privacy", "budget"],
+    seoHook: "простой VPN от финского F-Secure",
+    seoHookEn: "Simple Privacy VPN From Finland",
     description:
       "Финский разработчик с фокусом на приватность и защиту от трекеров, простой интерфейс без тонких настроек.",
     pros: [
@@ -1211,6 +1230,8 @@ export const SEED_SERVICES: SeedService[] = [
     rating: 3.9,
     platforms: ["Windows", "macOS", "iOS", "Android", "Linux", "Router"],
     tags: ["no-logs", "torrents", "streaming"],
+    seoHook: "со встроенным мониторингом утечек email",
+    seoHookEn: "With Built-In Email Breach Monitoring",
     description:
       "Встроенный мониторинг утечек данных по email в личном кабинете, фокус на обход блокировок стриминговых сервисов.",
     pros: [
@@ -1855,6 +1876,8 @@ export const SEED_SERVICES: SeedService[] = [
     rating: 3.7,
     platforms: ["Windows", "macOS", "iOS", "Android", "Linux", "Browser"],
     tags: ["budget", "streaming"],
+    seoHook: "локализация для русскоязычных пользователей",
+    seoHookEn: "Localized for Russian-Speaking Users",
     description:
       "Провайдер, ориентированный на русскоязычную аудиторию, с локализованными приложениями и поддержкой.",
     pros: [
@@ -1980,6 +2003,8 @@ export const SEED_SERVICES: SeedService[] = [
     rating: 4.4,
     platforms: ["Windows", "macOS", "iOS", "Android", "Linux", "ChromeOS"],
     tags: ["open-source", "self-hosted", "circumvention"],
+    seoHook: "разверните свой сервер за пару кликов",
+    seoHookEn: "Run Your Own Server in a Few Clicks",
     description:
       "Проект Jigsaw (Google), позволяет за пару кликов развернуть собственный VPN-сервер на базе Shadowsocks на своём VPS — вы сами себе провайдер.",
     pros: [
@@ -2116,6 +2141,8 @@ export const SEED_SERVICES: SeedService[] = [
     rating: 3.6,
     platforms: ["Windows", "macOS", "iOS", "Android", "Router"],
     tags: ["streaming", "torrents", "budget"],
+    seoHook: "Smart DNS для разблокировки стриминга",
+    seoHookEn: "Smart DNS for Unblocking Streaming",
     description:
       "Небольшой провайдер с отдельными Smart DNS-тарифами и упором на разблокировку стриминговых сервисов.",
     pros: [
@@ -2296,6 +2323,8 @@ export const SEED_SERVICES: SeedService[] = [
     priceMonthlyUsd: 8,
     platforms: ["Windows", "macOS", "iOS", "Android", "Linux"],
     tags: ["business", "wireguard"],
+    seoHook: "корпоративный VPN от Nord Security для команд",
+    seoHookEn: "Business VPN From Nord Security for Teams",
     description:
       "Корпоративный VPN от Nord Security для команд — управление доступом сотрудников, статические IP и сегментация сети вместо тарифа на одного человека.",
     pros: [

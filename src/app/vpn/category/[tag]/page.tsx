@@ -23,8 +23,8 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   if (!tagLabel) return {};
 
   const cleanLabel = tagLabel.split(" ").slice(1).join(" ") || tagLabel;
-  const title = `${cleanLabel} VPN — список сервисов`;
-  const description = `Подборка VPN-сервисов из категории «${cleanLabel}»: цены, заявленная скорость и статус доступности сайта.`;
+  const title = `VPN с функцией «${cleanLabel}» 2026 — цены и сравнение`;
+  const description = `Подборка VPN-сервисов с функцией «${cleanLabel}»: цены, заявленная скорость и статус доступности сайта — сравните и выберите подходящий.`;
 
   const hasEn = Boolean(TAG_LABELS_EN[params.tag]);
 

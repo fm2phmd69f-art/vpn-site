@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllServices, getServiceBySlug } from "@/lib/getServices";
 import { TAG_LABELS_EN } from "@/data/tagLabelsEn";
+import { getServiceExtras } from "@/data/services";
 import { localizeServiceEn } from "@/lib/localizeService";
 import { StatusBadge } from "@/components/StatusBadge";
 import { ServiceCard } from "@/components/ServiceCard";
@@ -28,8 +29,11 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const service = localizeServiceEn(raw);
 
   const description = service.description;
+  const { seoHookEn } = getServiceExtras(service.slug);
   const year = new Date().getFullYear();
-  const title = `${service.name} Review ${year} — Price, Speed, Privacy & Features`;
+  const title = seoHookEn
+    ? `${service.name} Review ${year} — ${seoHookEn}`
+    : `${service.name} Review ${year} — Price, Speed, Privacy & Features`;
   const metaDescription =
     `${service.name}: ${year} review with pricing from ${service.priceFrom}, speed, protocols, and privacy features. ${description}`.slice(
       0,
