@@ -2,7 +2,7 @@
 export function TopBadge() {
   return (
     <span
-      className="inline-flex shrink-0 items-center gap-0.5 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase leading-none tracking-wide text-[#171717]"
+      className="inline-flex h-[18px] shrink-0 items-center gap-0.5 rounded-full px-2 text-[10px] font-bold uppercase leading-none tracking-wide text-[#171717]"
       style={{ backgroundColor: "#ffc107" }}
     >
       <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
