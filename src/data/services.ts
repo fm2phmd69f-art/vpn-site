@@ -1812,6 +1812,8 @@ export const SEED_SERVICES: SeedService[] = [
     rating: 4.3,
     platforms: ["Windows", "macOS", "iOS", "Android", "Linux"],
     tags: ["free-tier", "open-source", "privacy", "wireguard"],
+    seoHook: "бесплатный VPN-туннель от 1.1.1.1, без лимитов",
+    seoHookEn: "Free VPN Tunnel From 1.1.1.1, No Data Cap",
     description:
       "Публичный DNS-резолвер Cloudflare со встроенным туннелем WARP — ускоряет и шифрует трафик, но не даёт выбирать страну выхода, поэтому не заменяет обычный VPN для смены геолокации.",
     pros: [
@@ -1829,6 +1831,9 @@ export const SEED_SERVICES: SeedService[] = [
       { q: "Можно ли с WARP сменить страну IP-адреса?", a: "Нет, WARP не даёт выбирать страну выхода, поэтому не заменяет обычный VPN для геолокации." },
       { q: "На каких платформах работает Cloudflare WARP?", a: "Windows, macOS, iOS, Android и Linux." },
       { q: "Подходит WARP для приватности?", a: "Он шифрует трафик и ускоряет соединение через DNS-резолвер Cloudflare, но это не полноценный VPN для смены геолокации." },
+      { q: "Это вообще VPN или просто DNS?", a: "Смотря какой режим включён — разбор в статье [«1.1.1.1 — это VPN?»](/blog/1-1-1-1-eto-vpn)." },
+      { q: "Чем WARP отличается от обычного VPN-провайдера?", a: "Подробное сравнение по пунктам — в статье [«WARP vs обычный VPN»](/blog/warp-vs-obychnyy-vpn)." },
+      { q: "Как включить WARP?", a: "Пошаговая инструкция — в статье [«Cloudflare WARP: как настроить»](/blog/cloudflare-warp-nastroyka)." },
     ],
     protocols: ["WireGuard", "MASQUE"],
     simultaneousConnections: 5,

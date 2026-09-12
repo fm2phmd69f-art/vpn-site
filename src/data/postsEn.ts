@@ -322,6 +322,174 @@ export const BLOG_POSTS_EN: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "1-1-1-1-eto-vpn",
+    title: "Is 1.1.1.1 a VPN? What Cloudflare's App Actually Does",
+    description:
+      "Cloudflare's 1.1.1.1 app — is it a DNS resolver or a full VPN? We break down the difference between DNS-only mode and WARP, and when each one is (or isn't) enough.",
+    publishedAt: "2026-09-13",
+    coverImage: {
+      url: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31",
+      alt: "Cloud computing infrastructure symbolizing Cloudflare's network",
+      credit: "Photo: Unsplash",
+    },
+    content: [
+      {
+        type: "p",
+        text: "Cloudflare's \"1.1.1.1\" app is one of the most common search queries sitting right at the intersection of DNS and VPN topics, and the confusion makes sense — the same app can run in two genuinely different modes. Let's break down what it actually is, and at what point it becomes a VPN at all.",
+      },
+      { type: "h2", text: "Mode 1: DNS-only — this isn't a VPN" },
+      {
+        type: "p",
+        text: "1.1.1.1 is, first and foremost, Cloudflare's public DNS resolver, launched in 2018 with a focus on speed and privacy: the service states it doesn't retain DNS query logs for advertising purposes beyond 24 hours, and has had that policy independently reviewed. In DNS-only mode, the app simply changes which server resolves domain names into IP addresses — everything else about your traffic stays unencrypted and your visible IP unchanged. That speeds things up and protects against DNS spoofing, but it isn't a VPN in the usual sense.",
+      },
+      { type: "h2", text: "Mode 2: WARP — now it's actually a VPN" },
+      {
+        type: "p",
+        text: "The app's second mode turns on WARP — a free WireGuard-based tunnel that encrypts all of your device's traffic and routes it through Cloudflare's network. Technically, that is a VPN: an encrypted connection into someone else's network. But WARP's feature set is quite different from a [regular VPN subscription](/en/vpn-prices) — see the full comparison in [\"WARP vs. a Regular VPN\"](/en/blog/warp-vs-obychnyy-vpn).",
+      },
+      {
+        type: "image",
+        image: {
+          url: "https://images.unsplash.com/photo-1516110833967-0b5716ca1387",
+          alt: "A data center server rack",
+          credit: "Photo: Unsplash",
+        },
+      },
+      { type: "h2", text: "What WARP doesn't do, unlike a classic VPN" },
+      {
+        type: "ul",
+        items: [
+          "No server country selection — WARP automatically connects to the nearest Cloudflare location, not wherever you'd need for a geo-location change.",
+          "Doesn't unblock streaming geo-restrictions — Netflix and similar services don't treat Cloudflare's IP ranges as \"safe\" for catalog unblocking.",
+          "No dedicated torrenting servers — WARP isn't positioned as a P2P traffic tool.",
+        ],
+      },
+      { type: "h2", text: "When WARP is a good choice" },
+      {
+        type: "p",
+        text: "If the goal is hiding your traffic from your own ISP and speeding up an unstable Wi-Fi connection without paying a cent, [Cloudflare WARP](/en/vpn/cloudflare-warp) is a solid free option. The paid WARP+ tier adds Cloudflare's optimized routing (Argo) for more stable speed, but doesn't change the underlying geography limitations.",
+      },
+      {
+        type: "faq",
+        items: [
+          {
+            q: "So is 1.1.1.1 a VPN or not?",
+            a: "It depends which mode is active in the app. DNS-only mode is not a VPN. Mode with WARP turned on is, technically, a VPN — just with a smaller feature set than paid providers.",
+          },
+          {
+            q: "Is it safe to use 1.1.1.1?",
+            a: "Yes, it's a legitimate public service from Cloudflare, one of the largest internet infrastructure companies. The real question isn't safety — it's whether WARP actually solves your specific problem (see the limitations section above).",
+          },
+          {
+            q: "How do I turn on WARP instead of just DNS?",
+            a: "A step-by-step guide is in [\"Cloudflare WARP: How to Set It Up\"](/en/blog/cloudflare-warp-nastroyka).",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "warp-vs-obychnyy-vpn",
+    title: "WARP vs. a Regular VPN: What's the Difference?",
+    description:
+      "Comparing free Cloudflare WARP against regular VPN providers: server choice, unblocking, speed, price — and the tasks where WARP simply doesn't compete.",
+    publishedAt: "2026-09-13",
+    coverImage: {
+      url: "https://images.unsplash.com/photo-1563986768609-322da13575f3",
+      alt: "Network cables plugged into a switch",
+      credit: "Photo: Unsplash",
+    },
+    content: [
+      {
+        type: "p",
+        text: "[Cloudflare WARP](/en/vpn/cloudflare-warp) is often called a \"free VPN,\" and technically that's accurate — it's an encrypted WireGuard tunnel. But in practice it's a different category of product, closer to a traffic accelerator-and-encryptor than a classic VPN for changing your country. Here's the difference, point by point.",
+      },
+      {
+        type: "table",
+        headers: ["Criteria", "Cloudflare WARP", "Regular VPN provider"],
+        rows: [
+          ["Server country choice", "No — nearest Cloudflare location only", "Yes, usually 30-100+ countries"],
+          ["Netflix/streaming unblock", "Not designed for this", "Claimed by some providers"],
+          ["Torrenting/P2P", "Not optimized for it", "Allowed by many providers"],
+          ["Price", "Free (WARP+ is paid, for speed)", "From $1-3/month and up"],
+          ["Protocol", "WireGuard", "WireGuard, OpenVPN, and others — depends on the provider"],
+          ["Main purpose", "Privacy from your ISP + faster DNS", "Privacy and/or changing your geo-location"],
+        ],
+      },
+      { type: "h2", text: "When to pick WARP" },
+      {
+        type: "p",
+        text: "If the only goal is hiding what you browse from your home or mobile ISP, and speeding up a shaky connection, WARP covers that entirely for free, with no signup and no data cap. For a full breakdown of whether it even counts as a VPN, see [\"Is 1.1.1.1 a VPN?\"](/en/blog/1-1-1-1-eto-vpn).",
+      },
+      { type: "h2", text: "When you need a regular VPN instead of WARP" },
+      {
+        type: "p",
+        text: "If the goal is watching a foreign Netflix catalog, reducing risk while torrenting, or reaching a site blocked specifically by geography, WARP fundamentally won't help — Cloudflare has no country-specific servers to pick from. That's where you need one of the providers from our [price comparison table](/en/vpn-prices) — for example, services tagged [\"Netflix/Streaming\"](/en/vpn/category/netflix) or [\"Torrents\"](/en/vpn/category/torrents).",
+      },
+      { type: "h2", text: "Can you run both at once?" },
+      {
+        type: "p",
+        text: "Technically, two VPN tunnels running at the same time on one device usually conflict with each other at the network-settings level — for most people it's more practical to pick one tool for the specific job at hand rather than trying to combine both permanently.",
+      },
+    ],
+  },
+  {
+    slug: "cloudflare-warp-nastroyka",
+    title: "Cloudflare WARP: How to Set Up the Free VPN From 1.1.1.1",
+    description:
+      "A step-by-step guide to installing and setting up Cloudflare WARP on phone and desktop — from downloading the app to confirming the tunnel is actually working.",
+    publishedAt: "2026-09-13",
+    coverImage: {
+      url: "https://images.unsplash.com/photo-1600267175161-cfaa711b4a81",
+      alt: "A router with network cables plugged in",
+      credit: "Photo: Unsplash",
+    },
+    content: [
+      {
+        type: "p",
+        text: "[Cloudflare WARP](/en/vpn/cloudflare-warp) is one of the few genuinely free, permanent VPN tunnels with no ads and no data cap. Setup takes a couple of minutes on any platform — here's the step-by-step.",
+      },
+      { type: "h2", text: "1. Download the 1.1.1.1 app" },
+      {
+        type: "p",
+        text: "The app is called \"1.1.1.1: Faster Internet\" and is available on the App Store, Google Play, and as a standalone build for Windows, macOS, and Linux from Cloudflare's official site. It's the same app across every platform.",
+      },
+      { type: "h2", text: "2. Turn on WARP mode, not just DNS" },
+      {
+        type: "p",
+        text: "After installing, the app may default to DNS-only mode, which doesn't encrypt your traffic. To turn on the full VPN tunnel, switch the mode from \"DNS only\" to \"WARP\" in the app's settings (some platforms label this \"1.1.1.1 w/ WARP\"). We cover the difference between these two modes in detail in [\"Is 1.1.1.1 a VPN?\"](/en/blog/1-1-1-1-eto-vpn).",
+      },
+      { type: "h2", text: "3. Connect with one tap" },
+      {
+        type: "p",
+        text: "From there, it's a single \"Connect\" toggle on the app's main screen — no server or country selection, since WARP automatically connects you to the nearest Cloudflare location.",
+      },
+      { type: "h2", text: "4. Confirm the tunnel is actually working" },
+      {
+        type: "p",
+        text: "Once connected, check the [what-is-my-IP page](/en/what-is-my-ip) — with WARP on, the network provider shown should switch to Cloudflare rather than your usual ISP. It's also worth running a [WebRTC leak test](/en/webrtc-leak-test) to confirm your real IP isn't leaking around the tunnel.",
+      },
+      { type: "h2", text: "5. Do you need WARP+" },
+      {
+        type: "p",
+        text: "The paid WARP+ subscription adds Cloudflare's optimized traffic routing (Argo) for more stable speed over long distances — but it doesn't add more countries or unlock streaming. Free WARP is enough for most use cases; paying makes the most sense if you're dealing with unstable mobile data over long routes.",
+      },
+      {
+        type: "faq",
+        items: [
+          {
+            q: "Does WARP work on all my devices at once?",
+            a: "You need to install and turn it on separately on each device — there's no single \"all devices at once\" license the way some paid VPNs offer, though there's also no stated device-count limit.",
+          },
+          {
+            q: "What if sites load slower after turning WARP on?",
+            a: "Try switching to WARP+ (paid), or temporarily disable WARP for specific problem sites — unlike classic VPNs, there's no manual option to pick a different server to compare speed.",
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 export function getPostBySlugEn(slug: string): BlogPost | undefined {
