@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getAllServices } from "@/lib/getServices";
 import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
 import { ServiceLogo } from "@/components/ServiceLogo";
+import { TopBadge } from "@/components/TopBadge";
 import { ScoreBadge } from "@/components/ScoreBadge";
 import { computeScore } from "@/lib/score";
 
@@ -139,6 +140,7 @@ export default async function VpnPricesPage() {
                   >
                     <ServiceLogo name={s.name} emoji={s.logo} websiteUrl={s.websiteUrl} status={s.status} slug={s.slug} />
                     {s.name}
+                    {s.slug === "geodema" && <TopBadge />}
                   </Link>
                 </td>
                 <td className="px-4 py-3">

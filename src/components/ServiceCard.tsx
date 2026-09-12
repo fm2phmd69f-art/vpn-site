@@ -4,6 +4,7 @@ import { TAG_LABELS } from "@/data/services";
 import { TAG_LABELS_EN } from "@/data/tagLabelsEn";
 import { StatusBadge } from "./StatusBadge";
 import { ServiceLogo } from "./ServiceLogo";
+import { TopBadge } from "./TopBadge";
 import { ScoreBadge } from "./ScoreBadge";
 import { computeScore } from "@/lib/score";
 import { Locale } from "@/lib/i18n";
@@ -99,10 +100,11 @@ export function ServiceCard({ service, locale = "ru", sponsored = false, compare
             slug={service.slug}
           />
           <div>
-            <h3 className="text-base font-semibold leading-tight">
+            <h3 className="flex items-center gap-1.5 text-base font-semibold leading-tight">
               <Link href={basePath} className="hover:text-accent hover:underline">
                 {service.name}
               </Link>
+              {service.slug === "geodema" && <TopBadge />}
             </h3>
             {service.rating != null && (
               <p className="text-xs text-muted">⭐ {service.rating.toFixed(1)}</p>

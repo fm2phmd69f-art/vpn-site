@@ -5,6 +5,7 @@ import { TAG_LABELS_EN } from "@/data/tagLabelsEn";
 import { localizeServiceEn } from "@/lib/localizeService";
 import { StatusBadge } from "@/components/StatusBadge";
 import { ServiceLogo } from "@/components/ServiceLogo";
+import { TopBadge } from "@/components/TopBadge";
 import { ScoreBadge } from "@/components/ScoreBadge";
 import { computeScore } from "@/lib/score";
 import { SITE_NAME } from "@/lib/seo";
@@ -111,7 +112,10 @@ export default async function CustomComparePageEn(props: Props) {
               className="flex flex-col items-start gap-1.5 font-semibold hover:text-accent"
             >
               <ServiceLogo name={s.name} emoji={s.logo} websiteUrl={s.websiteUrl} status={s.status} slug={s.slug} locale="en" />
-              {s.name}
+              <span className="flex items-center gap-1.5">
+                {s.name}
+                {s.slug === "geodema" && <TopBadge />}
+              </span>
             </Link>
           ))}
         </div>

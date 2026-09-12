@@ -8,6 +8,7 @@ import { StatusBadge } from "@/components/StatusBadge";
 import { SITE_NAME, jsonLdScript, SITE_URL } from "@/lib/seo";
 import { ServiceDTO } from "@/lib/types";
 import { ServiceLogo } from "@/components/ServiceLogo";
+import { TopBadge } from "@/components/TopBadge";
 import { ScoreBadge } from "@/components/ScoreBadge";
 import { computeScore } from "@/lib/score";
 import { withUtm } from "@/lib/utm";
@@ -138,12 +139,14 @@ export default async function ComparePairPage(props: Props) {
             className="flex items-center gap-1.5 hover:text-accent hover:underline"
           >
             <ServiceLogo name={a.name} emoji={a.logo} websiteUrl={a.websiteUrl} status={a.status} slug={a.slug} /> {a.name}
+            {a.slug === "geodema" && <TopBadge />}
           </Link>
           <Link
             href={`/vpn/${b.slug}`}
             className="flex items-center gap-1.5 hover:text-accent hover:underline"
           >
             <ServiceLogo name={b.name} emoji={b.logo} websiteUrl={b.websiteUrl} status={b.status} slug={b.slug} /> {b.name}
+            {b.slug === "geodema" && <TopBadge />}
           </Link>
         </div>
 

@@ -10,6 +10,7 @@ import { ReportForm } from "@/components/ReportForm";
 import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
 import { getUptimeStats } from "@/lib/uptime";
 import { ServiceLogo } from "@/components/ServiceLogo";
+import { TopBadge } from "@/components/TopBadge";
 import { computeScore } from "@/lib/score";
 import { ScoreBreakdownCard } from "@/components/ScoreBreakdownCard";
 import { withUtm } from "@/lib/utm";
@@ -135,7 +136,10 @@ export default async function ServicePageEn(props: Props) {
           locale="en"
         />
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight">{service.name}</h1>
+          <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
+            {service.name}
+            {service.slug === "geodema" && <TopBadge />}
+          </h1>
           {service.rating != null && (
             <p className="text-sm text-muted">⭐ {service.rating.toFixed(1)} (provider&apos;s own rating)</p>
           )}
