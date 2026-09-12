@@ -4,7 +4,7 @@ import { BLOG_POSTS } from "@/data/posts";
 import { BlogPostCard } from "@/components/BlogPostCard";
 import { SITE_NAME, SITE_URL, jsonLdScript } from "@/lib/seo";
 
-const PAGE_SIZE = 9;
+const PAGE_SIZE = 24;
 
 interface Props {
   searchParams: Promise<{ page?: string }>;
