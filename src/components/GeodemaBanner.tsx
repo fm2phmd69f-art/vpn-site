@@ -294,9 +294,6 @@ export function GeodemaBanner() {
       <div className="relative z-[2] mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-2 text-white sm:px-6 sm:py-2.5">
         <div className="flex min-w-0 flex-col text-left">
           <span className="truncate text-xs font-medium sm:text-sm">
-            <span className="mr-1 hidden text-[10px] font-medium uppercase tracking-wide text-white/40 sm:inline">
-              Реклама ·
-            </span>
             Geodema VPN — доступ к{" "}
             <span className="font-semibold" style={{ color: "#c3b3f5" }}>
               {scrambled}

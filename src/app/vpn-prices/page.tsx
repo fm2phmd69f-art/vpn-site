@@ -212,7 +212,7 @@ export default async function VpnPricesPage() {
                       href={withUtm(s.referralUrl ?? s.websiteUrl, s.slug)}
                       target="_blank"
                       rel="noopener noreferrer nofollow"
-                      className="inline-flex items-center justify-center rounded-full bg-accent px-4 py-1.5 text-xs font-semibold text-white transition-opacity hover:opacity-90"
+                      className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-accent px-4 py-1.5 text-xs font-semibold text-white transition-opacity hover:opacity-90"
                     >
                       Перейти →
                     </a>

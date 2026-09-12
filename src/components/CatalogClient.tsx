@@ -237,7 +237,6 @@ export function CatalogClient({
               key={service.id}
               service={service}
               locale={locale}
-              sponsored={service.slug === PINNED_SLUG}
               compare={{
                 selected: compareSlugs.includes(service.slug),
                 disabled:
