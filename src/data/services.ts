@@ -485,7 +485,7 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "бесплатно 2 ГБ/мес",
     rating: 4.3,
     platforms: ["Windows", "macOS", "iOS", "Android", "Browser"],
-    tags: ["free-tier", "privacy", "ad-block", "wireguard"],
+    tags: ["free-tier", "privacy", "ad-block", "wireguard", "no-logs"],
     description:
       "Дружелюбный интерфейс, ежегодный независимый аудит безопасности, есть скромный бесплатный тариф.",
     pros: [
@@ -508,6 +508,7 @@ export const SEED_SERVICES: SeedService[] = [
     protocols: ["WireGuard", "OpenVPN", "IKEv2"],
     killSwitch: true,
     serverCountText: "47 стран",
+    simultaneousConnections: "unlimited",
     specsCheckedAt: "2026-09-05",
   },
   {
@@ -768,7 +769,7 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "нет, 30 дней возврат",
     rating: 3.8,
     platforms: ["Windows", "macOS", "iOS", "Android", "Linux", "Router"],
-    tags: ["budget", "streaming", "torrents"],
+    tags: ["budget", "streaming", "torrents", "wireguard"],
     description:
       "Один из самых бюджетных долгосрочных тарифов на рынке, есть функция авто-подбора сервера под задачу. Важно: по данным официального сайта Ivacy (проверено 5 сентября 2026), бренд «эволюционировал» в Ivacy Powered by PureVPN — новые подписки Ivacy больше не продаются, все новые покупки оформляются и обслуживаются через PureVPN.",
     pros: [
@@ -792,7 +793,8 @@ export const SEED_SERVICES: SeedService[] = [
       { q: "Есть ли у Ivacy политика no-logs?", a: "В описании и тегах сервиса это явно не указано." },
       { q: "Что такое авто-подбор сервера в Ivacy?", a: "Функция, которая сама выбирает сервер под конкретную задачу." },
     ],
-    specsCheckedAt: "2026-09-05",
+    simultaneousConnections: 10,
+    specsCheckedAt: "2026-09-12",
   },
   {
     slug: "zenmate",
@@ -1025,7 +1027,7 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "бесплатно 300 МБ/день",
     rating: 3.8,
     platforms: ["Windows", "macOS", "iOS", "Android"],
-    tags: ["antivirus-bundle", "free-tier", "budget"],
+    tags: ["antivirus-bundle", "free-tier", "budget", "wireguard"],
     description:
       "VPN от Kaspersky с ограниченным бесплатным лимитом трафика в день и полной версией по подписке.",
     pros: [
@@ -1057,6 +1059,8 @@ export const SEED_SERVICES: SeedService[] = [
         a: "Лимит 300 МБ/день рассчитан на лёгкое, а не постоянное использование.",
       },
     ],
+    protocols: ["Hydra", "WireGuard"],
+    specsCheckedAt: "2026-09-12",
   },
   {
     slug: "bitdefender-vpn",
@@ -1101,6 +1105,9 @@ export const SEED_SERVICES: SeedService[] = [
         a: "Hydra/Catapult на инфраструктуре Hotspot Shield.",
       },
     ],
+    protocols: ["Hydra/Catapult"],
+    simultaneousConnections: 10,
+    specsCheckedAt: "2026-09-12",
   },
   {
     slug: "fsecure-freedome",
@@ -1802,6 +1809,9 @@ export const SEED_SERVICES: SeedService[] = [
       { q: "На каких платформах работает Cloudflare WARP?", a: "Windows, macOS, iOS, Android и Linux." },
       { q: "Подходит WARP для приватности?", a: "Он шифрует трафик и ускоряет соединение через DNS-резолвер Cloudflare, но это не полноценный VPN для смены геолокации." },
     ],
+    protocols: ["WireGuard", "MASQUE"],
+    simultaneousConnections: 5,
+    specsCheckedAt: "2026-09-12",
   },
   {
     slug: "amneziavpn",
@@ -2185,6 +2195,9 @@ export const SEED_SERVICES: SeedService[] = [
       { q: "Есть ли бесплатная версия Mozilla VPN?", a: "Нет, но есть 30-дневная гарантия возврата денег." },
       { q: "Хранит ли Mozilla VPN логи?", a: "Провайдер заявляет политику no-logs." },
     ],
+    protocols: ["WireGuard"],
+    simultaneousConnections: 5,
+    specsCheckedAt: "2026-09-12",
   },
   {
     slug: "privadovpn",
@@ -2224,9 +2237,9 @@ export const SEED_SERVICES: SeedService[] = [
     priceMonthlyUsd: 3.33,
     freeOption: "нет, 30 дней возврат",
     platforms: ["Windows", "macOS", "iOS", "Android"],
-    tags: ["antivirus-bundle", "wireguard", "budget"],
+    tags: ["antivirus-bundle", "wireguard", "budget", "no-logs"],
     description:
-      "VPN от разработчика антивируса Malwarebytes на протоколе WireGuard, доступен отдельно и в комплекте с антивирусом.",
+      "VPN от разработчика антивируса Malwarebytes на протоколе WireGuard, доступен отдельно и в комплекте с антивирусом. Политика no-logs подтверждена независимым аудитом инфраструктуры и серверного ПО.",
     pros: [
       "Разработан известным производителем антивируса Malwarebytes.",
       "Использует протокол WireGuard.",
@@ -2242,6 +2255,7 @@ export const SEED_SERVICES: SeedService[] = [
       { q: "Можно ли купить Malwarebytes VPN отдельно от антивируса?", a: "Да, доступен как отдельно, так и в комплекте с антивирусом Malwarebytes." },
       { q: "Какой протокол использует Malwarebytes Privacy VPN?", a: "WireGuard." },
       { q: "На каких платформах работает Malwarebytes Privacy VPN?", a: "Windows, macOS, iOS и Android." },
+      { q: "Проверялась ли политика no-logs независимым аудитом?", a: "Да, независимый аудит проверил инфраструктуру и серверное ПО и подтвердил отсутствие логов." },
     ],
   },
   {
@@ -2396,7 +2410,7 @@ export const SEED_SERVICES: SeedService[] = [
     priceMonthlyUsd: 0,
     freeOption: "бессрочная бесплатная версия без регистрации",
     platforms: ["Windows", "macOS", "iOS", "Android", "Browser"],
-    tags: ["free-tier", "budget"],
+    tags: ["free-tier", "budget", "wireguard"],
     description:
       "Полностью бесплатная версия не требует регистрации или email — достаточно скачать и подключиться; платная Premium-подписка добавляет больше локаций серверов и убирает рекламу.",
     pros: [
@@ -2415,6 +2429,9 @@ export const SEED_SERVICES: SeedService[] = [
       { q: "Сколько стоит Betternet?", a: "Есть бессрочный бесплатный тариф; для Premium нужна платная подписка." },
       { q: "На каких платформах доступен Betternet?", a: "Windows, macOS, iOS, Android и браузерное расширение." },
     ],
+    protocols: ["Hydra", "IPsec", "WireGuard"],
+    simultaneousConnections: 10,
+    specsCheckedAt: "2026-09-12",
   },
   {
     slug: "iprovpn",
@@ -2455,7 +2472,7 @@ export const SEED_SERVICES: SeedService[] = [
     priceMonthlyUsd: 3.25,
     freeOption: "нет, 30 дней возврат денег",
     platforms: ["Windows", "macOS", "iOS", "Android"],
-    tags: ["torrents"],
+    tags: ["torrents", "wireguard"],
     description:
       "Один из старейших VPN-брендов на рынке (с 2005 года, изначально Hide My Ass, сейчас под управлением Aura) с сетью из 3400+ серверов в 190+ странах — акцент на охват локаций, а не на независимый аудит политики логов.",
     pros: [
@@ -2475,6 +2492,9 @@ export const SEED_SERVICES: SeedService[] = [
       { q: "Подходит ли HMA для торрентов?", a: "Да, сервис отмечен тегом поддержки торрентов." },
       { q: "Есть ли независимый аудит политики логов у HMA?", a: "В описании сервиса это не упоминается — акцент сделан на охват сети из 3400+ серверов в 190+ странах, а не на аудит приватности." },
     ],
+    protocols: ["WireGuard", "OpenVPN", "Mimic", "IKEv2"],
+    simultaneousConnections: 5,
+    specsCheckedAt: "2026-09-12",
   },
   {
     slug: "namecheap-fastvpn",
@@ -2896,7 +2916,7 @@ export const SEED_SERVICES: SeedService[] = [
     priceMonthlyUsd: 9.99,
     freeOption: "нет, 7-дневный пробный период (требует карту)",
     platforms: ["Windows", "macOS", "Android", "iOS"],
-    tags: ["no-logs"],
+    tags: ["no-logs", "wireguard"],
     description:
       "VPN от создателей приватного браузера Brave, работает на инфраструктуре партнёра Guardian; политика no-logs подтверждена двумя независимыми аудитами в 2024 году (софт и инфраструктура).",
     pros: [
@@ -2915,6 +2935,9 @@ export const SEED_SERVICES: SeedService[] = [
       { q: "На чьей инфраструктуре работает Brave VPN?", a: "На инфраструктуре партнёра Guardian." },
       { q: "Есть ли Brave VPN для Linux?", a: "Нет, поддерживаются только Windows, macOS, Android и iOS." },
     ],
+    protocols: ["WireGuard", "IKEv2"],
+    simultaneousConnections: 10,
+    specsCheckedAt: "2026-09-12",
   },
   {
     slug: "duckduckgo-vpn",
@@ -2925,7 +2948,7 @@ export const SEED_SERVICES: SeedService[] = [
     priceMonthlyUsd: 9.99,
     freeOption: "нет",
     platforms: ["Windows", "macOS", "iOS", "Android"],
-    tags: ["privacy"],
+    tags: ["privacy", "wireguard", "no-logs"],
     description:
       "VPN, встроенный прямо в приватный браузер DuckDuckGo, продаётся только в комплекте с подпиской Privacy Pro (вместе с удалением личных данных и защитой от кражи личности) — отдельной VPN-only покупки нет.",
     pros: [
@@ -2983,7 +3006,7 @@ export const SEED_SERVICES: SeedService[] = [
     priceMonthlyUsd: 0,
     freeOption: "бесплатный тариф 3 ГБ/мес на 2 устройства",
     platforms: ["Windows", "macOS", "Linux", "Android", "iOS", "Router", "Browser"],
-    tags: ["free-tier", "ad-block"],
+    tags: ["free-tier", "ad-block", "no-logs"],
     description:
       "VPN от создателей блокировщика рекламы AdGuard, с собственным протоколом и поддержкой Android TV, Apple TV, консолей и роутеров; политика отказа от логов пока не подтверждена независимым аудитом.",
     pros: [
@@ -3002,6 +3025,9 @@ export const SEED_SERVICES: SeedService[] = [
       { q: "Поддерживает ли AdGuard VPN Smart TV и приставки?", a: "Да, есть поддержка Android TV, Apple TV, консолей и роутеров." },
       { q: "Проверялась ли политика логов AdGuard VPN аудитом?", a: "Пока нет, независимый аудит политики отказа от логов не проводился." },
     ],
+    protocols: ["TrustTunnel"],
+    simultaneousConnections: 10,
+    specsCheckedAt: "2026-09-12",
   },
   {
     slug: "nymvpn",
