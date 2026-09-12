@@ -8,7 +8,7 @@ import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Проверка безопасности VPN",
+  title: "Проверить VPN на утечки — IP, WebRTC и блок-листы",
   description:
     "Комплексная проверка вашего текущего подключения: IP-адрес и геолокация, попадание в блок-списки DNSBL и утечка реального IP через WebRTC — на одной странице.",
   alternates: {

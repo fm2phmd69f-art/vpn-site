@@ -4,9 +4,9 @@ import { WebRtcLeakTest } from "@/components/WebRtcLeakTest";
 import { SITE_URL, jsonLdScript } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "WebRTC Leak Test",
+  title: "WebRTC Leak Test — Check If Your Real IP Is Exposed",
   description:
-    "Check whether WebRTC exposes your real IP address around a VPN. A free test that runs right in your browser.",
+    "Run a free WebRTC leak test right in your browser and see whether your real IP can be exposed while using a VPN.",
   alternates: {
     canonical: "/en/webrtc-leak-test",
     languages: { ru: `${SITE_URL}/webrtc-leak-test`, en: `${SITE_URL}/en/webrtc-leak-test` },

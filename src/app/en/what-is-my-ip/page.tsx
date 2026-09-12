@@ -6,9 +6,9 @@ import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "What Is My IP",
+  title: "What Is My IP? — Check Your Public IP, Country & Timezone",
   description:
-    "Find your public IP address, country, region, and timezone — determined from your actual request, no third-party services.",
+    "Find your public IP address, country, region, and timezone instantly — determined from your actual request, no third-party services.",
   alternates: {
     canonical: "/en/what-is-my-ip",
     languages: { ru: `${SITE_URL}/what-is-my-ip`, en: `${SITE_URL}/en/what-is-my-ip` },

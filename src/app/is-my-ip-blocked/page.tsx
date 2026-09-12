@@ -7,7 +7,7 @@ import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Проверка IP на блокировки (DNSBL)",
+  title: "Проверить IP на блокировку — тест по спам-листам DNSBL",
   description:
     "Проверьте свой текущий IP-адрес по публичным спам-блокспискам (DNSBL) — Spamhaus, SpamCop, SORBS и другим.",
   alternates: {

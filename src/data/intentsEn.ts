@@ -16,7 +16,7 @@ export interface IntentTextEn {
 export const INTENTS_EN: Record<string, IntentTextEn> = {
   "vpn-for-netflix": {
     h1: "Best VPN for Netflix",
-    metaTitle: "VPN for Netflix — which service actually unblocks the catalog",
+    metaTitle: "Compare VPN for Netflix 2026 — Streaming-Ready Providers",
     metaDescription:
       "A shortlist of VPNs that providers themselves position as working for Netflix and other streaming services. An honest look at why it isn't always stable.",
     intro: [
@@ -43,7 +43,7 @@ export const INTENTS_EN: Record<string, IntentTextEn> = {
 
   "free-vpn": {
     h1: "Free VPN: which plans are honest",
-    metaTitle: "Free VPN 2026 — no catch, no P2P schemes",
+    metaTitle: "Compare Free VPNs 2026 — Plans, Data Limits & Catches",
     metaDescription:
       "A list of VPNs with a genuine free plan: data caps, honest terms, and what to check before installing.",
     intro: [
@@ -70,7 +70,7 @@ export const INTENTS_EN: Record<string, IntentTextEn> = {
 
   "vpn-for-torrents": {
     h1: "VPN for torrenting",
-    metaTitle: "VPN for torrents — which services allow P2P",
+    metaTitle: "Compare VPN for Torrenting 2026 — P2P, Privacy & Speed",
     metaDescription:
       "VPN services that explicitly allow torrenting and P2P traffic on their servers, flagged in the catalog.",
     intro: [
@@ -97,7 +97,7 @@ export const INTENTS_EN: Record<string, IntentTextEn> = {
 
   "vpn-for-gaming": {
     h1: "VPN for gaming",
-    metaTitle: "VPN for online gaming — low ping, stable connection",
+    metaTitle: "Compare VPN for Gaming 2026 — Low Ping & Stable Servers",
     metaDescription:
       "Which VPN suits online gaming: what matters besides claimed speed, plus a shortlist of services with fast servers.",
     intro: [
@@ -124,7 +124,7 @@ export const INTENTS_EN: Record<string, IntentTextEn> = {
 
   "vpn-for-privacy": {
     h1: "VPN for privacy",
-    metaTitle: "VPN for privacy — no-logs and independent audits",
+    metaTitle: "Compare VPN for Privacy 2026 — No-Logs & Independent Audits",
     metaDescription:
       "VPN services with a no-logs policy and a privacy focus: independently verified providers and what \"doesn't keep logs\" actually means.",
     intro: [
@@ -151,7 +151,7 @@ export const INTENTS_EN: Record<string, IntentTextEn> = {
 
   "vpn-without-registration": {
     h1: "VPN without registration",
-    metaTitle: "VPN without email registration — anonymous payment and access",
+    metaTitle: "Compare VPN Without Registration 2026 — Anonymous Sign-Up",
     metaDescription:
       "VPNs that don't require an email or personal details to pay — an honest look at what \"no registration\" actually means.",
     intro: [
@@ -178,7 +178,7 @@ export const INTENTS_EN: Record<string, IntentTextEn> = {
 
   "vpn-for-mac": {
     h1: "VPN for Mac",
-    metaTitle: "VPN for macOS — native apps, no workarounds",
+    metaTitle: "Compare VPN for Mac 2026 — Native Apps & Features",
     metaDescription:
       "VPN services with a genuine native macOS app — a shortlist from the catalog of providers that support Mac.",
     intro: [
@@ -204,7 +204,7 @@ export const INTENTS_EN: Record<string, IntentTextEn> = {
 
   "vpn-for-iphone": {
     h1: "VPN for iPhone",
-    metaTitle: "VPN for iPhone and iPad — apps from the App Store",
+    metaTitle: "Compare VPN for iPhone 2026 — Apps, Price & Features",
     metaDescription:
       "VPN services with an iOS app — what to consider when choosing a VPN for iPhone and iPad.",
     intro: [
@@ -230,7 +230,7 @@ export const INTENTS_EN: Record<string, IntentTextEn> = {
 
   "vpn-for-android": {
     h1: "VPN for Android",
-    metaTitle: "VPN for Android — apps from Google Play",
+    metaTitle: "Compare VPN for Android 2026 — Apps, Price & Features",
     metaDescription:
       "VPN services with an Android app — what to look for when choosing a VPN for an Android phone.",
     intro: [
@@ -256,7 +256,7 @@ export const INTENTS_EN: Record<string, IntentTextEn> = {
 
   "vpn-for-windows": {
     h1: "VPN for Windows",
-    metaTitle: "VPN for Windows — full-featured apps",
+    metaTitle: "Compare VPN for Windows 2026 — Full-Featured Apps",
     metaDescription: "VPN services with a Windows app — features worth paying attention to when choosing.",
     intro: [
       "On Windows, VPN apps are usually the most full-featured — every protocol is available, along with a kill switch, split tunneling, and startup-on-boot options.",
@@ -281,7 +281,7 @@ export const INTENTS_EN: Record<string, IntentTextEn> = {
 
   "vpn-for-streaming": {
     h1: "VPN for streaming",
-    metaTitle: "VPN for streaming services — Netflix, Disney+, HBO, and more",
+    metaTitle: "Compare VPN for Streaming 2026 — Netflix, Disney+ & More",
     metaDescription:
       "Which VPN to pick for accessing streaming catalogs abroad — a shortlist of services and an honest look at the limits.",
     intro: [
@@ -308,7 +308,7 @@ export const INTENTS_EN: Record<string, IntentTextEn> = {
 
   "vpn-for-travel": {
     h1: "VPN for travel",
-    metaTitle: "VPN for travel — access your usual services abroad",
+    metaTitle: "Compare VPN for Travel 2026 — Secure Wi-Fi & Access Abroad",
     metaDescription:
       "Which VPN to bring on a trip: access to home services, security on hotel Wi-Fi, and what to watch for.",
     intro: [

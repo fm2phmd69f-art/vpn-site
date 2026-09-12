@@ -6,7 +6,7 @@ import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Мой IP-адрес",
+  title: "Узнать мой IP-адрес — страна, регион и часовой пояс",
   description:
     "Узнайте свой публичный IP-адрес, страну, регион и часовой пояс — определяется по реальному запросу, без сторонних сервисов.",
   alternates: {

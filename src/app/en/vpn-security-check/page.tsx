@@ -8,9 +8,9 @@ import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "VPN security check",
+  title: "VPN Security Check — Test IP, WebRTC & Blocklist Leaks",
   description:
-    "A combined check of your current connection: IP address and geolocation, DNSBL blocklist status, and a WebRTC real-IP leak test — all on one page.",
+    "Run a combined check of your current connection: IP address and geolocation, DNSBL blocklist status, and a WebRTC real-IP leak test — all on one page.",
   alternates: {
     canonical: "/en/vpn-security-check",
     languages: {

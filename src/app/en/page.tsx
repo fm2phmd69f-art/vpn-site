@@ -21,19 +21,31 @@ const POPULAR_COMPARISONS: [string, string][] = [
 
 export const revalidate = 1800;
 
-export const metadata: Metadata = {
-  title: { absolute: `${SITE_NAME} — VPN comparison` },
-  description:
-    "A catalog of 60+ VPN providers: prices, claimed speed, platforms, and features. Filter by no-logs, free tiers, Netflix, torrenting. Site availability status checked automatically.",
-  alternates: { canonical: "/en", languages: { ru: SITE_URL, en: `${SITE_URL}/en` } },
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    siteName: SITE_NAME,
-    title: `${SITE_NAME} — VPN comparison`,
-    url: `${SITE_URL}/en`,
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const services = await getAllServices();
+  const count = services.length;
+  const title = `Best VPN Services 2026 — Compare ${count}+ VPNs, Prices & Features`;
+  const description = `Compare ${count}+ VPN providers by price, privacy, Netflix support, torrenting, speed and devices. See free plans, features and prices in one place.`;
+
+  return {
+    title: { absolute: `${title} | ${SITE_NAME}` },
+    description,
+    alternates: { canonical: "/en", languages: { ru: SITE_URL, en: `${SITE_URL}/en` } },
+    openGraph: {
+      type: "website",
+      locale: "en_US",
+      siteName: SITE_NAME,
+      title: `${title} | ${SITE_NAME}`,
+      description,
+      url: `${SITE_URL}/en`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+  };
+}
 
 const FEATURED_TAGS = [
   "free-tier",

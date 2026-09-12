@@ -19,9 +19,31 @@ const POPULAR_COMPARISONS: [string, string][] = [
 
 export const revalidate = 1800;
 
-export const metadata: Metadata = {
-  alternates: { canonical: "/", languages: { ru: SITE_URL, en: `${SITE_URL}/en` } },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const services = await getAllServices();
+  const count = services.length;
+  const title = `VPN-сервисы — сравнение цен, функций и рейтингов`;
+  const description = `Сравните ${count}+ VPN-провайдеров по цене, скорости, no-logs политике и поддержке Netflix и торрентов. Бесплатные тарифы, фильтры по платформам и задачам — весь каталог в одном месте.`;
+
+  return {
+    title: { absolute: `${title} | ${SITE_NAME}` },
+    description,
+    alternates: { canonical: "/", languages: { ru: SITE_URL, en: `${SITE_URL}/en` } },
+    openGraph: {
+      type: "website",
+      locale: "ru_RU",
+      siteName: SITE_NAME,
+      title: `${title} | ${SITE_NAME}`,
+      description,
+      url: SITE_URL,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+  };
+}
 
 const FEATURED_TAGS = [
   "free-tier",

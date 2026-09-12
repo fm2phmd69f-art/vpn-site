@@ -29,9 +29,9 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
   const description = service.description;
   const year = new Date().getFullYear();
-  const title = `${service.name} — review ${year}, pricing and features`;
+  const title = `${service.name} Review ${year} — Price, Speed, Privacy & Features`;
   const metaDescription =
-    `${service.name}: ${year} review, current pricing, speed, and features. ${service.priceFrom}. ${description}`.slice(
+    `${service.name}: ${year} review with pricing from ${service.priceFrom}, speed, protocols, and privacy features. ${description}`.slice(
       0,
       160
     );

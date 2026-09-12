@@ -4,9 +4,9 @@ import { WebRtcLeakTest } from "@/components/WebRtcLeakTest";
 import { SITE_URL, jsonLdScript } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Проверка утечки WebRTC",
+  title: "Тест на утечку WebRTC — узнайте, виден ли ваш реальный IP",
   description:
-    "Проверьте, не раскрывает ли WebRTC ваш настоящий IP-адрес в обход VPN. Бесплатный тест прямо в браузере.",
+    "Бесплатный тест на утечку WebRTC прямо в браузере — проверьте, не раскрывает ли WebRTC ваш настоящий IP-адрес в обход VPN.",
   alternates: {
     canonical: "/webrtc-leak-test",
     languages: { ru: `${SITE_URL}/webrtc-leak-test`, en: `${SITE_URL}/en/webrtc-leak-test` },

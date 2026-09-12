@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     template: `%s | ${SITE_NAME}`,
   },
   description:
-    "Каталог из 50+ VPN-провайдеров: цены, заявленная скорость, платформы и особенности. Фильтры по no-logs, бесплатным тарифам, Netflix, торрентам. Статус доступности сайта — автоматически.",
+    "Каталог VPN-провайдеров: цены, заявленная скорость, платформы и особенности. Фильтры по no-logs, бесплатным тарифам, Netflix, торрентам. Статус доступности сайта — автоматически.",
   keywords: [
     "vpn",
     "впн",
@@ -51,13 +51,13 @@ export const metadata: Metadata = {
     locale: "ru_RU",
     siteName: SITE_NAME,
     title: `${SITE_NAME} — сравнение VPN-сервисов`,
-    description: "Каталог из 50+ VPN-провайдеров с ценами, скоростью и статусом доступности.",
+    description: "Каталог VPN-провайдеров с ценами, скоростью и статусом доступности.",
     url: SITE_URL,
   },
   twitter: {
     card: "summary_large_image",
     title: `${SITE_NAME} — сравнение VPN-сервисов`,
-    description: "Каталог из 50+ VPN-провайдеров с ценами, скоростью и статусом доступности.",
+    description: "Каталог VPN-провайдеров с ценами, скоростью и статусом доступности.",
   },
   robots: { index: true, follow: true },
 };

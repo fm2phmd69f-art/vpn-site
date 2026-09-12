@@ -32,7 +32,7 @@ export const INTENTS: Record<string, IntentConfig> = {
   "vpn-for-netflix": {
     slug: "vpn-for-netflix",
     h1: "Лучший VPN для Netflix",
-    metaTitle: "VPN для Netflix — какой сервис реально разблокирует каталог",
+    metaTitle: "Сравнение VPN для Netflix 2026 — сервисы для стриминга",
     metaDescription:
       "Подборка VPN, которые провайдеры сами позиционируют как рабочие для Netflix и других стриминговых сервисов. Честно о том, почему это не всегда стабильно.",
     intro: [
@@ -62,7 +62,7 @@ export const INTENTS: Record<string, IntentConfig> = {
   "free-vpn": {
     slug: "free-vpn",
     h1: "Бесплатный VPN: какие тарифы честные",
-    metaTitle: "Бесплатный VPN 2026 — без подвоха и P2P-схем",
+    metaTitle: "Сравнение бесплатных VPN 2026 — тарифы и лимиты трафика",
     metaDescription:
       "Список VPN с реальным бесплатным тарифом: лимиты трафика, честные условия и на что обратить внимание перед установкой.",
     intro: [
@@ -92,7 +92,7 @@ export const INTENTS: Record<string, IntentConfig> = {
   "vpn-for-torrents": {
     slug: "vpn-for-torrents",
     h1: "VPN для торрентов",
-    metaTitle: "VPN для торрентов — какие сервисы разрешают P2P",
+    metaTitle: "Сравнение VPN для торрентов 2026 — P2P, приватность и скорость",
     metaDescription:
       "VPN-сервисы, которые явно разрешают торренты и P2P-трафик на своих серверах, с пометкой в каталоге.",
     intro: [
@@ -122,7 +122,7 @@ export const INTENTS: Record<string, IntentConfig> = {
   "vpn-for-gaming": {
     slug: "vpn-for-gaming",
     h1: "VPN для игр",
-    metaTitle: "VPN для онлайн-игр — низкий пинг и стабильное подключение",
+    metaTitle: "Сравнение VPN для игр 2026 — низкий пинг и стабильные серверы",
     metaDescription:
       "Какой VPN подходит для онлайн-игр: на что смотреть, кроме заявленной скорости, и подборка сервисов с быстрыми серверами.",
     intro: [
@@ -152,7 +152,7 @@ export const INTENTS: Record<string, IntentConfig> = {
   "vpn-for-privacy": {
     slug: "vpn-for-privacy",
     h1: "VPN для приватности",
-    metaTitle: "VPN для приватности — no-logs и независимый аудит",
+    metaTitle: "Сравнение VPN для приватности 2026 — no-logs и независимый аудит",
     metaDescription:
       "VPN-сервисы с политикой no-logs и упором на приватность: независимо проверенные провайдеры и что реально значит «не хранит логи».",
     intro: [
@@ -182,7 +182,7 @@ export const INTENTS: Record<string, IntentConfig> = {
   "vpn-without-registration": {
     slug: "vpn-without-registration",
     h1: "VPN без регистрации",
-    metaTitle: "VPN без регистрации email — анонимная оплата и доступ",
+    metaTitle: "Сравнение VPN без регистрации 2026 — анонимная оплата и доступ",
     metaDescription:
       "VPN, которые не требуют email или личных данных при оплате — честный разбор, что на самом деле значит «без регистрации».",
     intro: [
@@ -212,7 +212,7 @@ export const INTENTS: Record<string, IntentConfig> = {
   "vpn-for-mac": {
     slug: "vpn-for-mac",
     h1: "VPN для Mac",
-    metaTitle: "VPN для macOS — нативные приложения без костылей",
+    metaTitle: "Сравнение VPN для Mac 2026 — нативные приложения и функции",
     metaDescription:
       "VPN-сервисы с полноценным нативным приложением для macOS — подборка из каталога с поддержкой Mac.",
     intro: [
@@ -242,7 +242,7 @@ export const INTENTS: Record<string, IntentConfig> = {
   "vpn-for-iphone": {
     slug: "vpn-for-iphone",
     h1: "VPN для iPhone",
-    metaTitle: "VPN для iPhone и iPad — приложения из App Store",
+    metaTitle: "Сравнение VPN для iPhone 2026 — приложения, цена и функции",
     metaDescription:
       "VPN-сервисы с приложением для iOS — что учитывать при выборе VPN для iPhone и iPad.",
     intro: [
@@ -271,7 +271,7 @@ export const INTENTS: Record<string, IntentConfig> = {
   "vpn-for-android": {
     slug: "vpn-for-android",
     h1: "VPN для Android",
-    metaTitle: "VPN для Android — приложения из Google Play",
+    metaTitle: "Сравнение VPN для Android 2026 — приложения, цена и функции",
     metaDescription:
       "VPN-сервисы с приложением для Android — на что смотреть при выборе VPN для смартфона на Android.",
     intro: [
@@ -300,7 +300,7 @@ export const INTENTS: Record<string, IntentConfig> = {
   "vpn-for-windows": {
     slug: "vpn-for-windows",
     h1: "VPN для Windows",
-    metaTitle: "VPN для Windows — полнофункциональные приложения",
+    metaTitle: "Сравнение VPN для Windows 2026 — полнофункциональные приложения",
     metaDescription:
       "VPN-сервисы с приложением для Windows — функции, на которые стоит обратить внимание при выборе.",
     intro: [
@@ -330,7 +330,7 @@ export const INTENTS: Record<string, IntentConfig> = {
   "vpn-for-streaming": {
     slug: "vpn-for-streaming",
     h1: "VPN для стриминга",
-    metaTitle: "VPN для стриминговых сервисов — Netflix, Disney+, HBO и другие",
+    metaTitle: "Сравнение VPN для стриминга 2026 — Netflix, Disney+ и другие",
     metaDescription:
       "Какой VPN выбрать для доступа к зарубежным стриминговым каталогам — подборка сервисов и честный разбор ограничений.",
     intro: [
@@ -360,7 +360,7 @@ export const INTENTS: Record<string, IntentConfig> = {
   "vpn-for-travel": {
     slug: "vpn-for-travel",
     h1: "VPN для путешествий",
-    metaTitle: "VPN для путешествий — доступ к привычным сервисам за границей",
+    metaTitle: "Сравнение VPN для путешествий 2026 — доступ и безопасный Wi-Fi",
     metaDescription:
       "Какой VPN брать в поездку: доступ к домашним сервисам, безопасность в отельном Wi-Fi и на что обратить внимание.",
     intro: [

@@ -10,15 +10,18 @@ import { localizeServiceEn } from "@/lib/localizeService";
 
 export const revalidate = 1800;
 
-export const metadata: Metadata = {
-  title: "VPN prices — plan comparison table for every provider",
-  description:
-    "Compare VPN subscription prices: minimum plan cost, free options, and claimed speed for every provider in the catalog.",
-  alternates: {
-    canonical: "/en/vpn-prices",
-    languages: { ru: `${SITE_URL}/vpn-prices`, en: `${SITE_URL}/en/vpn-prices` },
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const services = await getAllServices();
+  const count = services.length;
+  return {
+    title: `VPN Prices 2026 — Compare ${count}+ Providers, Free Plans & Cheapest Options`,
+    description: `Compare VPN prices from ${count}+ providers. Find the cheapest plans, free VPN tiers, monthly prices and key features in one table.`,
+    alternates: {
+      canonical: "/en/vpn-prices",
+      languages: { ru: `${SITE_URL}/vpn-prices`, en: `${SITE_URL}/en/vpn-prices` },
+    },
+  };
+}
 
 const FAQ = [
   {

@@ -7,9 +7,9 @@ import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Is My IP Blocked? (DNSBL check)",
+  title: "Is My IP Blocked? — Check DNSBL Spam Blocklists",
   description:
-    "Check your current IP address against public spam blocklists (DNSBL) — Spamhaus, SpamCop, SORBS, and others.",
+    "Check your current IP address against public spam blocklists (DNSBL) — Spamhaus, SpamCop, SORBS, and others — in one click.",
   alternates: {
     canonical: "/en/is-my-ip-blocked",
     languages: { ru: `${SITE_URL}/is-my-ip-blocked`, en: `${SITE_URL}/en/is-my-ip-blocked` },
