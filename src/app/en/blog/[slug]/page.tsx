@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { BLOG_POSTS_EN, getPostBySlugEn, getRandomPostsEn } from "@/data/postsEn";
 import { BlogPostCard } from "@/components/BlogPostCard";
 import { renderInlineText } from "@/components/RichText";
+import { TelegramBanner } from "@/components/TelegramBanner";
 import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
 
 interface Props {
@@ -259,6 +260,8 @@ export default async function BlogPostPageEn(props: Props) {
           Find my VPN →
         </Link>
       </div>
+
+      <TelegramBanner locale="en" />
 
       {relatedPosts.length > 0 && (
         <section className="mt-12 border-t border-border pt-8">

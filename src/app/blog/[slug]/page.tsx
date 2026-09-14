@@ -6,6 +6,7 @@ import { BLOG_POSTS, getPostBySlug, getRandomPosts } from "@/data/posts";
 import { getPostBySlugEn } from "@/data/postsEn";
 import { BlogPostCard } from "@/components/BlogPostCard";
 import { renderInlineText } from "@/components/RichText";
+import { TelegramBanner } from "@/components/TelegramBanner";
 import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
 
 interface Props {
@@ -264,6 +265,8 @@ export default async function BlogPostPage(props: Props) {
           Подобрать VPN →
         </Link>
       </div>
+
+      <TelegramBanner />
 
       {relatedPosts.length > 0 && (
         <section className="mt-12 border-t border-border pt-8">
