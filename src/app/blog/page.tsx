@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { BLOG_POSTS } from "@/data/posts";
 import { BlogPostCard } from "@/components/BlogPostCard";
+import { TelegramBanner } from "@/components/TelegramBanner";
 import { SITE_NAME, SITE_URL, jsonLdScript } from "@/lib/seo";
 
 const PAGE_SIZE = 24;
@@ -61,6 +62,8 @@ export default async function BlogIndexPage(props: Props) {
 
       <h1 className="text-2xl font-semibold tracking-tight">Блог {SITE_NAME}</h1>
       <p className="mt-2 text-muted">Гайды по выбору VPN, приватности и стримингу.</p>
+
+      <TelegramBanner />
 
       <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {pagePosts.map((post) => (

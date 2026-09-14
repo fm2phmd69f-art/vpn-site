@@ -4,6 +4,7 @@ import { getAllServices } from "@/lib/getServices";
 import { CatalogClient } from "@/components/CatalogClient";
 import { LinkDropdown } from "@/components/LinkDropdown";
 import LightRays from "@/components/LightRays";
+import { TelegramBanner } from "@/components/TelegramBanner";
 import { TAG_LABELS_EN } from "@/data/tagLabelsEn";
 import { INTENTS_EN } from "@/data/intentsEn";
 import { allIntentSlugs } from "@/data/intents";
@@ -179,6 +180,8 @@ export default async function HomePageEn() {
           How VPNmarket Score is calculated →
         </Link>
       </header>
+
+      <TelegramBanner locale="en" />
 
       <CatalogClient
         services={services}

@@ -54,11 +54,13 @@ const TOOL_LINKS = [
 const COPY = {
   ru: {
     tagline: "Каталог и сравнение VPN-сервисов. Не продаём доступ к VPN.",
+    telegram: "Актуальные бесплатные VPN — в нашем Telegram",
     about: "О проекте",
     aboutLinks: [
       { href: "about", label: "О проекте" },
       { href: "vpnmarket-score", label: "VPNmarket Score — как считается" },
       { href: "blog", label: "Блог" },
+      { href: "telegram", label: "Telegram-канал" },
     ],
     topTitle: "Топ-5 VPN",
     topSubtitle: "по VPNmarket Score",
@@ -69,11 +71,13 @@ const COPY = {
   },
   en: {
     tagline: "A VPN comparison catalog. We don't sell VPN access ourselves.",
+    telegram: "Current free VPNs — on our Telegram",
     about: "About",
     aboutLinks: [
       { href: "about", label: "About" },
       { href: "vpnmarket-score", label: "VPNmarket Score — how it works" },
       { href: "blog", label: "Blog" },
+      { href: "telegram", label: "Telegram Channel" },
     ],
     topTitle: "Top 5 VPNs",
     topSubtitle: "by VPNmarket Score",
@@ -101,6 +105,14 @@ export function SiteFooter({ topServices }: SiteFooterProps) {
               <span>{SITE_NAME}</span>
             </Link>
             <p className="mt-3 max-w-xs text-xs text-muted">{c.tagline}</p>
+            <a
+              href="https://t.me/vpnmarketonline"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex max-w-xs items-start gap-1.5 rounded-xl border border-border px-3 py-2 text-xs font-medium leading-snug text-fg transition-colors hover:border-accent"
+            >
+              <span className="shrink-0" aria-hidden>📱</span> {c.telegram}
+            </a>
             <div className="mt-4">
               <LocaleSwitcher />
             </div>

@@ -18,6 +18,7 @@ const organizationJsonLd = {
   name: SITE_NAME,
   url: SITE_URL,
   logo: `${SITE_URL}/icon.svg`,
+  sameAs: ["https://t.me/vpnmarketonline"],
 };
 
 const websiteJsonLd = {

@@ -4,6 +4,7 @@ import { getAllServices } from "@/lib/getServices";
 import { CatalogClient } from "@/components/CatalogClient";
 import { LinkDropdown } from "@/components/LinkDropdown";
 import LightRays from "@/components/LightRays";
+import { TelegramBanner } from "@/components/TelegramBanner";
 import { TAG_LABELS } from "@/data/services";
 import { INTENTS } from "@/data/intents";
 import { BLOG_POSTS } from "@/data/posts";
@@ -177,6 +178,8 @@ export default async function HomePage() {
           Как считается рейтинг VPNmarket Score →
         </Link>
       </header>
+
+      <TelegramBanner />
 
       <CatalogClient
         services={services}
