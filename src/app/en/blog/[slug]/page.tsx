@@ -6,6 +6,7 @@ import { BLOG_POSTS_EN, getPostBySlugEn, getRandomPostsEn } from "@/data/postsEn
 import { BlogPostCard } from "@/components/BlogPostCard";
 import { renderInlineText } from "@/components/RichText";
 import { TelegramBanner } from "@/components/TelegramBanner";
+import { TelegramTopBanner } from "@/components/TelegramTopBanner";
 import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
 
 interface Props {
@@ -123,6 +124,8 @@ export default async function BlogPostPageEn(props: Props) {
         {" / "}
         <span>{post.title}</span>
       </nav>
+
+      <TelegramTopBanner locale="en" />
 
       <h1 className="text-[30px] font-semibold leading-tight tracking-tight">{post.title}</h1>
       <p className="mt-2 text-sm text-muted">
