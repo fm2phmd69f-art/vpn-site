@@ -92,30 +92,46 @@ export async function createReview(input: CreateReviewInput): Promise<CreateRevi
     return { ok: false, error: "Оценки по критериям должны быть от 1 до 10.", status: 400 };
   }
 
-  const service = await prisma.vpnService.findUnique({
-    where: { id: input.serviceId },
-    select: { id: true },
-  });
-  if (!service) {
-    return { ok: false, error: "Сервис не найден.", status: 404 };
-  }
-
-  if (input.ip) {
-    const ipHash = hashIp(input.ip);
-    const since = new Date(now - 24 * 60 * 60 * 1000);
-
-    const [totalToday, forThisServiceToday] = await Promise.all([
-      prisma.review.count({ where: { ipHash, createdAt: { gte: since } } }),
-      prisma.review.count({
-        where: { ipHash, serviceId: input.serviceId, createdAt: { gte: since } },
-      }),
-    ]);
-
-    if (totalToday >= MAX_REVIEWS_PER_IP_PER_DAY) {
-      return { ok: false, error: "Слишком много отзывов с вашего адреса за сегодня.", status: 429 };
+  try {
+    const service = await prisma.vpnService.findUnique({
+      where: { id: input.serviceId },
+      select: { id: true },
+    });
+    if (!service) {
+      return { ok: false, error: "Сервис не найден.", status: 404 };
     }
-    if (forThisServiceToday >= MAX_REVIEWS_PER_IP_PER_SERVICE_PER_DAY) {
-      return { ok: false, error: "Вы уже оставляли отзыв на этот сервис сегодня.", status: 429 };
+
+    if (input.ip) {
+      const ipHash = hashIp(input.ip);
+      const since = new Date(now - 24 * 60 * 60 * 1000);
+
+      const [totalToday, forThisServiceToday] = await Promise.all([
+        prisma.review.count({ where: { ipHash, createdAt: { gte: since } } }),
+        prisma.review.count({
+          where: { ipHash, serviceId: input.serviceId, createdAt: { gte: since } },
+        }),
+      ]);
+
+      if (totalToday >= MAX_REVIEWS_PER_IP_PER_DAY) {
+        return { ok: false, error: "Слишком много отзывов с вашего адреса за сегодня.", status: 429 };
+      }
+      if (forThisServiceToday >= MAX_REVIEWS_PER_IP_PER_SERVICE_PER_DAY) {
+        return { ok: false, error: "Вы уже оставляли отзыв на этот сервис сегодня.", status: 429 };
+      }
+
+      await prisma.review.create({
+        data: {
+          serviceId: input.serviceId,
+          authorName: name,
+          text,
+          stars: input.stars,
+          speedRating: input.speedRating,
+          reliabilityRating: input.reliabilityRating,
+          valueRating: input.valueRating,
+          ipHash,
+        },
+      });
+      return { ok: true };
     }
 
     await prisma.review.create({
@@ -127,24 +143,16 @@ export async function createReview(input: CreateReviewInput): Promise<CreateRevi
         speedRating: input.speedRating,
         reliabilityRating: input.reliabilityRating,
         valueRating: input.valueRating,
-        ipHash,
       },
     });
     return { ok: true };
+  } catch {
+    return {
+      ok: false,
+      error: "Сервис приёма отзывов временно недоступен — попробуйте отправить отзыв позже.",
+      status: 503,
+    };
   }
-
-  await prisma.review.create({
-    data: {
-      serviceId: input.serviceId,
-      authorName: name,
-      text,
-      stars: input.stars,
-      speedRating: input.speedRating,
-      reliabilityRating: input.reliabilityRating,
-      valueRating: input.valueRating,
-    },
-  });
-  return { ok: true };
 }
 
 export async function getReviewsForService(serviceId: string): Promise<ReviewDTO[]> {

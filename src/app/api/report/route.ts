@@ -25,17 +25,24 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "note too long" }, { status: 400 });
   }
 
-  const service = await prisma.vpnService.findUnique({
-    where: { id: serviceId },
-    select: { id: true },
-  });
-  if (!service) {
-    return NextResponse.json({ error: "Unknown serviceId" }, { status: 404 });
-  }
+  try {
+    const service = await prisma.vpnService.findUnique({
+      where: { id: serviceId },
+      select: { id: true },
+    });
+    if (!service) {
+      return NextResponse.json({ error: "Unknown serviceId" }, { status: 404 });
+    }
 
-  await prisma.priceReport.create({
-    data: { serviceId, note: note.trim().slice(0, MAX_NOTE_LENGTH) },
-  });
+    await prisma.priceReport.create({
+      data: { serviceId, note: note.trim().slice(0, MAX_NOTE_LENGTH) },
+    });
+  } catch {
+    return NextResponse.json(
+      { error: "Приём жалоб временно недоступен — попробуйте отправить позже." },
+      { status: 503 }
+    );
+  }
 
   return NextResponse.json({ ok: true });
 }

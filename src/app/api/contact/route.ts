@@ -29,12 +29,19 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "contact too long" }, { status: 400 });
   }
 
-  await prisma.contactMessage.create({
-    data: {
-      message: message.trim().slice(0, MAX_MESSAGE_LENGTH),
-      contact: contact.trim().slice(0, MAX_CONTACT_LENGTH),
-    },
-  });
+  try {
+    await prisma.contactMessage.create({
+      data: {
+        message: message.trim().slice(0, MAX_MESSAGE_LENGTH),
+        contact: contact.trim().slice(0, MAX_CONTACT_LENGTH),
+      },
+    });
+  } catch {
+    return NextResponse.json(
+      { error: "Приём сообщений временно недоступен — попробуйте написать позже." },
+      { status: 503 }
+    );
+  }
 
   return NextResponse.json({ ok: true });
 }
