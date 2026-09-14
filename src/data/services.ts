@@ -837,7 +837,9 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "бесплатное расширение для браузера",
     rating: 3.6,
     platforms: ["Windows", "macOS", "iOS", "Android", "Browser"],
-    tags: ["budget", "streaming", "ad-block", "wireguard"],
+    tags: ["budget", "streaming", "ad-block", "wireguard", "no-logs"],
+    simultaneousConnections: "unlimited",
+    specsCheckedAt: "2026-09-14",
     description:
       "Немецкий провайдер, начинал как расширение для браузера, сейчас есть полноценные приложения для устройств.",
     pros: [
@@ -861,7 +863,6 @@ export const SEED_SERVICES: SeedService[] = [
     protocols: ["OpenVPN", "IKEv2", "WireGuard"],
     killSwitch: true,
     serverCountText: "66+ стран",
-    specsCheckedAt: "2026-09-05",
   },
   {
     slug: "avast-secureline",
@@ -925,6 +926,8 @@ export const SEED_SERVICES: SeedService[] = [
     rating: 3.6,
     platforms: ["Windows", "macOS", "iOS", "Android"],
     tags: ["antivirus-bundle", "budget", "no-logs", "wireguard"],
+    simultaneousConnections: 10,
+    specsCheckedAt: "2026-09-14",
     seoHook: "от Avast, тот же движок и серверы",
     seoHookEn: "From Avast, Same Engine & Servers",
     description:
@@ -972,6 +975,8 @@ export const SEED_SERVICES: SeedService[] = [
     rating: 3.7,
     platforms: ["Windows", "macOS", "iOS", "Android"],
     tags: ["antivirus-bundle", "budget", "no-logs"],
+    simultaneousConnections: 5,
+    specsCheckedAt: "2026-09-14",
     description:
       "VPN в экосистеме Norton 360, чаще берут в комплекте с антивирусом, чем как отдельный продукт.",
     pros: [
@@ -1016,6 +1021,8 @@ export const SEED_SERVICES: SeedService[] = [
     rating: 3.5,
     platforms: ["Windows", "macOS", "iOS", "Android"],
     tags: ["antivirus-bundle", "budget", "no-logs", "wireguard"],
+    simultaneousConnections: 5,
+    specsCheckedAt: "2026-09-14",
     description:
       "Базовый VPN от McAfee, обычно идёт бонусом к антивирусным подпискам, без тонкой настройки.",
     pros: [
@@ -1691,6 +1698,8 @@ export const SEED_SERVICES: SeedService[] = [
         a: "iOS, Android, Windows, macOS.",
       },
     ],
+    simultaneousConnections: 10,
+    specsCheckedAt: "2026-09-14",
   },
   {
     slug: "xvpn",
@@ -1908,7 +1917,9 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "нет, 30 дней возврат",
     rating: 3.7,
     platforms: ["Windows", "macOS", "iOS", "Android", "Linux", "Browser"],
-    tags: ["budget", "streaming"],
+    tags: ["budget", "streaming", "no-logs"],
+    simultaneousConnections: 5,
+    specsCheckedAt: "2026-09-14",
     seoHook: "локализация для русскоязычных пользователей",
     seoHookEn: "Localized for Russian-Speaking Users",
     description:
@@ -2360,10 +2371,12 @@ export const SEED_SERVICES: SeedService[] = [
     websiteUrl: "https://nordlayer.com/",
     priceFrom: "8 $/пользователь/мес",
     priceMonthlyUsd: 8,
+    claimedSpeedMbps: 1000,
     platforms: ["Windows", "macOS", "iOS", "Android", "Linux"],
     tags: ["business", "wireguard"],
     seoHook: "корпоративный VPN от Nord Security для команд",
     seoHookEn: "Business VPN From Nord Security for Teams",
+    specsCheckedAt: "2026-09-14",
     description:
       "Корпоративный VPN от Nord Security для команд — управление доступом сотрудников, статические IP и сегментация сети вместо тарифа на одного человека.",
     pros: [
@@ -3020,6 +3033,8 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "нет",
     platforms: ["Windows", "macOS", "iOS", "Android"],
     tags: ["privacy", "wireguard", "no-logs"],
+    simultaneousConnections: 5,
+    specsCheckedAt: "2026-09-14",
     description:
       "VPN, встроенный прямо в приватный браузер DuckDuckGo, продаётся только в комплекте с подпиской Privacy Pro (вместе с удалением личных данных и защитой от кражи личности) — отдельной VPN-only покупки нет.",
     pros: [
