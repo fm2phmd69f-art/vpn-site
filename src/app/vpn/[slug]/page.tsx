@@ -100,7 +100,7 @@ export default async function ServicePage(props: Props) {
     applicationCategory: "SecurityApplication",
     operatingSystem: service.platforms.join(", "),
     url: `${SITE_URL}/vpn/${service.slug}`,
-    ...(service.priceMonthlyUsd != null
+    ...(service.priceMonthlyUsd != null && !extras.discontinued
       ? {
           offers: {
             "@type": "Offer",
@@ -329,19 +329,38 @@ export default async function ServicePage(props: Props) {
         ))}
       </div>
 
-      <a
-        href={withUtm(service.referralUrl ?? service.websiteUrl, service.slug)}
-        target="_blank"
-        rel="noopener noreferrer nofollow"
-        className="mt-8 inline-flex items-center justify-center rounded-full bg-accent px-6 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
-      >
-        Перейти на сайт {service.name}
-      </a>
+      {extras.discontinued ? (
+        <div className="mt-8 rounded-2xl border border-border bg-surface p-5">
+          <p className="text-sm font-semibold text-fg">Сервис больше не работает</p>
+          <p className="mt-2 text-sm text-muted">
+            {service.name} прекратил работу, поэтому переход на сайт провайдера отключён —
+            оформить или продлить подписку невозможно. Страница оставлена как справка о том,
+            каким был сервис.
+          </p>
+          <Link
+            href="/vpn-prices"
+            className="mt-4 inline-flex items-center justify-center rounded-full bg-accent px-6 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
+          >
+            Посмотреть работающие альтернативы →
+          </Link>
+        </div>
+      ) : (
+        <>
+          <a
+            href={withUtm(service.referralUrl ?? service.websiteUrl, service.slug)}
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            className="mt-8 inline-flex items-center justify-center rounded-full bg-accent px-6 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
+          >
+            Перейти на сайт {service.name}
+          </a>
 
-      <p className="mt-4 text-xs text-muted">
-        Цена, скорость и условия указаны со слов провайдера и могут измениться — уточняйте
-        актуальные данные на официальном сайте перед покупкой.
-      </p>
+          <p className="mt-4 text-xs text-muted">
+            Цена, скорость и условия указаны со слов провайдера и могут измениться — уточняйте
+            актуальные данные на официальном сайте перед покупкой.
+          </p>
+        </>
+      )}
 
       <ReportForm serviceId={service.id} />
 

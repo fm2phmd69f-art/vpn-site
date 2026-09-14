@@ -66,6 +66,7 @@ export default async function ServicePageEn(props: Props) {
   const service = localizeServiceEn(raw);
 
   const description = service.description;
+  const { discontinued } = getServiceExtras(service.slug);
 
   const allServices = await getAllServices();
   const related = allServices
@@ -99,7 +100,7 @@ export default async function ServicePageEn(props: Props) {
     applicationCategory: "SecurityApplication",
     operatingSystem: service.platforms.join(", "),
     url: `${SITE_URL}/en/vpn/${service.slug}`,
-    ...(service.priceMonthlyUsd != null
+    ...(service.priceMonthlyUsd != null && !discontinued
       ? {
           offers: {
             "@type": "Offer",
@@ -208,19 +209,38 @@ export default async function ServicePageEn(props: Props) {
         ))}
       </div>
 
-      <a
-        href={withUtm(service.referralUrl ?? service.websiteUrl, service.slug)}
-        target="_blank"
-        rel="noopener noreferrer nofollow"
-        className="mt-8 inline-flex items-center justify-center rounded-full bg-accent px-6 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
-      >
-        Visit {service.name}
-      </a>
+      {discontinued ? (
+        <div className="mt-8 rounded-2xl border border-border bg-surface p-5">
+          <p className="text-sm font-semibold text-fg">This service has shut down</p>
+          <p className="mt-2 text-sm text-muted">
+            {service.name} is no longer operating, so the link to the provider&apos;s site is
+            disabled — you can&apos;t sign up or renew a subscription. This page is kept as a
+            record of what the service was.
+          </p>
+          <Link
+            href="/en/vpn-prices"
+            className="mt-4 inline-flex items-center justify-center rounded-full bg-accent px-6 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
+          >
+            See working alternatives →
+          </Link>
+        </div>
+      ) : (
+        <>
+          <a
+            href={withUtm(service.referralUrl ?? service.websiteUrl, service.slug)}
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            className="mt-8 inline-flex items-center justify-center rounded-full bg-accent px-6 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
+          >
+            Visit {service.name}
+          </a>
 
-      <p className="mt-4 text-xs text-muted">
-        Price, speed, and terms are stated by the provider and may change — check the current
-        terms on the official site before purchasing.
-      </p>
+          <p className="mt-4 text-xs text-muted">
+            Price, speed, and terms are stated by the provider and may change — check the current
+            terms on the official site before purchasing.
+          </p>
+        </>
+      )}
 
       <ReportForm serviceId={service.id} locale="en" />
 

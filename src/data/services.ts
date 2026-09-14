@@ -25,6 +25,12 @@ export interface SeedService {
   /** Short distinguishing phrase promoted into the SEO title for pages with good search position but low CTR. */
   seoHook?: string;
   seoHookEn?: string;
+  /**
+   * Set when the provider has shut down. The card and page stay published as a
+   * historical reference, but every outbound link to the provider is disabled so
+   * nobody is sent to a dead site or tries to pay a service that no longer exists.
+   */
+  discontinued?: boolean;
 }
 
 /** Slug -> editorial extras lookup, used by the VPN page template. */
@@ -42,6 +48,7 @@ export function getServiceExtras(
   | "specsCheckedAt"
   | "seoHook"
   | "seoHookEn"
+  | "discontinued"
 > {
   const seed = SEED_SERVICES.find((s) => s.slug === slug);
   return {
@@ -55,7 +62,13 @@ export function getServiceExtras(
     specsCheckedAt: seed?.specsCheckedAt,
     seoHook: seed?.seoHook,
     seoHookEn: seed?.seoHookEn,
+    discontinued: seed?.discontinued,
   };
+}
+
+/** True when the provider has shut down — used to disable every outbound link to it. */
+export function isDiscontinued(slug: string): boolean {
+  return SEED_SERVICES.find((s) => s.slug === slug)?.discontinued === true;
 }
 
 /**
@@ -682,24 +695,28 @@ export const SEED_SERVICES: SeedService[] = [
     rating: 4.2,
     platforms: ["Windows", "macOS", "Linux", "iOS", "Android", "Router"],
     tags: ["no-logs", "privacy", "double-vpn"],
+    discontinued: true,
+    protocols: ["OpenVPN", "IPsec/IKEv2", "SSH"],
+    simultaneousConnections: "unlimited",
+    specsCheckedAt: "2026-09-14",
     description:
-      "Немецкий провайдер с функцией NeuroRouting и каскадированием через несколько серверов (аналог double-VPN) для дополнительной анонимности.",
+      "Важно: сервис, судя по всему, прекратил работу. Сайт провайдера не отвечал при нашей проверке 14 сентября 2026 года, а по сообщениям профильных изданий Perfect Privacy закрылся в январе 2026-го после постепенного отключения серверов — оформлять подписку сейчас не стоит. Ранее это был немецкий провайдер с функцией NeuroRouting и каскадированием через несколько серверов (аналог double-VPN).",
     pros: [
-      "Функция NeuroRouting для дополнительной защиты трафика.",
+      "Функция NeuroRouting для дополнительной защиты трафика (в период работы сервиса).",
       "Каскадирование через несколько серверов (аналог double-VPN) для анонимности.",
       "Немецкая юрисдикция, упор на приватность и no-logs.",
-      "Поддержка роутеров помимо основных ОС.",
+      "Безлимитное число одновременных подключений на аккаунт.",
     ],
     cons: [
-      "Одна из самых высоких цен в подборке — от 8.95 €/мес.",
-      "Нет бесплатного тарифа, только 7-дневный возврат денег.",
-      "Заявленная скорость 600 Мбит/с — ниже, чем у большинства сервисов подборки.",
+      "Сервис прекратил работу: сайт не отвечает, оформить или продлить подписку невозможно.",
+      "Одна из самых высоких цен в подборке на момент работы — от 8.95 €/мес.",
+      "Не поддерживал WireGuard — провайдер объяснял это несовместимостью протокола со своей архитектурой без логов.",
     ],
     faq: [
-      { q: "Сколько стоит Perfect Privacy?", a: "От 8.95 €/мес — выше среднего по подборке." },
-      { q: "Что такое NeuroRouting?", a: "Собственная функция сервиса для дополнительной защиты трафика." },
-      { q: "Есть ли double-VPN у Perfect Privacy?", a: "Да, доступно каскадирование через несколько серверов." },
-      { q: "Есть ли бесплатная версия Perfect Privacy?", a: "Нет, но действует 7-дневный возврат денег." },
+      { q: "Perfect Privacy ещё работает?", a: "Нет. При проверке 14 сентября 2026 года сайт провайдера не отвечал, а по сообщениям профильных изданий сервис закрылся в январе 2026 года. Карточка оставлена как историческая справка — рабочие альтернативы есть в [таблице цен](/vpn-prices)." },
+      { q: "Что такое NeuroRouting?", a: "Собственная функция сервиса для дополнительной защиты трафика — маршрутизация внутри сети провайдера по кратчайшему пути до целевого сайта." },
+      { q: "Был ли у Perfect Privacy double-VPN?", a: "Да, поддерживалось каскадирование через несколько серверов." },
+      { q: "Поддерживал ли Perfect Privacy WireGuard?", a: "Нет. Провайдер сознательно не внедрял WireGuard, объясняя это тем, что протокол плохо совместим с безлимитным числом устройств и их подходом к отсутствию логов." },
     ],
   },
   {
@@ -1138,6 +1155,8 @@ export const SEED_SERVICES: SeedService[] = [
     rating: 3.9,
     platforms: ["Windows", "macOS", "iOS", "Android"],
     tags: ["privacy", "budget"],
+    protocols: ["OpenVPN", "IKEv2"],
+    specsCheckedAt: "2026-09-14",
     seoHook: "простой VPN от финского F-Secure",
     seoHookEn: "Simple Privacy VPN From Finland",
     description:
@@ -1230,29 +1249,27 @@ export const SEED_SERVICES: SeedService[] = [
     rating: 3.9,
     platforms: ["Windows", "macOS", "iOS", "Android", "Linux", "Router"],
     tags: ["no-logs", "torrents", "streaming"],
-    seoHook: "со встроенным мониторингом утечек email",
-    seoHookEn: "With Built-In Email Breach Monitoring",
+    discontinued: true,
     description:
-      "Встроенный мониторинг утечек данных по email в личном кабинете, фокус на обход блокировок стриминговых сервисов.",
+      "Важно: сервис, судя по всему, прекратил работу. Сайт VPNArea не отвечал при нашей проверке 14 сентября 2026 года, а по сообщениям профильных изданий сервис вместе с серверами и соцсетями пропал без официального объявления. Оформлять подписку не стоит — вернуть деньги в такой ситуации, скорее всего, будет не у кого. Ранее сервис был известен встроенным мониторингом утечек данных по email.",
     pros: [
-      "Встроенный мониторинг утечек данных по email в личном кабинете.",
-      "Заявлена политика no-logs.",
+      "Встроенный мониторинг утечек данных по email в личном кабинете (в период работы).",
+      "Заявлялась политика no-logs.",
       "Широкая поддержка платформ: Windows, macOS, iOS, Android, Linux, роутеры.",
-      "Подходит для торрентов и обхода блокировок стриминговых сервисов.",
     ],
     cons: [
-      "Нет бесплатной версии, только 10-дневный возврат денег.",
+      "Сервис прекратил работу: сайт и серверы недоступны, официального объявления не было.",
+      "Оплаченные подписки, по сообщениям пользователей, вернуть не удаётся.",
       "Заявленная скорость 500 Мбит/с не подтверждена независимо.",
-      "Цена (4.92 $/мес) выше, чем у многих бюджетных сервисов этой партии.",
     ],
     faq: [
       {
-        q: "Есть ли бесплатная версия VPNArea?",
-        a: "Нет, но есть 10-дневный возврат денег.",
+        q: "VPNArea ещё работает?",
+        a: "Нет. При проверке 14 сентября 2026 года сайт и серверы были недоступны, официального объявления о закрытии провайдер не публиковал. Рабочие альтернативы — в [таблице цен](/vpn-prices).",
       },
       {
-        q: "Подходит для торрентов?",
-        a: "Да, торренты указаны среди особенностей сервиса.",
+        q: "Можно ли вернуть деньги за подписку VPNArea?",
+        a: "По сообщениям пользователей — нет: сервис исчез без объявления, обращаться за возвратом фактически некуда.",
       },
       {
         q: "Что за функция мониторинга утечек?",
@@ -1275,7 +1292,10 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "7 дней бесплатно",
     rating: 4.0,
     platforms: ["Windows", "macOS", "iOS", "Android", "Linux", "Router", "TV"],
-    tags: ["budget", "streaming", "unlimited-devices"],
+    tags: ["budget", "streaming", "unlimited-devices", "no-logs", "wireguard"],
+    protocols: ["WireGuard", "OpenVPN", "IKEv2", "KeepSolid Wise"],
+    simultaneousConnections: 5,
+    specsCheckedAt: "2026-09-14",
     description:
       "От разработчика KeepSolid, есть уникальная опция пожизненной подписки (разовый платёж) вместо ежемесячной оплаты.",
     pros: [
@@ -1415,7 +1435,10 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "нет",
     rating: 4.0,
     platforms: ["Windows", "macOS", "iOS", "Android", "Linux", "Router"],
-    tags: ["china-friendly", "privacy"],
+    tags: ["china-friendly", "privacy", "no-logs", "wireguard"],
+    protocols: ["WireGuard", "OpenVPN", "StealthVPN", "OpenWeb"],
+    simultaneousConnections: 5,
+    specsCheckedAt: "2026-09-14",
     description:
       "Дорогой, но исторически один из самых стабильных вариантов для работы в Китае и других странах с жёсткой фильтрацией трафика.",
     pros: [
@@ -1680,7 +1703,10 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "бесплатный лимит трафика",
     rating: 3.6,
     platforms: ["Windows", "macOS", "iOS", "Android", "Linux"],
-    tags: ["free-tier", "china-friendly", "streaming"],
+    tags: ["free-tier", "china-friendly", "streaming", "wireguard"],
+    protocols: ["WireGuard", "OpenVPN", "L2TP", "Everest"],
+    simultaneousConnections: 5,
+    specsCheckedAt: "2026-09-14",
     description:
       "Заявляет собственный протокол для обхода глубокой инспекции пакетов (DPI), популярен в регионах с активной фильтрацией трафика.",
     pros: [
@@ -1726,27 +1752,27 @@ export const SEED_SERVICES: SeedService[] = [
     rating: 3.9,
     platforms: ["Windows", "macOS", "iOS", "Android"],
     tags: ["free-tier", "budget", "streaming"],
+    discontinued: true,
     description:
-      "Провайдер в составе Nord Security, бесплатный тариф с ограничением трафика в месяц.",
+      "Важно: сервис закрыт. Atlas VPN прекратил работу 24 апреля 2024 года — владелец Nord Security перевёл платных подписчиков в [NordVPN](/vpn/nordvpn) на остаток оплаченного периода, а бесплатный тариф просто отключили. Оформить подписку больше нельзя, карточка оставлена как историческая справка.",
     pros: [
-      "Входит в состав Nord Security — крупного игрока VPN-рынка.",
-      "Есть бесплатный тариф с лимитом 5 ГБ/мес.",
-      "Доступная цена платной версии — 1.99 $/мес.",
-      "Рейтинг 3.9 — выше среднего для бюджетных сервисов.",
+      "Платные подписчики были перенесены в NordVPN на остаток оплаченного периода.",
+      "В период работы был один из самых дешёвых тарифов — от 1.99 $/мес.",
+      "Был бесплатный тариф с лимитом 5 ГБ/мес.",
     ],
     cons: [
-      "Бесплатный лимит ограничен 5 ГБ в месяц.",
-      "Заявленная скорость 500 Мбит/с не подтверждена независимо.",
-      "Нет поддержки Linux и роутеров.",
+      "Сервис закрыт 24 апреля 2024 года — подписку оформить невозможно.",
+      "Пользователи бесплатного тарифа остались без сервиса и без переноса в NordVPN.",
+      "Не поддерживал Linux и роутеры.",
     ],
     faq: [
       {
-        q: "Есть ли у Atlas VPN бесплатная версия?",
-        a: "Да, с лимитом 5 ГБ в месяц.",
+        q: "Atlas VPN ещё работает?",
+        a: "Нет. Сервис закрылся 24 апреля 2024 года. Действующие альтернативы есть в [таблице цен](/vpn-prices).",
       },
       {
-        q: "Кто владеет Atlas VPN?",
-        a: "Провайдер входит в состав Nord Security.",
+        q: "Что стало с подписчиками Atlas VPN?",
+        a: "Платных подписчиков владелец (Nord Security) перевёл в [NordVPN](/vpn/nordvpn) на остаток оплаченного периода. Пользователи бесплатного тарифа автоматического переноса не получили.",
       },
       {
         q: "Сколько стоит платная версия?",
@@ -1769,6 +1795,8 @@ export const SEED_SERVICES: SeedService[] = [
     rating: 3.5,
     platforms: ["Browser", "iOS", "Android"],
     tags: ["free-tier", "budget", "no-logs"],
+    simultaneousConnections: 5,
+    specsCheckedAt: "2026-09-14",
     description:
       "В первую очередь расширение для браузера; полноценные мобильные приложения платные, бесплатно — только смена IP в браузере.",
     pros: [
@@ -2113,7 +2141,10 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "бесплатная версия с лимитом трафика",
     rating: 3.6,
     platforms: ["Windows", "macOS", "iOS", "Android", "Linux", "Browser"],
-    tags: ["free-tier", "budget", "streaming"],
+    tags: ["free-tier", "budget", "streaming", "no-logs", "wireguard"],
+    protocols: ["WireGuard", "OpenVPN", "IKEv2"],
+    simultaneousConnections: 5,
+    specsCheckedAt: "2026-09-14",
     description:
       "Провайдер с бесплатной версией с ограничением трафика и платной подпиской без лимитов, есть расширения для браузеров.",
     pros: [
@@ -2145,7 +2176,10 @@ export const SEED_SERVICES: SeedService[] = [
     freeOption: "нет, 30 дней возврат",
     rating: 3.6,
     platforms: ["Windows", "macOS", "iOS", "Android", "Router"],
-    tags: ["streaming", "torrents", "budget"],
+    tags: ["streaming", "torrents", "budget", "no-logs", "wireguard"],
+    protocols: ["WireGuard", "OpenVPN", "IKEv2", "SoftEther"],
+    simultaneousConnections: "unlimited",
+    specsCheckedAt: "2026-09-14",
     seoHook: "Smart DNS для разблокировки стриминга",
     seoHookEn: "Smart DNS for Unblocking Streaming",
     description:
@@ -2476,7 +2510,10 @@ export const SEED_SERVICES: SeedService[] = [
     priceMonthlyUsd: 1.66,
     freeOption: "нет, 30 дней возврат денег",
     platforms: ["Windows", "macOS", "iOS", "Android", "Linux", "Browser", "Fire TV"],
-    tags: ["budget", "no-logs", "unlimited-devices"],
+    tags: ["budget", "no-logs", "unlimited-devices", "wireguard"],
+    protocols: ["WireGuard", "OpenVPN", "IKEv2"],
+    simultaneousConnections: 10,
+    specsCheckedAt: "2026-09-14",
     description:
       "Бюджетный провайдер с 250+ серверами в 36+ странах, до 10 одновременных подключений на тариф и политикой отказа от логов; вместо бесплатного тарифа предлагает 30-дневный возврат денег.",
     pros: [

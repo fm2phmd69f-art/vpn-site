@@ -24,6 +24,7 @@ export const UI = {
     card: {
       learnMore: "Подробнее",
       visit: "Перейти →",
+      closed: "Сервис закрыт",
       compareAdd: "+ Сравнить",
       compareOn: "✓ В сравнении",
     },
@@ -80,6 +81,7 @@ export const UI = {
     card: {
       learnMore: "Learn more",
       visit: "Visit →",
+      closed: "Service closed",
       compareAdd: "+ Compare",
       compareOn: "✓ Comparing",
     },

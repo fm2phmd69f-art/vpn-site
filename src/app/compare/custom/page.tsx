@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllServices } from "@/lib/getServices";
-import { TAG_LABELS } from "@/data/services";
+import { TAG_LABELS, isDiscontinued } from "@/data/services";
 import { StatusBadge } from "@/components/StatusBadge";
 import { ServiceLogo } from "@/components/ServiceLogo";
 import { TopBadge } from "@/components/TopBadge";
@@ -170,14 +170,20 @@ export default async function CustomComparePage(props: Props) {
           label=""
           services={services}
           render={(s) => (
-            <a
-              href={withUtm(s.referralUrl ?? s.websiteUrl, s.slug)}
-              target="_blank"
-              rel="noopener noreferrer nofollow"
-              className="inline-flex items-center justify-center rounded-full bg-accent px-4 py-2 text-xs font-medium text-white transition-opacity hover:opacity-90"
-            >
-              Перейти →
-            </a>
+            isDiscontinued(s.slug) ? (
+              <span className="inline-flex cursor-not-allowed items-center justify-center rounded-full border border-border px-4 py-2 text-xs font-medium text-muted">
+                Закрыт
+              </span>
+            ) : (
+              <a
+                href={withUtm(s.referralUrl ?? s.websiteUrl, s.slug)}
+                target="_blank"
+                rel="noopener noreferrer nofollow"
+                className="inline-flex items-center justify-center rounded-full bg-accent px-4 py-2 text-xs font-medium text-white transition-opacity hover:opacity-90"
+              >
+                Перейти →
+              </a>
+            )
           )}
         />
       </div>

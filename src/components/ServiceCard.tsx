@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ServiceDTO } from "@/lib/types";
-import { TAG_LABELS } from "@/data/services";
+import { TAG_LABELS, isDiscontinued } from "@/data/services";
 import { TAG_LABELS_EN } from "@/data/tagLabelsEn";
 import { StatusBadge } from "./StatusBadge";
 import { ServiceLogo } from "./ServiceLogo";
@@ -58,6 +58,7 @@ export function ServiceCard({ service, locale = "ru", compare }: Props) {
   const labels = locale === "en" ? TAG_LABELS_EN : TAG_LABELS;
   const t = UI[locale].card;
   const basePath = locale === "en" ? `/en/vpn/${service.slug}` : `/vpn/${service.slug}`;
+  const closed = isDiscontinued(service.slug);
 
   return (
     <div
@@ -139,14 +140,20 @@ export function ServiceCard({ service, locale = "ru", compare }: Props) {
         >
           {t.learnMore}
         </Link>
-        <a
-          href={withUtm(service.referralUrl ?? service.websiteUrl, service.slug)}
-          target="_blank"
-          rel="noopener noreferrer nofollow"
-          className="flex-1 inline-flex items-center justify-center rounded-full bg-accent px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90"
-        >
-          {t.visit}
-        </a>
+        {closed ? (
+          <span className="flex-1 inline-flex cursor-not-allowed items-center justify-center rounded-full border border-border px-4 py-2 text-sm font-medium text-muted">
+            {t.closed}
+          </span>
+        ) : (
+          <a
+            href={withUtm(service.referralUrl ?? service.websiteUrl, service.slug)}
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            className="flex-1 inline-flex items-center justify-center rounded-full bg-accent px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90"
+          >
+            {t.visit}
+          </a>
+        )}
       </div>
     </div>
   );

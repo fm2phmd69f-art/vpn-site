@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getServiceBySlug } from "@/lib/getServices";
 import { parsePairSlug, COMPARISON_SLUGS } from "@/lib/comparisons";
-import { TAG_LABELS } from "@/data/services";
+import { TAG_LABELS, isDiscontinued } from "@/data/services";
 import { StatusBadge } from "@/components/StatusBadge";
 import { SITE_NAME, jsonLdScript, SITE_URL } from "@/lib/seo";
 import { ServiceDTO } from "@/lib/types";
@@ -185,22 +185,34 @@ export default async function ComparePairPage(props: Props) {
       </div>
 
       <div className="mt-6 flex flex-col gap-2 sm:flex-row">
-        <a
-          href={withUtm(a.referralUrl ?? a.websiteUrl, a.slug)}
-          target="_blank"
-          rel="noopener noreferrer nofollow"
-          className="flex-1 rounded-full bg-accent px-4 py-2.5 text-center text-sm font-medium text-white transition-opacity hover:opacity-90"
-        >
-          Перейти на сайт {a.name}
-        </a>
-        <a
-          href={withUtm(b.referralUrl ?? b.websiteUrl, b.slug)}
-          target="_blank"
-          rel="noopener noreferrer nofollow"
-          className="flex-1 rounded-full border border-border px-4 py-2.5 text-center text-sm font-medium transition-colors hover:border-accent"
-        >
-          Перейти на сайт {b.name}
-        </a>
+        {isDiscontinued(a.slug) ? (
+          <span className="flex-1 cursor-not-allowed rounded-full border border-border px-4 py-2.5 text-center text-sm font-medium text-muted">
+            Сервис закрыт: {a.name}
+          </span>
+        ) : (
+          <a
+            href={withUtm(a.referralUrl ?? a.websiteUrl, a.slug)}
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            className="flex-1 rounded-full bg-accent px-4 py-2.5 text-center text-sm font-medium text-white transition-opacity hover:opacity-90"
+          >
+            Перейти на сайт {a.name}
+          </a>
+        )}
+        {isDiscontinued(b.slug) ? (
+          <span className="flex-1 cursor-not-allowed rounded-full border border-border px-4 py-2.5 text-center text-sm font-medium text-muted">
+            Сервис закрыт: {b.name}
+          </span>
+        ) : (
+          <a
+            href={withUtm(b.referralUrl ?? b.websiteUrl, b.slug)}
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            className="flex-1 rounded-full border border-border px-4 py-2.5 text-center text-sm font-medium transition-colors hover:border-accent"
+          >
+            Перейти на сайт {b.name}
+          </a>
+        )}
       </div>
 
       <p className="mt-10">

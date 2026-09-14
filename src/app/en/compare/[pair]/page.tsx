@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { isDiscontinued } from "@/data/services";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getServiceBySlug } from "@/lib/getServices";
@@ -186,22 +187,34 @@ export default async function ComparePairPageEn(props: Props) {
       </div>
 
       <div className="mt-6 flex flex-col gap-2 sm:flex-row">
-        <a
-          href={withUtm(a.referralUrl ?? a.websiteUrl, a.slug)}
-          target="_blank"
-          rel="noopener noreferrer nofollow"
-          className="flex-1 rounded-full bg-accent px-4 py-2.5 text-center text-sm font-medium text-white transition-opacity hover:opacity-90"
-        >
-          Visit {a.name}
-        </a>
-        <a
-          href={withUtm(b.referralUrl ?? b.websiteUrl, b.slug)}
-          target="_blank"
-          rel="noopener noreferrer nofollow"
-          className="flex-1 rounded-full border border-border px-4 py-2.5 text-center text-sm font-medium transition-colors hover:border-accent"
-        >
-          Visit {b.name}
-        </a>
+        {isDiscontinued(a.slug) ? (
+          <span className="flex-1 cursor-not-allowed rounded-full border border-border px-4 py-2.5 text-center text-sm font-medium text-muted">
+            Service closed: {a.name}
+          </span>
+        ) : (
+          <a
+            href={withUtm(a.referralUrl ?? a.websiteUrl, a.slug)}
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            className="flex-1 rounded-full bg-accent px-4 py-2.5 text-center text-sm font-medium text-white transition-opacity hover:opacity-90"
+          >
+            Visit {a.name}
+          </a>
+        )}
+        {isDiscontinued(b.slug) ? (
+          <span className="flex-1 cursor-not-allowed rounded-full border border-border px-4 py-2.5 text-center text-sm font-medium text-muted">
+            Service closed: {b.name}
+          </span>
+        ) : (
+          <a
+            href={withUtm(b.referralUrl ?? b.websiteUrl, b.slug)}
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            className="flex-1 rounded-full border border-border px-4 py-2.5 text-center text-sm font-medium transition-colors hover:border-accent"
+          >
+            Visit {b.name}
+          </a>
+        )}
       </div>
 
       <p className="mt-10">

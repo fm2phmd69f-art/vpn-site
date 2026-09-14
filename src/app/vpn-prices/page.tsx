@@ -216,14 +216,20 @@ export default async function VpnPricesPage() {
                     {s.claimedSpeedMbps != null ? `до ${s.claimedSpeedMbps} Мбит/с` : "—"}
                   </td>
                   <td className="px-4 py-3">
-                    <a
-                      href={withUtm(s.referralUrl ?? s.websiteUrl, s.slug)}
-                      target="_blank"
-                      rel="noopener noreferrer nofollow"
-                      className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-accent px-4 py-1.5 text-xs font-semibold text-white transition-opacity hover:opacity-90"
-                    >
-                      Перейти →
-                    </a>
+                    {extras.discontinued ? (
+                      <span className="inline-flex cursor-not-allowed items-center justify-center whitespace-nowrap rounded-full border border-border px-4 py-1.5 text-xs font-semibold text-muted">
+                        Закрыт
+                      </span>
+                    ) : (
+                      <a
+                        href={withUtm(s.referralUrl ?? s.websiteUrl, s.slug)}
+                        target="_blank"
+                        rel="noopener noreferrer nofollow"
+                        className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-accent px-4 py-1.5 text-xs font-semibold text-white transition-opacity hover:opacity-90"
+                      >
+                        Перейти →
+                      </a>
+                    )}
                   </td>
                 </tr>
               );
