@@ -1,5 +1,35 @@
 import { prisma } from "./prisma";
 import { ServiceDTO } from "./types";
+import { SEED_SERVICES } from "@/data/services";
+
+/**
+ * Falls back to the static SEED_SERVICES catalog when the database is
+ * unreachable (e.g. a paused/over-quota Neon project) so the site keeps
+ * serving pages instead of 500ing on every request. Live-only fields
+ * (status, latency, last-checked time, DB id) aren't available from seed
+ * data, so they're reported as unknown rather than guessed.
+ */
+function seedToDTO(s: (typeof SEED_SERVICES)[number]): ServiceDTO {
+  return {
+    id: s.slug,
+    slug: s.slug,
+    name: s.name,
+    logo: s.logo,
+    websiteUrl: s.websiteUrl,
+    referralUrl: s.referralUrl ?? null,
+    priceFrom: s.priceFrom,
+    priceMonthlyUsd: s.priceMonthlyUsd ?? null,
+    claimedSpeedMbps: s.claimedSpeedMbps ?? null,
+    freeOption: s.freeOption ?? null,
+    rating: s.rating ?? null,
+    platforms: s.platforms,
+    tags: s.tags,
+    description: s.description,
+    status: "UNKNOWN",
+    latencyMs: null,
+    lastCheckedAt: null,
+  };
+}
 
 function toDTO(s: {
   id: string;
@@ -42,21 +72,36 @@ function toDTO(s: {
 }
 
 export async function getAllServices(): Promise<ServiceDTO[]> {
-  const services = await prisma.vpnService.findMany({
-    orderBy: [{ status: "asc" }, { name: "asc" }],
-  });
-  return services.map(toDTO);
+  try {
+    const services = await prisma.vpnService.findMany({
+      orderBy: [{ status: "asc" }, { name: "asc" }],
+    });
+    return services.map(toDTO);
+  } catch {
+    return [...SEED_SERVICES].sort((a, b) => a.name.localeCompare(b.name)).map(seedToDTO);
+  }
 }
 
 export async function getServiceBySlug(slug: string): Promise<ServiceDTO | null> {
-  const service = await prisma.vpnService.findUnique({ where: { slug } });
-  return service ? toDTO(service) : null;
+  try {
+    const service = await prisma.vpnService.findUnique({ where: { slug } });
+    return service ? toDTO(service) : null;
+  } catch {
+    const seed = SEED_SERVICES.find((s) => s.slug === slug);
+    return seed ? seedToDTO(seed) : null;
+  }
 }
 
 export async function getServicesByTag(tag: string): Promise<ServiceDTO[]> {
-  const services = await prisma.vpnService.findMany({
-    where: { tags: { has: tag } },
-    orderBy: [{ status: "asc" }, { name: "asc" }],
-  });
-  return services.map(toDTO);
+  try {
+    const services = await prisma.vpnService.findMany({
+      where: { tags: { has: tag } },
+      orderBy: [{ status: "asc" }, { name: "asc" }],
+    });
+    return services.map(toDTO);
+  } catch {
+    return SEED_SERVICES.filter((s) => s.tags.includes(tag))
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .map(seedToDTO);
+  }
 }

@@ -148,20 +148,26 @@ export async function createReview(input: CreateReviewInput): Promise<CreateRevi
 }
 
 export async function getReviewsForService(serviceId: string): Promise<ReviewDTO[]> {
-  const reviews = await prisma.review.findMany({
-    where: { serviceId },
-    orderBy: { createdAt: "desc" },
-  });
-  return reviews.map((r) => ({
-    id: r.id,
-    authorName: r.authorName,
-    text: r.text,
-    stars: r.stars,
-    speedRating: r.speedRating,
-    reliabilityRating: r.reliabilityRating,
-    valueRating: r.valueRating,
-    createdAt: r.createdAt.toISOString(),
-  }));
+  try {
+    const reviews = await prisma.review.findMany({
+      where: { serviceId },
+      orderBy: { createdAt: "desc" },
+    });
+    return reviews.map((r) => ({
+      id: r.id,
+      authorName: r.authorName,
+      text: r.text,
+      stars: r.stars,
+      speedRating: r.speedRating,
+      reliabilityRating: r.reliabilityRating,
+      valueRating: r.valueRating,
+      createdAt: r.createdAt.toISOString(),
+    }));
+  } catch {
+    // DB unreachable (e.g. paused Neon project) — render the page without
+    // reviews rather than 500ing the whole provider page.
+    return [];
+  }
 }
 
 export function computeAggregate(reviews: ReviewDTO[]): ReviewAggregate | null {
