@@ -1,5 +1,6 @@
 export const SITE_URL = "https://www.vpnmarket.online";
 export const SITE_NAME = "VPN Маркетплейс";
+export const SITE_NAME_EN = "VPNMarket";
 
 export function absoluteUrl(path: string): string {
   return new URL(path, SITE_URL).toString();

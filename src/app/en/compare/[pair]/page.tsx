@@ -7,7 +7,7 @@ import { parsePairSlug, COMPARISON_SLUGS } from "@/lib/comparisons";
 import { TAG_LABELS_EN } from "@/data/tagLabelsEn";
 import { localizeServiceEn } from "@/lib/localizeService";
 import { StatusBadge } from "@/components/StatusBadge";
-import { SITE_NAME, jsonLdScript, SITE_URL } from "@/lib/seo";
+import { SITE_NAME_EN, jsonLdScript, SITE_URL } from "@/lib/seo";
 import { ServiceDTO } from "@/lib/types";
 import { ServiceLogo } from "@/components/ServiceLogo";
 import { TopBadge } from "@/components/TopBadge";
@@ -49,7 +49,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
         en: `${SITE_URL}/en/compare/${params.pair}`,
       },
     },
-    openGraph: { title: `${title} | ${SITE_NAME}`, description, type: "website", locale: "en_US" },
+    openGraph: { title: `${title} | ${SITE_NAME_EN}`, description, type: "website", locale: "en_US" },
   };
 }
 

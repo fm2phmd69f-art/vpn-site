@@ -3,7 +3,7 @@ import Link from "next/link";
 import { BLOG_POSTS_EN } from "@/data/postsEn";
 import { BlogPostCard } from "@/components/BlogPostCard";
 import { TelegramBanner } from "@/components/TelegramBanner";
-import { SITE_NAME, SITE_URL, jsonLdScript } from "@/lib/seo";
+import { SITE_NAME_EN, SITE_URL, jsonLdScript } from "@/lib/seo";
 
 const PAGE_SIZE = 24;
 
@@ -60,7 +60,7 @@ export default async function BlogIndexPageEn(props: Props) {
         <span>Blog</span>
       </nav>
 
-      <h1 className="text-2xl font-semibold tracking-tight">{SITE_NAME} Blog</h1>
+      <h1 className="text-2xl font-semibold tracking-tight">{SITE_NAME_EN} Blog</h1>
       <p className="mt-2 text-muted">Guides on choosing a VPN, privacy, and streaming.</p>
 
       <TelegramBanner locale="en" />

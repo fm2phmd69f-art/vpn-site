@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
+import { SITE_URL, SITE_NAME_EN, jsonLdScript } from "@/lib/seo";
 
 export const revalidate = 86400;
 
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    siteName: SITE_NAME,
+    siteName: SITE_NAME_EN,
     title: "VPNmarket Score — how it's calculated",
   },
 };
@@ -81,7 +81,7 @@ export default function VpnmarketScorePageEn() {
         How VPNmarket Score is calculated
       </h1>
       <p className="mt-2 max-w-xl text-sm text-muted">
-        VPNmarket Score is our own index from 0 to 100, which {SITE_NAME} calculates
+        VPNmarket Score is our own index from 0 to 100, which {SITE_NAME_EN} calculates
         automatically for every provider in the catalog, using the formula below. It&apos;s not a
         user rating and not the provider&apos;s own rating — it&apos;s the sum of six components
         computed from data that&apos;s already in the service&apos;s card.

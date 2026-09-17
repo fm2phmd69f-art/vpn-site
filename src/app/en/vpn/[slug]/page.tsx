@@ -8,7 +8,7 @@ import { localizeServiceEn } from "@/lib/localizeService";
 import { StatusBadge } from "@/components/StatusBadge";
 import { ServiceCard } from "@/components/ServiceCard";
 import { ReportForm } from "@/components/ReportForm";
-import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
+import { SITE_URL, SITE_NAME_EN, jsonLdScript } from "@/lib/seo";
 import { getUptimeStats } from "@/lib/uptime";
 import { ServiceLogo } from "@/components/ServiceLogo";
 import { TopBadge } from "@/components/TopBadge";
@@ -51,7 +51,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       },
     },
     openGraph: {
-      title: `${service.name} | ${SITE_NAME}`,
+      title: `${service.name} | ${SITE_NAME_EN}`,
       description: metaDescription,
       type: "website",
       locale: "en_US",

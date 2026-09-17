@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
+import { SITE_URL, SITE_NAME_EN, jsonLdScript } from "@/lib/seo";
 import { renderInlineText } from "@/components/RichText";
 
 export const revalidate = 86400;
@@ -13,14 +13,14 @@ export const metadata: Metadata = {
     canonical: "/en/about",
     languages: { ru: `${SITE_URL}/about`, en: `${SITE_URL}/en/about` },
   },
-  openGraph: { type: "website", locale: "en_US", siteName: SITE_NAME, title: "About" },
+  openGraph: { type: "website", locale: "en_US", siteName: SITE_NAME_EN, title: "About" },
 };
 
 const SECTIONS = [
   {
     h2: "What this site is",
     body: [
-      `${SITE_NAME} is a catalog and comparison service for VPN providers. We don't sell VPN access and we're not a middleman between you and a provider: you always subscribe directly on the provider's own site.`,
+      `${SITE_NAME_EN} is a catalog and comparison service for VPN providers. We don't sell VPN access and we're not a middleman between you and a provider: you always subscribe directly on the provider's own site.`,
       "The site helps you quickly compare prices, platforms, claimed speed, and features across providers in one place, and pick a service for a specific task — [Netflix](/en/vpn-for-netflix), [torrenting](/en/vpn/category/torrents), or anonymity, for example.",
     ],
   },
@@ -80,7 +80,7 @@ export default function AboutPageEn() {
         <span>About</span>
       </nav>
 
-      <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">About {SITE_NAME}</h1>
+      <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">About {SITE_NAME_EN}</h1>
 
       <div className="mt-8 flex flex-col gap-8">
         {SECTIONS.map((section) => (

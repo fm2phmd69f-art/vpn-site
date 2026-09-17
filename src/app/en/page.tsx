@@ -8,7 +8,7 @@ import { TelegramBanner } from "@/components/TelegramBanner";
 import { TAG_LABELS_EN } from "@/data/tagLabelsEn";
 import { INTENTS_EN } from "@/data/intentsEn";
 import { allIntentSlugs } from "@/data/intents";
-import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
+import { SITE_URL, SITE_NAME_EN, jsonLdScript } from "@/lib/seo";
 import { localizeServiceEn } from "@/lib/localizeService";
 import { BLOG_POSTS_EN } from "@/data/postsEn";
 import { pairSlug } from "@/lib/comparisons";
@@ -29,14 +29,14 @@ export async function generateMetadata(): Promise<Metadata> {
   const description = `Compare ${count}+ VPN providers by price, privacy, Netflix support, torrenting, speed and devices. See free plans, features and prices in one place.`;
 
   return {
-    title: { absolute: `${title} | ${SITE_NAME}` },
+    title: { absolute: `${title} | ${SITE_NAME_EN}` },
     description,
     alternates: { canonical: "/en", languages: { ru: SITE_URL, en: `${SITE_URL}/en` } },
     openGraph: {
       type: "website",
       locale: "en_US",
-      siteName: SITE_NAME,
-      title: `${title} | ${SITE_NAME}`,
+      siteName: SITE_NAME_EN,
+      title: `${title} | ${SITE_NAME_EN}`,
       description,
       url: `${SITE_URL}/en`,
     },
@@ -157,7 +157,7 @@ export default async function HomePageEn() {
         </div>
         <div className="relative z-10 inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-sm text-white/90">
           <span aria-hidden>🛡️</span>
-          <span>{SITE_NAME}</span>
+          <span>{SITE_NAME_EN}</span>
         </div>
         <h1 className="relative z-10 text-4xl font-semibold tracking-tight text-white">
           Best VPN services {new Date().getFullYear()}

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllServices } from "@/lib/getServices";
-import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
+import { SITE_URL, SITE_NAME_EN, jsonLdScript } from "@/lib/seo";
 import { ServiceLogo } from "@/components/ServiceLogo";
 import { TopBadge } from "@/components/TopBadge";
 import { ScoreBadge } from "@/components/ScoreBadge";
@@ -105,7 +105,7 @@ export default async function VpnPricesPageEn() {
         VPN prices — plan comparison
       </h1>
       <p className="mt-2 max-w-2xl text-sm text-muted">
-        All {sorted.length} providers from the {SITE_NAME} catalog, sorted from cheapest to most
+        All {sorted.length} providers from the {SITE_NAME_EN} catalog, sorted from cheapest to most
         expensive by minimum claimed subscription price.
       </p>
 

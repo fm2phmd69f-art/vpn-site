@@ -9,7 +9,7 @@ import { ServiceLogo } from "@/components/ServiceLogo";
 import { TopBadge } from "@/components/TopBadge";
 import { ScoreBadge } from "@/components/ScoreBadge";
 import { computeScore } from "@/lib/score";
-import { SITE_NAME } from "@/lib/seo";
+import { SITE_NAME_EN } from "@/lib/seo";
 import { ServiceDTO } from "@/lib/types";
 import { withUtm } from "@/lib/utm";
 
@@ -97,7 +97,7 @@ export default async function CustomComparePageEn(props: Props) {
       </h1>
       <p className="mt-2 text-sm text-muted">
         Data for each service is stated by the provider, except site status and VPNmarket Score,
-        which {SITE_NAME} calculates itself.
+        which {SITE_NAME_EN} calculates itself.
       </p>
 
       <div className="mt-6 overflow-x-auto rounded-2xl border border-border bg-surface p-5">

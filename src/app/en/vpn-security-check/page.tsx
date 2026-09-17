@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getClientInfo } from "@/lib/clientInfo";
 import { checkBlocklists } from "@/lib/blocklist";
 import { WebRtcLeakTest } from "@/components/WebRtcLeakTest";
-import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
+import { SITE_URL, SITE_NAME_EN, jsonLdScript } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -176,7 +176,7 @@ export default async function VpnSecurityCheckPageEn() {
       </section>
 
       <p className="mt-10 text-xs text-muted">
-        {SITE_NAME} doesn&apos;t store your IP address or check results in a database — they&apos;re
+        {SITE_NAME_EN} doesn&apos;t store your IP address or check results in a database — they&apos;re
         only used to render the result on this page.
       </p>
 

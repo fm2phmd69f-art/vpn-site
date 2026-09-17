@@ -5,7 +5,7 @@ import { getServicesByTag } from "@/lib/getServices";
 import { TAG_LABELS_EN } from "@/data/tagLabelsEn";
 import { ServiceCard } from "@/components/ServiceCard";
 import { localizeServiceEn } from "@/lib/localizeService";
-import { SITE_NAME, SITE_URL, jsonLdScript } from "@/lib/seo";
+import { SITE_NAME_EN, SITE_URL, jsonLdScript } from "@/lib/seo";
 
 export const revalidate = 1800;
 
@@ -36,7 +36,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
         en: `${SITE_URL}/en/vpn/category/${params.tag}`,
       },
     },
-    openGraph: { title: `${title} | ${SITE_NAME}`, description, type: "website", locale: "en_US" },
+    openGraph: { title: `${title} | ${SITE_NAME_EN}`, description, type: "website", locale: "en_US" },
   };
 }
 

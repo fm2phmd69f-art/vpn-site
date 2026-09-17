@@ -7,7 +7,7 @@ import { BlogPostCard } from "@/components/BlogPostCard";
 import { renderInlineText } from "@/components/RichText";
 import { TelegramBanner } from "@/components/TelegramBanner";
 import { TelegramTopBanner } from "@/components/TelegramTopBanner";
-import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
+import { SITE_URL, SITE_NAME_EN, jsonLdScript } from "@/lib/seo";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -33,7 +33,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       },
     },
     openGraph: {
-      title: `${post.title} | ${SITE_NAME}`,
+      title: `${post.title} | ${SITE_NAME_EN}`,
       description: post.description,
       type: "article",
       locale: "en_US",
@@ -60,8 +60,8 @@ export default async function BlogPostPageEn(props: Props) {
     image: post.coverImage ? [post.coverImage.url] : undefined,
     datePublished: post.publishedAt,
     dateModified: post.publishedAt,
-    author: { "@type": "Organization", name: SITE_NAME },
-    publisher: { "@type": "Organization", name: SITE_NAME },
+    author: { "@type": "Organization", name: SITE_NAME_EN },
+    publisher: { "@type": "Organization", name: SITE_NAME_EN },
     mainEntityOfPage: `${SITE_URL}/en/blog/${post.slug}`,
   };
 

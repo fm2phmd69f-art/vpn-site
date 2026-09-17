@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getClientInfo } from "@/lib/clientInfo";
 import { checkBlocklists } from "@/lib/blocklist";
-import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
+import { SITE_URL, SITE_NAME_EN, jsonLdScript } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -187,7 +187,7 @@ export default async function IsMyIpBlockedPageEn() {
       </section>
 
       <p className="mt-10 text-xs text-muted">
-        {SITE_NAME} doesn&apos;t store your IP address in a database — it&apos;s used only to run the check
+        {SITE_NAME_EN} doesn&apos;t store your IP address in a database — it&apos;s used only to run the check
         and display the result on this page.
       </p>
     </main>

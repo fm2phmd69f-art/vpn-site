@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllServices } from "@/lib/getServices";
 import { allComparisonPairs } from "@/lib/comparisons";
-import { SITE_NAME, SITE_URL, jsonLdScript } from "@/lib/seo";
+import { SITE_NAME_EN, SITE_URL, jsonLdScript } from "@/lib/seo";
 import { ServiceLogo } from "@/components/ServiceLogo";
 import { TopBadge } from "@/components/TopBadge";
 
@@ -50,7 +50,7 @@ export default async function ComparePageEn() {
       <h1 className="text-2xl font-semibold tracking-tight">Compare VPN services</h1>
       <p className="mt-2 max-w-2xl text-muted">
         A direct comparison of popular providers by price, claimed speed, platforms, and features
-        — on {SITE_NAME}.
+        — on {SITE_NAME_EN}.
       </p>
 
       <div className="mt-8 grid grid-cols-1 gap-2 sm:grid-cols-2">

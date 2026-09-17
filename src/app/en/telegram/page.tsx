@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { SITE_URL, SITE_NAME, jsonLdScript } from "@/lib/seo";
+import { SITE_URL, SITE_NAME_EN, jsonLdScript } from "@/lib/seo";
 
 export const revalidate = 86400;
 
@@ -51,7 +51,7 @@ export default function TelegramPageEn() {
       <div className="flex items-center gap-3">
         <span className="text-4xl leading-none">📱</span>
         <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-          {SITE_NAME} Telegram Channel
+          {SITE_NAME_EN} Telegram Channel
         </h1>
       </div>
 
