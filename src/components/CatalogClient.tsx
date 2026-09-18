@@ -95,7 +95,7 @@ export function CatalogClient({
       result = result.filter((s) => s.tags.includes(task));
     }
 
-    if (sort === "recommended" && locale === "ru") {
+    if (sort === "recommended") {
       const pinnedIndex = result.findIndex((s) => s.slug === PINNED_SLUG);
       if (pinnedIndex > 2) {
         const pinned = result[pinnedIndex];
@@ -123,7 +123,7 @@ export function CatalogClient({
       }
     });
     return withScore.map((x) => x.s);
-  }, [services, sort, platform, task, locale]);
+  }, [services, sort, platform, task]);
 
   useEffect(() => {
     setVisibleCount(pageSize);

@@ -38,14 +38,24 @@ const FAQ = [
   },
 ];
 
+const PINNED_SLUG = "geodema";
+
 export default async function VpnPricesPageEn() {
   const services = (await getAllServices()).map(localizeServiceEn);
 
-  const sorted = [...services].sort((a, b) => {
+  const byPrice = [...services].sort((a, b) => {
     const pa = a.priceMonthlyUsd ?? Infinity;
     const pb = b.priceMonthlyUsd ?? Infinity;
     return pa - pb;
   });
+
+  const pinnedIndex = byPrice.findIndex((s) => s.slug === PINNED_SLUG);
+  let sorted = byPrice;
+  if (pinnedIndex > 2) {
+    const pinned = byPrice[pinnedIndex];
+    const rest = byPrice.filter((s) => s.slug !== PINNED_SLUG);
+    sorted = [...rest.slice(0, 2), pinned, ...rest.slice(2)];
+  }
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",

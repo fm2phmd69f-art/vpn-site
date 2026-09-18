@@ -14,11 +14,39 @@ const manrope = Manrope({
 
 const HREF = withUtm("https://magnit.help/p7b27319c", "geodema");
 
-const WORDS = ["свободе", "безопасности", "скорости"];
+const WORDS: Record<"ru" | "en", string[]> = {
+  ru: ["свободе", "безопасности", "скорости"],
+  en: ["freedom", "security", "speed"],
+};
 const SCRAMBLE_CHARS = "}*?={\\$%~@#!<>|/^";
 
-function useScramble() {
-  const [text, setText] = useState(WORDS[0]);
+const COPY = {
+  ru: {
+    heading: "Ваш доступ к",
+    subtitle:
+      "VPN на VLESS с серверами в 70+ странах. Избавьтесь от ограничений и слежки в любой точке мира.",
+    price: "299 ₽",
+    period: "/мес",
+    cta: "Подключиться →",
+    compactPrefix: "Geodema VPN — доступ к",
+    compactSubtitle: "от 299 ₽/мес — VLESS, серверы в 70+ странах",
+    compactCta: "Подключиться",
+  },
+  en: {
+    heading: "Your access to",
+    subtitle:
+      "A VPN on the VLESS protocol with servers in 70+ countries. Get rid of restrictions and surveillance anywhere in the world.",
+    price: "299 ₽",
+    period: "/mo",
+    cta: "Connect →",
+    compactPrefix: "Geodema VPN — access to",
+    compactSubtitle: "from 299 ₽/mo — VLESS, servers in 70+ countries",
+    compactCta: "Connect",
+  },
+} as const;
+
+function useScramble(words: string[]) {
+  const [text, setText] = useState(words[0]);
 
   useEffect(() => {
     let wordIndex = 0;
@@ -46,8 +74,8 @@ function useScramble() {
 
     function cycle() {
       if (cancelled) return;
-      wordIndex = (wordIndex + 1) % WORDS.length;
-      scrambleTo(WORDS[wordIndex], () => setTimeout(cycle, 2200));
+      wordIndex = (wordIndex + 1) % words.length;
+      scrambleTo(words[wordIndex], () => setTimeout(cycle, 2200));
     }
 
     const start = setTimeout(cycle, 2200);
@@ -55,7 +83,7 @@ function useScramble() {
       cancelled = true;
       clearTimeout(start);
     };
-  }, []);
+  }, [words]);
 
   return text;
 }
@@ -232,10 +260,11 @@ const BANNER_CSS = `
 export function GeodemaBanner() {
   const pathname = usePathname();
   const locale = localeFromPathname(pathname);
-  const isHome = pathname === "/";
-  const scrambled = useScramble();
+  const isHome = pathname === "/" || pathname === "/en";
+  const scrambled = useScramble(WORDS[locale]);
+  const c = COPY[locale];
 
-  if (locale !== "ru" || pathname.startsWith("/admin")) return null;
+  if (pathname.startsWith("/admin")) return null;
 
   const shell =
     `group relative block overflow-hidden ${isHome ? "" : "sticky top-16 z-40"} ` +
@@ -256,7 +285,7 @@ export function GeodemaBanner() {
               Geodema VPN
             </span>
             <h2 className="mt-4 text-2xl font-extrabold leading-tight tracking-tight text-white sm:text-3xl">
-              Ваш доступ к
+              {c.heading}
               <br className="sm:hidden" />
               <span
                 className="mt-1 inline-block rounded-full px-4 py-1 align-middle text-white sm:ml-2 sm:mt-0"
@@ -265,21 +294,18 @@ export function GeodemaBanner() {
                 {scrambled}
               </span>
             </h2>
-            <p className="mx-auto mt-3 max-w-md text-sm text-white/60 md:mx-0">
-              VPN на VLESS с серверами в 70+ странах. Избавьтесь от ограничений и слежки в любой
-              точке мира.
-            </p>
+            <p className="mx-auto mt-3 max-w-md text-sm text-white/60 md:mx-0">{c.subtitle}</p>
           </div>
           <div className="flex w-full max-w-xs flex-col items-center gap-3 sm:max-w-none sm:flex-row md:w-auto md:shrink-0">
             <span className="inline-flex h-12 shrink-0 items-center gap-1.5 rounded-full bg-white/10 px-5 text-white">
-              <span className="text-xl font-extrabold leading-none">299 ₽</span>
-              <span className="text-sm text-white/60">/мес</span>
+              <span className="text-xl font-extrabold leading-none">{c.price}</span>
+              <span className="text-sm text-white/60">{c.period}</span>
             </span>
             <span
               className="inline-flex h-12 w-full items-center justify-center rounded-full px-6 text-sm font-semibold text-[#171717] transition-transform group-hover:scale-105 sm:w-auto"
               style={{ backgroundColor: "#d1f701" }}
             >
-              Подключиться →
+              {c.cta}
             </span>
           </div>
         </div>
@@ -294,20 +320,20 @@ export function GeodemaBanner() {
       <div className="relative z-[2] mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-2 text-white sm:px-6 sm:py-2.5">
         <div className="flex min-w-0 flex-col text-left">
           <span className="truncate text-xs font-medium sm:text-sm">
-            Geodema VPN — доступ к{" "}
+            {c.compactPrefix}{" "}
             <span className="font-semibold" style={{ color: "#c3b3f5" }}>
               {scrambled}
             </span>
           </span>
           <span className="truncate text-[11px] text-white/60 sm:text-sm">
-            от 299 ₽/мес — VLESS, серверы в 70+ странах
+            {c.compactSubtitle}
           </span>
         </div>
         <span
           className="shrink-0 rounded-full px-4 py-1.5 text-xs font-semibold text-[#171717] transition-transform group-hover:scale-105"
           style={{ backgroundColor: "#d1f701" }}
         >
-          Подключиться
+          {c.compactCta}
         </span>
       </div>
     </a>
