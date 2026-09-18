@@ -36,11 +36,11 @@ const COPY = {
     heading: "Your access to",
     subtitle:
       "A VPN on the VLESS protocol with servers in 70+ countries. Get rid of restrictions and surveillance anywhere in the world.",
-    price: "299 ₽",
+    price: "$3.5",
     period: "/mo",
     cta: "Connect →",
     compactPrefix: "Geodema VPN — access to",
-    compactSubtitle: "from 299 ₽/mo — VLESS, servers in 70+ countries",
+    compactSubtitle: "from $3.5/mo — VLESS, servers in 70+ countries",
     compactCta: "Connect",
   },
 } as const;

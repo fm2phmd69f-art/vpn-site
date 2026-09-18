@@ -64,6 +64,7 @@ export const PRICE_FROM_EN: Record<string, string> = {
   zoogvpn: "$2.49/mo",
   betternet: "$0 (has a free tier)",
   iprovpn: "$1.66/mo",
+  geodema: "$3.5/mo",
 };
 
 export const FREE_OPTION_EN: Record<string, string> = {
