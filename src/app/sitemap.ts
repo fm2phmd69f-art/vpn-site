@@ -9,8 +9,28 @@ import { INTENTS_EN } from "@/data/intentsEn";
 import { TAG_LABELS_EN } from "@/data/tagLabelsEn";
 import { allTroubleshootingSlugs } from "@/data/troubleshooting";
 
+/**
+ * Google discounts `lastmod` when it can tell the value isn't trustworthy, and a
+ * sitemap that stamps every URL with the current timestamp on each request is the
+ * textbook example — so these dates are derived from real content instead.
+ *
+ * Bump when the static pages' copy (about, tools, matcher, the tool pages, …) or
+ * the catalog data for services that carry no `specsCheckedAt` is actually edited.
+ */
+const STATIC_PAGES_UPDATED = "2026-09-18";
+const CATALOG_BASELINE_UPDATED = "2026-09-14";
+
+function serviceLastMod(slug: string): string {
+  return SEED_SERVICES.find((s) => s.slug === slug)?.specsCheckedAt ?? CATALOG_BASELINE_UPDATED;
+}
+
+function newestDate(dates: string[]): string {
+  return dates.reduce((a, b) => (a > b ? a : b), CATALOG_BASELINE_UPDATED);
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
+  const now = STATIC_PAGES_UPDATED;
+  const newestPost = newestDate(BLOG_POSTS.map((p) => p.publishedAt));
 
   const usedTags = new Set<string>();
   SEED_SERVICES.forEach((s) => s.tags.forEach((t) => usedTags.add(t)));
@@ -46,14 +66,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${SITE_URL}/blog`,
-      lastModified: now,
+      lastModified: newestPost,
       changeFrequency: "weekly",
       priority: 0.7,
       alternates: { languages: { ru: `${SITE_URL}/blog`, en: `${SITE_URL}/en/blog` } },
     },
     {
       url: `${SITE_URL}/en/blog`,
-      lastModified: now,
+      lastModified: newestPost,
       changeFrequency: "weekly",
       priority: 0.65,
       alternates: { languages: { ru: `${SITE_URL}/blog`, en: `${SITE_URL}/en/blog` } },
@@ -212,6 +232,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
+  // The blog index paginates with ?page=N, and those pages carry the only links to
+  // most posts — without them in the sitemap Google has no declared path to the archive.
+  const BLOG_PAGE_SIZE = 24;
+  const blogPages: MetadataRoute.Sitemap = Array.from(
+    { length: Math.ceil(BLOG_POSTS.length / BLOG_PAGE_SIZE) - 1 },
+    (_, i) => ({
+      url: `${SITE_URL}/blog?page=${i + 2}`,
+      lastModified: newestPost,
+      changeFrequency: "weekly" as const,
+      priority: 0.5,
+    })
+  );
+
   const enSlugs = new Set(BLOG_POSTS_EN.map((p) => p.slug));
 
   const posts: MetadataRoute.Sitemap = BLOG_POSTS.flatMap((p) => {
@@ -243,13 +276,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     return entries;
   });
 
-  const comparisons: MetadataRoute.Sitemap = allComparisonPairs().flatMap(({ pairSlug }) => {
+  const comparisons: MetadataRoute.Sitemap = allComparisonPairs().flatMap(({ a, b, pairSlug }) => {
     const ruUrl = `${SITE_URL}/compare/${pairSlug}`;
     const enUrl = `${SITE_URL}/en/compare/${pairSlug}`;
     const languages = { ru: ruUrl, en: enUrl };
+    const lastModified = newestDate([serviceLastMod(a), serviceLastMod(b)]);
     return [
-      { url: ruUrl, lastModified: now, changeFrequency: "weekly", priority: 0.7, alternates: { languages } },
-      { url: enUrl, lastModified: now, changeFrequency: "weekly", priority: 0.65, alternates: { languages } },
+      { url: ruUrl, lastModified, changeFrequency: "monthly", priority: 0.7, alternates: { languages } },
+      { url: enUrl, lastModified, changeFrequency: "monthly", priority: 0.65, alternates: { languages } },
     ] as MetadataRoute.Sitemap;
   });
 
@@ -257,23 +291,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const ruUrl = `${SITE_URL}/vpn/${s.slug}`;
     const enUrl = `${SITE_URL}/en/vpn/${s.slug}`;
     const languages = { ru: ruUrl, en: enUrl };
+    const lastModified = s.specsCheckedAt ?? CATALOG_BASELINE_UPDATED;
     return [
-      { url: ruUrl, lastModified: now, changeFrequency: "daily", priority: 0.8, alternates: { languages } },
-      { url: enUrl, lastModified: now, changeFrequency: "daily", priority: 0.75, alternates: { languages } },
+      { url: ruUrl, lastModified, changeFrequency: "monthly", priority: 0.8, alternates: { languages } },
+      { url: enUrl, lastModified, changeFrequency: "monthly", priority: 0.75, alternates: { languages } },
     ] as MetadataRoute.Sitemap;
   });
 
   const categories: MetadataRoute.Sitemap = Array.from(usedTags).flatMap((tag) => {
     const ruUrl = `${SITE_URL}/vpn/category/${tag}`;
     const hasEn = Boolean(TAG_LABELS_EN[tag]);
+    const lastModified = newestDate(
+      SEED_SERVICES.filter((s) => s.tags.includes(tag)).map((s) => serviceLastMod(s.slug))
+    );
     if (!hasEn) {
-      return [{ url: ruUrl, lastModified: now, changeFrequency: "weekly", priority: 0.6 }];
+      return [{ url: ruUrl, lastModified, changeFrequency: "monthly", priority: 0.6 }];
     }
     const enUrl = `${SITE_URL}/en/vpn/category/${tag}`;
     const languages = { ru: ruUrl, en: enUrl };
     return [
-      { url: ruUrl, lastModified: now, changeFrequency: "weekly", priority: 0.6, alternates: { languages } },
-      { url: enUrl, lastModified: now, changeFrequency: "weekly", priority: 0.55, alternates: { languages } },
+      { url: ruUrl, lastModified, changeFrequency: "monthly", priority: 0.6, alternates: { languages } },
+      { url: enUrl, lastModified, changeFrequency: "monthly", priority: 0.55, alternates: { languages } },
     ] as MetadataRoute.Sitemap;
   });
 
@@ -315,6 +353,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...services,
     ...categories,
     ...comparisons,
+    ...blogPages,
     ...posts,
     ...intents,
     ...troubleshooting,

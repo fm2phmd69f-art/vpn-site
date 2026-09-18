@@ -496,9 +496,19 @@ export function getPostBySlugEn(slug: string): BlogPost | undefined {
   return BLOG_POSTS_EN.find((p) => p.slug === slug);
 }
 
-/** Picks `count` posts other than `excludeSlug`, in random order. */
+/** Picks `count` posts other than `excludeSlug`, stable for a given slug — see `getRandomPosts`. */
 export function getRandomPostsEn(excludeSlug: string, count: number): BlogPost[] {
   const pool = BLOG_POSTS_EN.filter((p) => p.slug !== excludeSlug);
-  const shuffled = [...pool].sort(() => Math.random() - 0.5);
-  return shuffled.slice(0, count);
+  if (pool.length === 0) return [];
+
+  const index = Math.max(
+    0,
+    BLOG_POSTS_EN.findIndex((p) => p.slug === excludeSlug)
+  );
+  const take = Math.min(count, pool.length);
+
+  return Array.from({ length: take }, (_, i) => {
+    const stride = 1 + Math.round((i * pool.length) / take);
+    return pool[(index + stride) % pool.length];
+  });
 }

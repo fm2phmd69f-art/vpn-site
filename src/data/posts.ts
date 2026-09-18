@@ -14241,9 +14241,28 @@ export function getPostBySlug(slug: string): BlogPost | undefined {
   return BLOG_POSTS.find((p) => p.slug === slug);
 }
 
-/** Picks `count` posts other than `excludeSlug`, in random order. */
+/**
+ * Picks `count` posts other than `excludeSlug`, stable for a given slug.
+ *
+ * A random shuffle hands Googlebot a different set of internal links on every
+ * render, so no post ever accumulates a stable set of inbound links. Offsetting
+ * by a hash of the slug keeps each post's related links fixed while still
+ * spreading inbound links evenly across the whole corpus.
+ */
 export function getRandomPosts(excludeSlug: string, count: number): BlogPost[] {
   const pool = BLOG_POSTS.filter((p) => p.slug !== excludeSlug);
-  const shuffled = [...pool].sort(() => Math.random() - 0.5);
-  return shuffled.slice(0, count);
+  if (pool.length === 0) return [];
+
+  const index = Math.max(
+    0,
+    BLOG_POSTS.findIndex((p) => p.slug === excludeSlug)
+  );
+  const take = Math.min(count, pool.length);
+
+  // Fixed strides spread across the corpus: every post ends up linked from exactly
+  // `count` others, so no post is left without inbound links.
+  return Array.from({ length: take }, (_, i) => {
+    const stride = 1 + Math.round((i * pool.length) / take);
+    return pool[(index + stride) % pool.length];
+  });
 }
